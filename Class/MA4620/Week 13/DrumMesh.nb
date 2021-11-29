@@ -1,0 +1,156 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5406,        148]
+NotebookOptionsPosition[      4515,        122]
+NotebookOutlinePosition[      4978,        140]
+CellTagsIndexPosition[      4935,        137]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Meshing The Drums", "Section",
+ CellChangeTimes->{{3.8465079216469293`*^9, 
+  3.846507926771584*^9}},ExpressionUUID->"fc180f71-894c-4906-bc46-\
+d5ec2d9e7bca"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"d", ",", "r"}], "}"}], "=", 
+   RowBox[{"{", 
+    RowBox[{"10", ",", "1"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DiscretizeRegion", "[", "\[IndentingNewLine]", 
+  RowBox[{"RegionUnion", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Disk", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "d"}], ",", 
+        RowBox[{"-", "d"}]}], "}"}], ",", "r"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Disk", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "d"}], ",", "  ", "d"}], "}"}], ",", "r"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Disk", "[", 
+     RowBox[{
+      RowBox[{"{", "  ", 
+       RowBox[{"d", ",", " ", "d"}], "}"}], ",", "r"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Disk", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"d", ",", 
+        RowBox[{"-", "d"}]}], "}"}], ",", "r"}], "]"}]}], "]"}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.846508078559999*^9, 3.84650818398759*^9}, {
+  3.8465082355887766`*^9, 3.8465083181972027`*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"8cbe1ce9-b8a3-402b-a2ae-fd76d0e8b9e4"],
+
+Cell[BoxData[
+ GraphicsBox[
+  TagBox[
+   DynamicModuleBox[{Typeset`mesh = {
+    MeshRegion, {Method -> {"PropagateMarkers" -> False}}}}, 
+    TagBox[GraphicsComplexBox[CompressedData["
+1:eJx1kD1IgmEQx9+soSlDazaf93kkWpR3KSTjhhqMWjIaHIKCghoKIygK7IMi
+IhIaClqCBofIqcihlktxaHjJJSLscw2t3IIi+9B7h4MOHo7j7rn7//7u4cm+
+EZumaW0/7zeXQ2A5SyxulJbifoGyw2m8FSS+xBr3PHcCAz0tcjCucPmwuSaY
+0nFmdGyg81Nh4WgrEzuR2ND0OnV6r/DJ0Mz2BYXvKZldCSnMhnxBV1Fhq8O7
+vTYnrfqikB2fXdWt+dpAzjufENa+/EP9ZpdbWPfWd3cOzqqFpSd9fJXbDwtL
+7+153rQ7dGQ8wPrA/gPbD+w+MH3A9APjA8YPzB9g/gHzF5j/UObwAPHYp7Vo
+OKOAeByR56EboYB4ov3XH8mABOJx9k74I906EI/LLBnpRQHE40tcJh/rBBAP
+1cRD88RD+4iH7hEP6SEe0vsPD7I+sv/I9iO7j0wfMv3I+JDxI/MHmX/I/EXm
+P9oqHFWVTHXpL3T4qmTqU039b2nrgH0=
+      "], 
+      {Hue[0.6, 0.3, 0.95], EdgeForm[Hue[0.6, 0.3, 0.75]], 
+       TagBox[
+        PolygonBox[{{6, 5, 53}, {53, 7, 6}, {53, 9, 8}, {8, 7, 53}, {9, 53, 
+         10}, {53, 3, 2}, {53, 2, 1}, {53, 11, 10}, {54, 14, 26}, {13, 12, 
+         53}, {11, 53, 12}, {55, 44, 43}, {4, 3, 53}, {19, 18, 54}, {54, 20, 
+         19}, {54, 22, 21}, {21, 20, 54}, {22, 54, 23}, {54, 16, 15}, {53, 1, 
+         13}, {54, 15, 14}, {54, 24, 23}, {26, 25, 54}, {24, 54, 25}, {17, 16,
+          54}, {45, 44, 55}, {55, 46, 45}, {55, 48, 47}, {47, 46, 55}, {56, 
+         31, 30}, {53, 5, 4}, {48, 55, 49}, {55, 42, 41}, {55, 41, 40}, {55, 
+         50, 49}, {52, 51, 55}, {50, 55, 51}, {43, 42, 55}, {32, 31, 56}, {55,
+          40, 52}, {54, 18, 17}, {56, 33, 32}, {56, 35, 34}, {34, 33, 56}, {
+         35, 56, 36}, {56, 29, 28}, {56, 28, 27}, {56, 37, 36}, {39, 38, 
+         56}, {37, 56, 38}, {30, 29, 56}, {56, 27, 39}}],
+        Annotation[#, "Geometry"]& ]}],
+     MouseAppearanceTag["LinkHand"]],
+    AllowKernelInitialization->False],
+   "MeshGraphics",
+   AutoDelete->True,
+   Editable->False,
+   Selectable->False],
+  DefaultBaseStyle->{
+   "MeshGraphics", FrontEnd`GraphicsHighlightColor -> 
+    Hue[0.1, 1, 0.7]}]], "Output",
+ CellChangeTimes->{{3.846508244879882*^9, 3.8465083203269663`*^9}},
+ CellLabel->"Out[21]=",ExpressionUUID->"5ade3f3d-f8e7-4e5e-ade2-344bba9e3d6a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["ConvexHullMesh"], "Input",
+ CellChangeTimes->{{3.846508021123892*^9, 3.8465080369620094`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"f57b2bf4-e178-4f04-953e-20ea75040760"],
+
+Cell[BoxData["ConvexHullMesh"], "Output",
+ CellChangeTimes->{3.8465080406336193`*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"c0d719fb-3135-4290-90f8-f236fddf4aed"]
+}, Open  ]]
+}, Closed]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1138., 631.5},
+WindowMargins->{{Automatic, -1264}, {Automatic, 3.5}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a10c8c8d-3505-426a-829f-b07c0a2857f6"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 164, 3, 83, "Section",ExpressionUUID->"fc180f71-894c-4906-bc46-d5ec2d9e7bca"],
+Cell[CellGroupData[{
+Cell[769, 29, 1242, 36, 202, "Input",ExpressionUUID->"8cbe1ce9-b8a3-402b-a2ae-fd76d0e8b9e4"],
+Cell[2014, 67, 2084, 40, 470, "Output",ExpressionUUID->"5ade3f3d-f8e7-4e5e-ade2-344bba9e3d6a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4135, 112, 186, 2, 35, "Input",ExpressionUUID->"f57b2bf4-e178-4f04-953e-20ea75040760"],
+Cell[4324, 116, 163, 2, 40, "Output",ExpressionUUID->"c0d719fb-3135-4290-90f8-f236fddf4aed"]
+}, Open  ]]
+}, Closed]]
+}
+]
+*)
+

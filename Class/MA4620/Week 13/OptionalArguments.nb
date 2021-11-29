@@ -1,0 +1,101 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      2942,         93]
+NotebookOptionsPosition[      2398,         74]
+NotebookOutlinePosition[      2863,         92]
+CellTagsIndexPosition[      2820,         89]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Optional Arguments: Example", "Section",
+ CellChangeTimes->{{3.8463234507297845`*^9, 3.8463234608908653`*^9}, {
+  3.846326354160609*^9, 
+  3.846326355877182*^9}},ExpressionUUID->"57c6ee19-44dd-47dc-9fd7-\
+464d05d402e9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"odeplot", "[", 
+   RowBox[{"de_", ",", "y_", ",", 
+    RowBox[{"{", 
+     RowBox[{"x_", ",", "x0_", ",", "x1_"}], "}"}], ",", 
+    RowBox[{"opts", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "]"}], ":=", 
+  "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "sol", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"sol", "=", 
+      RowBox[{"NDSolve", "[", 
+       RowBox[{"de", ",", "y", ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "x0", ",", "x1"}], "}"}], ",", 
+        RowBox[{"FilterRules", "[", 
+         RowBox[{
+          RowBox[{"{", "opts", "}"}], ",", 
+          RowBox[{"Options", "[", "NDSolve", "]"}]}], "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Head", "[", "sol", "]"}], "===", "NDSolve"}], ",", "$Failed",
+        ",", "\[IndentingNewLine]", 
+       RowBox[{"Plot", "[", 
+        RowBox[{
+         RowBox[{"Evaluate", "[", 
+          RowBox[{"y", "/.", " ", "sol"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "x0", ",", "x1"}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Evaluate", "[", 
+          RowBox[{"FilterRules", "[", 
+           RowBox[{
+            RowBox[{"{", "opts", "}"}], ",", 
+            RowBox[{"Options", "[", "Plot", "]"}]}], "]"}], "]"}]}], "]"}]}], 
+      "]"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.846323462817824*^9, 
+  3.8463235095670304`*^9}},ExpressionUUID->"1db359a3-f02c-400a-b601-\
+9834398a2c05"]
+}, Closed]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1138, 575},
+WindowMargins->{{Automatic, -1231.5}, {Automatic, -123.5}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"263cab68-2b3b-4693-8925-e813b3e60f8d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 225, 4, 83, "Section",ExpressionUUID->"57c6ee19-44dd-47dc-9fd7-464d05d402e9"],
+Cell[808, 28, 1574, 43, 155, "Input",ExpressionUUID->"1db359a3-f02c-400a-b601-9834398a2c05"]
+}, Closed]]
+}
+]
+*)
+
