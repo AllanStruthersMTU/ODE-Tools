@@ -1,0 +1,173 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6359,        165]
+NotebookOptionsPosition[      5273,        143]
+NotebookOutlinePosition[      5673,        159]
+CellTagsIndexPosition[      5630,        156]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+I imported the sword and checked what was in the file.   It is all points, \
+lines, and surface polygons. \
+\>", "Text",
+ CellChangeTimes->{{3.841757962775261*^9, 3.8417579780593023`*^9}, {
+  3.8417580174232426`*^9, 
+  3.841758039348611*^9}},ExpressionUUID->"b5e3dee0-bcf2-41d8-b748-\
+72d040426dfc"],
+
+Cell[BoxData[{
+ RowBox[{"Sword", " ", "=", 
+  RowBox[{
+  "Import", "[", 
+   "\"\<C:\\\\Users\\\\AllanStruthers\\\\Desktop\\\\sword.stl\>\"", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Head", "[", "Sword", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Map", "[", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Length", "[", 
+     RowBox[{"MeshCells", "[", 
+      RowBox[{"Sword", ",", "#"}], "]"}], "]"}], "&"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1", ",", "2", ",", "3"}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.841757766056059*^9, 3.8417580133094387`*^9}, {
+  3.841758742119934*^9, 3.84175874974758*^9}, {3.841759231816065*^9, 
+  3.841759239117609*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"6f528b1b-f130-4f4e-a329-4271c006df82"],
+
+Cell[BoxData[{
+ RowBox[{"<<", "NDSolve`FEM`"}], "\[IndentingNewLine]", 
+ RowBox[{"SwordSurface", " ", "=", 
+  RowBox[{"ToBoundaryMesh", "[", "Sword", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"SwordSurface", " ", "=", 
+  RowBox[{"ToElementMesh", "[", "Sword", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.8417586916761165`*^9, 3.8417587257341623`*^9}, {
+   3.841758760744093*^9, 3.8417588457014074`*^9}, {3.8417588934344215`*^9, 
+   3.841758894380074*^9}, {3.8417590558413477`*^9, 3.8417590766143255`*^9}, 
+   3.841759131886384*^9, {3.841846379165962*^9, 3.841846379665968*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"fe17d9b7-932f-4bb1-844e-c80197079fcc"],
+
+Cell["\<\
+There are some \[OpenCurlyDoubleQuote]bad\[CloseCurlyDoubleQuote] polygons in \
+the mesh! Lets see if I can find them!\
+\>", "Text",
+ CellChangeTimes->{{3.8417591366169386`*^9, 3.8417591781484823`*^9}, {
+  3.841759317753806*^9, 
+  3.8417593265256453`*^9}},ExpressionUUID->"e0780b00-5b9a-4d03-af1b-\
+1844dd1afa3a"],
+
+Cell[BoxData[
+ RowBox[{"FindMeshDefects", "[", "Sword", "]"}]], "Input",
+ CellChangeTimes->{{3.841759297281705*^9, 3.841759305604458*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"3e8e5454-d5c3-45a2-aff8-388ec041291d"],
+
+Cell["\<\
+Ok.  Lots of issues it would seem.   It is probably easier to find a good \
+sword mesh! \
+\>", "Text",
+ CellChangeTimes->{{3.8417593460824804`*^9, 3.8417593574431677`*^9}, {
+  3.841759397896079*^9, 
+  3.8417594127103076`*^9}},ExpressionUUID->"d020688c-cfac-421f-94cb-\
+2a9eb9663524"],
+
+Cell["\<\
+I found a Batleth on thingiverse.  It is also hollow but seems to not have \
+issues. \
+\>", "Text",
+ CellChangeTimes->{{3.841759595593534*^9, 3.841759606202346*^9}, {
+  3.841759724172515*^9, 
+  3.8417597399244647`*^9}},ExpressionUUID->"96ae2225-b5fe-4777-b701-\
+150e4c6c0f06"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Batleth", " ", "=", 
+   RowBox[{
+   "Import", "[", 
+    "\"\<C:\\\\Users\\\\AllanStruthers\\\\Desktop\\\\BatLeth-3.stl\>\"", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"Head", "[", "Batleth", "]"}], ",", 
+   RowBox[{"Map", "[", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Length", "[", 
+       RowBox[{"MeshCells", "[", 
+        RowBox[{"Batleth", ",", "#"}], "]"}], "]"}], "&"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1", ",", "2", ",", "3"}], "}"}]}], "]"}]}], 
+  "}"}], "\[IndentingNewLine]", 
+ RowBox[{"FindMeshDefects", "[", "Batleth", "]"}]}], "Input",
+ CellChangeTimes->{{3.841759615439972*^9, 3.8417596197540727`*^9}, {
+  3.8417596581555786`*^9, 3.8417598021744566`*^9}, {3.8418464261727467`*^9, 
+  3.8418464362919283`*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"98e645ef-d980-4bac-929a-bc014766a264"],
+
+Cell[BoxData[{
+ RowBox[{"<<", "NDSolve`FEM`"}], "\[IndentingNewLine]", 
+ RowBox[{"FilledBatleth", "=", 
+  RowBox[{"MeshRegion", "[", 
+   RowBox[{"ToElementMesh", "[", "Batleth", "]"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"Head", "[", "FilledBatleth", "]"}], ",", 
+   RowBox[{"Map", "[", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"Length", "[", 
+       RowBox[{"MeshCells", "[", 
+        RowBox[{"FilledBatleth", ",", "#"}], "]"}], "]"}], "&"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1", ",", "2", ",", "3"}], "}"}]}], "]"}]}], 
+  "}"}]}], "Input",
+ CellChangeTimes->{{3.8418480394222565`*^9, 3.841848047502026*^9}, {
+  3.8418481000063586`*^9, 3.841848261578657*^9}, {3.8418482939433656`*^9, 
+  3.8418483159375176`*^9}, {3.8418486778631086`*^9, 3.8418486946784296`*^9}, {
+  3.8418487338153377`*^9, 3.841848823613965*^9}},
+ CellLabel->
+  "In[121]:=",ExpressionUUID->"cbb31401-8686-4a71-8caf-1af021d2a012"]
+},
+WindowSize->{1141.2, 579.6},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"877d27db-b372-4f0f-b35f-a55d9481d522"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 309, 7, 35, "Text",ExpressionUUID->"b5e3dee0-bcf2-41d8-b748-72d040426dfc"],
+Cell[870, 29, 747, 18, 67, "Input",ExpressionUUID->"6f528b1b-f130-4f4e-a329-4271c006df82"],
+Cell[1620, 49, 653, 10, 67, "Input",ExpressionUUID->"fe17d9b7-932f-4bb1-844e-c80197079fcc"],
+Cell[2276, 61, 323, 7, 35, "Text",ExpressionUUID->"e0780b00-5b9a-4d03-af1b-1844dd1afa3a"],
+Cell[2602, 70, 216, 3, 28, "Input",ExpressionUUID->"3e8e5454-d5c3-45a2-aff8-388ec041291d"],
+Cell[2821, 75, 293, 7, 35, "Text",ExpressionUUID->"d020688c-cfac-421f-94cb-2a9eb9663524"],
+Cell[3117, 84, 286, 7, 35, "Text",ExpressionUUID->"96ae2225-b5fe-4777-b701-150e4c6c0f06"],
+Cell[3406, 93, 902, 23, 67, "Input",ExpressionUUID->"98e645ef-d980-4bac-929a-bc014766a264"],
+Cell[4311, 118, 958, 23, 67, "Input",ExpressionUUID->"cbb31401-8686-4a71-8caf-1af021d2a012"]
+}
+]
+*)
+

@@ -1,0 +1,531 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18993,        523]
+NotebookOptionsPosition[     16531,        477]
+NotebookOutlinePosition[     16988,        495]
+CellTagsIndexPosition[     16945,        492]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Stokes Flow", "Title",
+ CellChangeTimes->{{3.8417488968798723`*^9, 3.8417488999415474`*^9}, {
+  3.841749316497835*^9, 3.8417493232138996`*^9}, {3.84226763461102*^9, 
+  3.842267644496066*^9}, {3.8422681764588337`*^9, 
+  3.842268176693157*^9}},ExpressionUUID->"303eccb1-3184-4363-9913-\
+412f650a6f75"],
+
+Cell[TextData[{
+ "The steady stokes flow equations are \n(Stokes) \t\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       RowBox[{"-", "\[Mu]"}], " ", "\[CapitalDelta]u"}], "-", 
+      RowBox[{"\[Del]", "p"}], "+", "f", "=", "0"},
+     {" ", " ", " ", " ", 
+      RowBox[{"div", "(", "u", ")"}], "=", "0"}
+    }], TraditionalForm]],ExpressionUUID->
+  "fa0bf0a1-0c01-4898-93bc-6ae6bf8b110a"],
+ "\nRemember u is a 2D velocity vector, p is a scalar pressure, and f is a \
+vector body force.   The top vector equation (momentum balance) is two scalar \
+equations and the bottom equation (conservation of mass aka \
+incompressibility) is a single scalar equation.  "
+}], "Text",
+ CellChangeTimes->{{3.842267646558279*^9, 3.8422680447898707`*^9}, {
+  3.8422681497232857`*^9, 3.842268159378002*^9}, {3.8446827991021247`*^9, 
+  3.8446827994136324`*^9}},ExpressionUUID->"3934635b-6c99-42bc-a343-\
+1e7e0949e017"],
+
+Cell["\<\
+The first equation is a system of two second order linear PDEs in the three \
+unknowns u and p.  The second equation is a single first order PDE in the two \
+unknown components of the vector u.    \
+\>", "Text",
+ CellChangeTimes->{{3.842267646558279*^9, 
+  3.842268137454544*^9}},ExpressionUUID->"a8f1bb8c-06f2-4125-90d4-\
+539932649f8c"],
+
+Cell["They are appropriate for slow, steady fluid flow.  ", "Text",
+ CellChangeTimes->{{3.842267646558279*^9, 
+  3.8422681278577795`*^9}},ExpressionUUID->"30a473a7-9c38-4e2c-9025-\
+8857400c4f2c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Stokes Flow and Stream Functions ", "Title",
+ CellChangeTimes->{{3.8417488968798723`*^9, 3.8417488999415474`*^9}, {
+  3.841749316497835*^9, 3.8417493232138996`*^9}, {3.84226763461102*^9, 
+  3.842267644496066*^9}},ExpressionUUID->"b14a2b1a-f8f6-4431-a3e3-\
+d587027066ed"],
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", "=", 
+    RowBox[{"curl", "(", "\[Phi]", ")"}]}], TraditionalForm]],ExpressionUUID->
+  "57fca370-4fbf-4345-98fa-1e6b8dcd3fb2"],
+ " then the incompressibility condition is satisfied identically. So we can \
+think about looking for \[Phi] satisfying \n(S1) \t\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       RowBox[{"-", "\[Mu]"}], " ", 
+       RowBox[{"\[CapitalDelta]", "(", 
+        RowBox[{"curl", "(", "\[Phi]", ")"}], ")"}]}], "=", 
+      RowBox[{"\[Del]", "p"}], "-", 
+      RowBox[{"{", 
+       RowBox[{
+        SubscriptBox["f", "x"], ",", 
+        SubscriptBox["f", "y"], ",", "0"}], "}"}], "=", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         SubscriptBox["\[PartialD]", "x"], "p"}], ",", 
+        RowBox[{
+         SubscriptBox["\[PartialD]", "y"], "p"}], ",", "0"}], "}"}], "-", 
+      RowBox[{"{", 
+       RowBox[{
+        SubscriptBox["f", "x"], ",", 
+        SubscriptBox["f", "y"], ",", "0"}], "}"}]}
+    }], TraditionalForm]],ExpressionUUID->
+  "b261572f-61ee-473f-beda-28d21e7d334d"],
+ "\nTo think about the curl you are used to in Calculus 3 we need to think in \
+3D. Not sure if you remember but \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"curl", "(", 
+     RowBox[{"\[Del]", "f"}], ")"}], "=", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], TraditionalForm]],
+  ExpressionUUID->"34a47dd6-0450-4ffb-9fba-2a7cc9cdfe49"],
+ "\nbecause the mixed partials are equal! So if I take the curl for both \
+sides of (S1) you get\n(S2)\t\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       RowBox[{"-", "\[Mu]"}], " ", 
+       RowBox[{"curl", "(", 
+        RowBox[{"\[CapitalDelta]", "(", 
+         RowBox[{"curl", "(", "\[Phi]", ")"}], ")"}], ")"}]}], "=", 
+      RowBox[{"curl", "(", 
+       RowBox[{"\[Del]", "p"}], ")"}], "-", 
+      RowBox[{"curl", "(", "f", ")"}], "=", 
+      RowBox[{"-", 
+       RowBox[{"curl", "(", "f", ")"}]}]}
+    }], TraditionalForm]],ExpressionUUID->
+  "0418d2ab-3de1-4096-bb18-7b0bde702585"],
+ "\nCancelling the minus signs gives\n (S3)\t\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"\[Mu]", " ", 
+       RowBox[{"curl", "(", 
+        RowBox[{"\[CapitalDelta]", "(", 
+         RowBox[{"curl", "(", "\[Phi]", ")"}], ")"}], ")"}]}], "=", 
+      RowBox[{"curl", "(", "f", ")"}]}
+    }], TraditionalForm]],ExpressionUUID->
+  "d65d41f0-f933-48d3-a6c9-172d6283c95e"],
+ "\n Again not sure if you remember (we will check below) but I can change \
+the order of the curl and the Laplacian ",
+ Cell[BoxData[
+  FormBox["\[CapitalDelta]", TraditionalForm]],ExpressionUUID->
+  "94dc15d1-d699-47a7-9719-3444d698d45d"],
+ " to get \n (S4)\t\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"\[Mu]", " ", 
+       RowBox[{"\[CapitalDelta]", "(", 
+        RowBox[{"curl", "(", 
+         RowBox[{"(", 
+          RowBox[{"curl", "(", "\[Phi]", ")"}], ")"}], ")"}]}]}], "=", 
+      RowBox[{"curl", "(", "f", ")"}]}
+    }], TraditionalForm]],ExpressionUUID->
+  "428cba75-ed8e-4327-8e1f-64556238c3e8"],
+ "\n In our particular case ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Phi]", "=", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", 
+      RowBox[{"\[Psi]", "(", 
+       RowBox[{"x", ",", "y"}], ")"}]}], "}"}]}], TraditionalForm]],
+  ExpressionUUID->"9eb2464c-a87d-4c32-b344-72342c44352e"],
+ ".  We will see that the \[OpenCurlyDoubleQuote]double curl\
+\[CloseCurlyDoubleQuote] of such a \[Phi] is surprisingly simple!"
+}], "Text",
+ CellChangeTimes->{{3.842267646558279*^9, 3.8422680447898707`*^9}, {
+  3.8422681497232857`*^9, 3.842268159378002*^9}, {3.8422681914850855`*^9, 
+  3.842268459273162*^9}, {3.842268492428878*^9, 3.842269027425909*^9}, {
+  3.8422692361791196`*^9, 3.842269238757392*^9}, {3.842361640749564*^9, 
+  3.842361661336338*^9}, {3.842361771751998*^9, 
+  3.842361771751998*^9}},ExpressionUUID->"9532edd3-1494-40cc-89ea-\
+f7e6ec5e356f"],
+
+Cell[CellGroupData[{
+
+Cell["Order Verification", "Subsection",
+ CellChangeTimes->{{3.8422691887639217`*^9, 
+  3.8422691943739586`*^9}},ExpressionUUID->"fe0fe55d-c782-48be-9203-\
+fc859ab5b5b9"],
+
+Cell["Check we recognize the Laplacian and Curl.", "Text",
+ CellChangeTimes->{{3.8422693025747833`*^9, 
+  3.8422693170546827`*^9}},ExpressionUUID->"c8e7bd4d-8f72-4c85-b147-\
+6ddbe30bd3ea"],
+
+Cell[BoxData[{
+ RowBox[{"Laplacian", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"f1", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+     RowBox[{"f2", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+     RowBox[{"f3", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Curl", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"f1", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+     RowBox[{"f2", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+     RowBox[{"f3", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.8422690389746227`*^9, 3.8422691463154287`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"860f467a-233f-401b-981f-c0dac1aeb8c1"],
+
+Cell["Check the order does not matter!", "Text",
+ CellChangeTimes->{{3.842269321241022*^9, 
+  3.842269330520161*^9}},ExpressionUUID->"8805d382-290c-4183-bb6b-\
+8a78a2f30a8c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Curl", "[", 
+   RowBox[{
+    RowBox[{"Laplacian", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"f1", "[", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+        RowBox[{"f2", "[", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+        RowBox[{"f3", "[", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], "-", 
+  RowBox[{"Laplacian", "[", 
+   RowBox[{
+    RowBox[{"Curl", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"f1", "[", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+        RowBox[{"f2", "[", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}], ",", 
+        RowBox[{"f3", "[", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "z"}], "}"}], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8422690389746227`*^9, 3.8422691692304883`*^9}, {
+  3.8423621143349133`*^9, 3.8423621198690214`*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"0c4a671f-0ca0-4839-85f2-d43911a4d737"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Curl(Curl({0,0,\[Psi](x,y)))", "Subsection",
+ CellChangeTimes->{{3.8422691887639217`*^9, 
+  3.842269232720579*^9}},ExpressionUUID->"f1b35c2d-3598-49c5-9cc1-\
+4e515d535818"],
+
+Cell["\<\
+Check we recognize the curl of the \[OpenCurlyDoubleQuote]simple\
+\[CloseCurlyDoubleQuote] \[Phi] for a 2D stream function \
+\>", "Text",
+ CellChangeTimes->{{3.842269334731513*^9, 3.8422693653153386`*^9}, {
+  3.8422694066719093`*^9, 
+  3.842269410848277*^9}},ExpressionUUID->"00dd6cde-3532-4939-9393-\
+f9b41fefdbe9"],
+
+Cell[BoxData[
+ RowBox[{"Curl", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     RowBox[{"\[Psi]", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8422690389746227`*^9, 3.8422691463154287`*^9}, {
+  3.842269250108962*^9, 3.842269266989065*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"0654c0a0-2e80-4bd9-b9cf-6519d19a00be"],
+
+Cell["\<\
+Spot the value of the double curl of the \[OpenCurlyDoubleQuote]simple\
+\[CloseCurlyDoubleQuote] \[Phi] for a 2D stream function\
+\>", "Text",
+ CellChangeTimes->{{3.8422693691022673`*^9, 
+  3.8422693995098224`*^9}},ExpressionUUID->"b8044a2e-3886-457d-8750-\
+d067a33ffde6"],
+
+Cell[BoxData[
+ RowBox[{"Curl", "[", 
+  RowBox[{
+   RowBox[{"Curl", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", 
+       RowBox[{"\[Psi]", "[", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8422690389746227`*^9, 3.8422691692304883`*^9}, {
+  3.8422692824333506`*^9, 3.842269285322984*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"cd64b4ca-0930-48fb-b7f5-2a64b44bac1d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Stream Function PDE", "Subsection",
+ CellChangeTimes->{{3.8422694408556356`*^9, 
+  3.8422694476316366`*^9}},ExpressionUUID->"e28fa389-f760-48f6-9f1b-\
+21f7b05c32fe"],
+
+Cell[TextData[{
+ "Plugging in curl curl  from above we get \n(S5)\t\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{
+       RowBox[{"\[Mu]", " ", 
+        RowBox[{"\[CapitalDelta]", "(", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0", ",", 
+           RowBox[{"-", "\[CapitalDelta]\[Psi]"}]}], "}"}], ")"}]}], ")"}], 
+      "=", 
+      RowBox[{"curl", "(", "f", ")"}]}
+    }], TraditionalForm]],ExpressionUUID->
+  "8b0038f3-80a9-4cb9-b60e-f5e101bf9ca5"],
+ "\nSince our force is in 2D and does not depend on ",
+ Cell[BoxData[
+  FormBox["z", TraditionalForm]],ExpressionUUID->
+  "b97674de-d863-4e84-bafd-829f9d5cf8ae"],
+ " the curl on the right hand side is pretty clean when we plug in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["f", "1"], "(", 
+       RowBox[{"x", ",", "y"}], ")"}], ",", 
+      RowBox[{
+       SubscriptBox["f", "2"], "(", 
+       RowBox[{"x", ",", "y"}], ")"}], ",", "0"}], "}"}]}], TraditionalForm]],
+  ExpressionUUID->"7d11cecc-b188-4124-9c8d-fe34eca013f1"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.8422694572115817`*^9, 
+  3.842269669493434*^9}},ExpressionUUID->"e41ca069-a25e-48e8-9238-\
+66edf6fb467f"],
+
+Cell[BoxData[
+ RowBox[{"Curl", "[", " ", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"f1", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+     RowBox[{"f2", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8422696582453723`*^9, 3.8422696896395807`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"ba536d69-5b26-4480-b521-ed154c388651"],
+
+Cell[TextData[{
+ "Our PDEs are \n(S6)\t\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0", ",", 
+        RowBox[{
+         RowBox[{"-", "\[Mu]"}], " ", 
+         SuperscriptBox["\[CapitalDelta]", "2"], "\[Psi]"}]}], "}"}], "=", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0", ",", 
+        RowBox[{
+         RowBox[{"-", 
+          RowBox[{
+           SubscriptBox["\[PartialD]", "y"], 
+           SubscriptBox["f", "1"]}]}], "+", 
+         RowBox[{
+          SubscriptBox["\[PartialD]", "x"], 
+          SubscriptBox["f", "2"]}]}]}], "}"}]}
+    }], TraditionalForm]],ExpressionUUID->
+  "6005b29e-b69f-4d8c-a574-95a68963210c"],
+ "\nClearly it is nuts to write down the first two bits of this equation and \
+since people hate minus signs the standard stream function equation for \
+Stokes flow is \n(Stream)\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[Mu]", " ", 
+     SuperscriptBox["\[CapitalDelta]", "2"], "\[Psi]"}], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[PartialD]", "x"], 
+      SubscriptBox["f", "2"]}], "-", 
+     RowBox[{
+      SubscriptBox["\[PartialD]", "y"], 
+      SubscriptBox["f", "1"]}]}]}], TraditionalForm]],ExpressionUUID->
+  "4ac2edb6-fe12-4596-92ca-61f044847f2d"],
+ "\nwhich is a single 4th order PDE for the scale \[Psi].  This biLaplacian \
+is a pretty clean thing in Cartesian coordinates! In fact ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["\[CapitalDelta]", "2"], "\[Psi]"}], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[PartialD]", 
+       RowBox[{"x", ",", "x", ",", "x", ",", "x"}]], "\[Psi]"}], "+", 
+     RowBox[{"2", 
+      RowBox[{
+       SubscriptBox["\[PartialD]", 
+        RowBox[{"x", ",", "x", ",", "y", ",", "y"}]], "\[Psi]"}]}], "+", 
+     RowBox[{
+      SubscriptBox["\[PartialD]", 
+       RowBox[{"y", ",", "y", ",", "y", ",", "y"}]], "\[Psi]"}]}]}], 
+   TraditionalForm]],ExpressionUUID->"b6c73632-fa74-4ff5-884a-50bd39ddda7e"]
+}], "Text",
+ CellChangeTimes->{{3.842269715756132*^9, 3.842269921610238*^9}, {
+  3.8422699598628335`*^9, 3.8422699858797708`*^9}, {3.842270048362337*^9, 
+  3.842270083728269*^9}, {3.8422701181269913`*^9, 
+  3.8422701399133987`*^9}},ExpressionUUID->"28a16404-0213-47e8-93e6-\
+f8f471a7cfe0"],
+
+Cell[BoxData[
+ RowBox[{"Laplacian", "[", 
+  RowBox[{
+   RowBox[{"Laplacian", "[", 
+    RowBox[{
+     RowBox[{"\[Psi]", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8422699304729495`*^9, 3.8422699544169717`*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"3cd984f9-db4c-40f5-b5d3-50ba6102e91d"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1141.2, 574.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"8a955b91-53a0-43fd-b4df-7f60890d72ad"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 305, 5, 146, "Title",ExpressionUUID->"303eccb1-3184-4363-9913-412f650a6f75"],
+Cell[888, 29, 917, 20, 214, "Text",ExpressionUUID->"3934635b-6c99-42bc-a343-1e7e0949e017"],
+Cell[1808, 51, 347, 7, 87, "Text",ExpressionUUID->"a8f1bb8c-06f2-4125-90d4-539932649f8c"],
+Cell[2158, 60, 195, 3, 52, "Text",ExpressionUUID->"30a473a7-9c38-4e2c-9025-8857400c4f2c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2390, 68, 276, 4, 146, "Title",ExpressionUUID->"b14a2b1a-f8f6-4431-a3e3-d587027066ed"],
+Cell[2669, 74, 3951, 106, 503, "Text",ExpressionUUID->"9532edd3-1494-40cc-89ea-f7e6ec5e356f"],
+Cell[CellGroupData[{
+Cell[6645, 184, 170, 3, 81, "Subsection",ExpressionUUID->"fe0fe55d-c782-48be-9203-fc859ab5b5b9"],
+Cell[6818, 189, 188, 3, 52, "Text",ExpressionUUID->"c8e7bd4d-8f72-4c85-b147-6ddbe30bd3ea"],
+Cell[7009, 194, 1134, 32, 71, "Input",ExpressionUUID->"860f467a-233f-401b-981f-c0dac1aeb8c1"],
+Cell[8146, 228, 174, 3, 52, "Text",ExpressionUUID->"8805d382-290c-4183-bb6b-8a78a2f30a8c"],
+Cell[8323, 233, 1506, 42, 71, "Input",ExpressionUUID->"0c4a671f-0ca0-4839-85f2-d43911a4d737"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9866, 280, 178, 3, 81, "Subsection",ExpressionUUID->"f1b35c2d-3598-49c5-9cc1-4e515d535818"],
+Cell[10047, 285, 326, 7, 52, "Text",ExpressionUUID->"00dd6cde-3532-4939-9393-f9b41fefdbe9"],
+Cell[10376, 294, 487, 12, 42, "Input",ExpressionUUID->"0654c0a0-2e80-4bd9-b9cf-6519d19a00be"],
+Cell[10866, 308, 282, 6, 52, "Text",ExpressionUUID->"b8044a2e-3886-457d-8750-d067a33ffde6"],
+Cell[11151, 316, 619, 16, 42, "Input",ExpressionUUID->"cd64b4ca-0930-48fb-b7f5-2a64b44bac1d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11807, 337, 171, 3, 81, "Subsection",ExpressionUUID->"e28fa389-f760-48f6-9f1b-21f7b05c32fe"],
+Cell[11981, 342, 1221, 36, 156, "Text",ExpressionUUID->"e41ca069-a25e-48e8-9238-66edf6fb467f"],
+Cell[13205, 380, 526, 14, 42, "Input",ExpressionUUID->"ba536d69-5b26-4480-b521-ed154c388651"],
+Cell[13734, 396, 2277, 62, 265, "Text",ExpressionUUID->"28a16404-0213-47e8-93e6-f8f471a7cfe0"],
+Cell[16014, 460, 489, 13, 42, "Input",ExpressionUUID->"3cd984f9-db4c-40f5-b5d3-50ba6102e91d"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

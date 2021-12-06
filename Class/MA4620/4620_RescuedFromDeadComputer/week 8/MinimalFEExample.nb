@@ -1,0 +1,248 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9319,        240]
+NotebookOptionsPosition[      8082,        214]
+NotebookOutlinePosition[      8589,        232]
+CellTagsIndexPosition[      8546,        229]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Internals are Always a Mess", "Section",
+ CellChangeTimes->{{3.8437311273858905`*^9, 3.8437311289368877`*^9}, {
+  3.8437336506401753`*^9, 
+  3.8437336569117546`*^9}},ExpressionUUID->"1d16ea5f-c23d-40c5-a4ed-\
+6ae4fcf9e341"],
+
+Cell["Here is the flow broken down in Mathematica", "Text",
+ CellChangeTimes->{{3.843733821939905*^9, 
+  3.8437338489195857`*^9}},ExpressionUUID->"7afa4040-9858-4868-a19d-\
+c11c4eebdcd5"],
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<NDSolve`FEM`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Omega", "=", 
+    RowBox[{"ToNumericalRegion", "[", 
+     RowBox[{"Rectangle", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\[Pi]", ",", 
+         RowBox[{"2", "\[Pi]"}]}], "}"}]}], "]"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Omega", " ", "=", " ", 
+    RowBox[{"ToNumericalRegion", "[", 
+     RowBox[{"Disk", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0.0", ",", "0.0"}], "}"}], ",", "1.0"}], "]"}], "]"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vd", "=", 
+   RowBox[{"NDSolve`VariableData", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\"\<DependentVariables\>\"", ",", "\"\<Space\>\""}], "}"}], "->", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", "u", "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y"}], "}"}]}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"sd", "=", 
+   RowBox[{"NDSolve`SolutionData", "[", 
+    RowBox[{
+     RowBox[{"{", "\"\<Space\>\"", "}"}], "->", 
+     RowBox[{"{", "Omega", "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cdata", "=", 
+   RowBox[{"InitializePDECoefficients", "[", 
+    RowBox[{"vd", ",", "sd", ",", 
+     RowBox[{"\"\<DiffusionCoefficients\>\"", "->", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"-", 
+         RowBox[{"IdentityMatrix", "[", "2", "]"}]}], "}"}], "}"}]}], ",", 
+     RowBox[{"\"\<LoadCoefficients\>\"", "->", 
+      RowBox[{"{", 
+       RowBox[{"{", "1", "}"}], "}"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bcdata", " ", "=", 
+   RowBox[{"InitializeBoundaryConditions", "[", 
+    RowBox[{"vd", ",", "sd", ",", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{"DirichletCondition", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "y"}], "]"}], "==", "0."}], ",", "True"}], "]"}],
+        "}"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"mdata", "=", 
+   RowBox[{"InitializePDEMethodData", "[", 
+    RowBox[{"vd", ",", "sd"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"dbc", " ", "=", 
+   RowBox[{"DiscretizeBoundaryConditions", "[", 
+    RowBox[{"bcdata", ",", "mdata", ",", "sd"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.84373159876166*^9, 3.8437316741189737`*^9}, {
+   3.8437317760588093`*^9, 3.8437318198681755`*^9}, 3.843731923024457*^9, {
+   3.843731972726254*^9, 3.8437319830623026`*^9}, 3.843732040791586*^9, {
+   3.8437321324951124`*^9, 3.843732139396863*^9}, {3.8437322345481*^9, 
+   3.843732255399366*^9}, {3.8437325210370564`*^9, 3.8437325359647017`*^9}, {
+   3.8437326901666446`*^9, 3.8437327518090906`*^9}, {3.8437327859192452`*^9, 
+   3.8437328178708572`*^9}, {3.843732885087845*^9, 3.8437329152637568`*^9}, {
+   3.843732960475954*^9, 3.8437329667941885`*^9}, 3.8437331768619733`*^9},
+ CellLabel->"In[2]:=",ExpressionUUID->"0e4f3c82-a3fa-45aa-bbf2-2915183622ad"],
+
+Cell["\<\
+The last steps are called assembly.  Note that Deploy Boundary conditions \
+changes the matrix S and the load vector v.\
+\>", "Text",
+ CellChangeTimes->{{3.843733862558804*^9, 3.8437339451367025`*^9}, {
+   3.843735123205469*^9, 3.843735139648452*^9}, 
+   3.843735322923981*^9},ExpressionUUID->"3f786250-ea75-4b5a-997b-\
+92e9bf7a3907"],
+
+Cell[BoxData[{
+ RowBox[{"finiteElements", "=", 
+  RowBox[{"DiscretizePDE", "[", 
+   RowBox[{"cdata", ",", "mdata", ",", "sd", ",", 
+    RowBox[{"\"\<SaveFiniteElements\>\"", "->", "True"}], ",", 
+    RowBox[{"\"\<AssembleSystemMatrices\>\"", "->", "True"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"v", ",", "S", ",", "d", ",", "m"}], "}"}], "=", 
+   RowBox[{"finiteElements", "[", "\"\<All\>\"", "]"}]}], ";", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"vOld", "=", "v"}], ",", 
+    RowBox[{"SOld", "=", "S"}]}], "}"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DeployBoundaryConditions", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"v", ",", "S"}], "}"}], ",", "dbc"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.84373159876166*^9, 3.8437316741189737`*^9}, {
+   3.8437317760588093`*^9, 3.8437318198681755`*^9}, 3.843731923024457*^9, {
+   3.843731972726254*^9, 3.8437319830623026`*^9}, 3.843732040791586*^9, {
+   3.8437321324951124`*^9, 3.843732139396863*^9}, {3.8437322345481*^9, 
+   3.843732255399366*^9}, {3.8437325210370564`*^9, 3.8437325359647017`*^9}, {
+   3.8437326901666446`*^9, 3.8437327518090906`*^9}, {3.8437327859192452`*^9, 
+   3.8437328178708572`*^9}, {3.843732885087845*^9, 3.843732935960566*^9}, {
+   3.843733064469808*^9, 3.8437331543074007`*^9}, {3.843733185312488*^9, 
+   3.8437332465226088`*^9}, {3.843733432557892*^9, 3.843733432823398*^9}, {
+   3.84373514784433*^9, 3.843735168287655*^9}, {3.8437352426950817`*^9, 
+   3.843735272023096*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"1fe1ccf9-bfc9-45bd-bb83-c7f693c37dce"],
+
+Cell[BoxData[
+ RowBox[{"Map", "[", " ", 
+  RowBox[{"MatrixPlot", ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"s", ",", " ", "sOld", ",", 
+     RowBox[{"s", "-", "sOld"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8437332639095087`*^9, 3.843733308682885*^9}, {
+  3.8437334232207556`*^9, 3.8437334248138494`*^9}, {3.8437339032220383`*^9, 
+  3.8437339064585686`*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"26072dd9-f7ce-4d06-8a1d-42a215e194da"],
+
+Cell[BoxData[
+ RowBox[{"\[Lambda]s", "=", 
+  RowBox[{"NDEigenvalues", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"Laplacian", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], ",", 
+      RowBox[{"DirichletCondition", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], "==", "0"}], ",", "True"}], "]"}]}],
+      "}"}], ",", 
+    RowBox[{"u", "[", 
+     RowBox[{"x", ",", "y"}], "]"}], ",", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "Omega"}], ",", "All"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8437334487381268`*^9, 3.8437334509484177`*^9}, {
+  3.8437334880374365`*^9, 3.843733566878617*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"ff53568c-5b32-4efc-89f6-08fb88f6350d"],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"\[Lambda]s", ",", 
+   RowBox[{"PlotRange", "->", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.843733594528561*^9, 3.843733606606763*^9}},
+ CellLabel->"In[15]:=",ExpressionUUID->"485027f6-08d5-4b9d-8ad5-ffa32843d64c"],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Eigenvalues", "[", "s", "]"}], ",", 
+    RowBox[{"Eigenvalues", "[", "sOld", "]"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8437333488845024`*^9, 3.8437333782671633`*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"965db507-8e63-4bcb-a91a-ba6a1b9babcf"]
+}, Open  ]]
+},
+WindowSize->{1141, 575},
+WindowMargins->{{1309, Automatic}, {Automatic, -274.5}},
+TaggingRules->Association[
+ "Openers" -> Association["ExampleSection" -> Association["3" -> Closed]]],
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"ae92719d-a25e-4d1a-b4fe-2d9efc4c2794"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 229, 4, 67, "Section",ExpressionUUID->"1d16ea5f-c23d-40c5-a4ed-6ae4fcf9e341"],
+Cell[812, 28, 187, 3, 35, "Text",ExpressionUUID->"7afa4040-9858-4868-a19d-c11c4eebdcd5"],
+Cell[1002, 33, 3107, 80, 181, "Input",ExpressionUUID->"0e4f3c82-a3fa-45aa-bbf2-2915183622ad"],
+Cell[4112, 115, 344, 7, 35, "Text",ExpressionUUID->"3f786250-ea75-4b5a-997b-92e9bf7a3907"],
+Cell[4459, 124, 1588, 31, 67, "Input",ExpressionUUID->"1fe1ccf9-bfc9-45bd-bb83-c7f693c37dce"],
+Cell[6050, 157, 447, 9, 28, "Input",ExpressionUUID->"26072dd9-f7ce-4d06-8a1d-42a215e194da"],
+Cell[6500, 168, 947, 27, 28, "Input",ExpressionUUID->"ff53568c-5b32-4efc-89f6-08fb88f6350d"],
+Cell[7450, 197, 273, 5, 28, "Input",ExpressionUUID->"485027f6-08d5-4b9d-8ad5-ffa32843d64c"],
+Cell[7726, 204, 340, 7, 28, "Input",ExpressionUUID->"965db507-8e63-4bcb-a91a-ba6a1b9babcf"]
+}, Open  ]]
+}
+]
+*)
+

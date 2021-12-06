@@ -1,0 +1,422 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     15183,        414]
+NotebookOptionsPosition[     12842,        374]
+NotebookOutlinePosition[     13299,        392]
+CellTagsIndexPosition[     13256,        389]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Stream Functions And Divergence! ", "Title",
+ CellChangeTimes->{{3.8417488968798723`*^9, 3.8417488999415474`*^9}, {
+  3.841749316497835*^9, 
+  3.8417493232138996`*^9}},ExpressionUUID->"b98342eb-60f7-42e6-b1c3-\
+3bccd3f5e4bf"],
+
+Cell[TextData[{
+ "If I have a stationary two dimensional velocity field ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["u", "1"], ",", 
+      SubscriptBox["u", "2"]}], "}"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0745fe0f-83a7-4fc3-b1b6-fa973b0c5322"],
+ " I can plot it pretty easily.   Think of this as the water velocity"
+}], "Text",
+ CellChangeTimes->{{3.8417489037340374`*^9, 3.8417489446310635`*^9}, {
+  3.84174903678149*^9, 3.8417490387183228`*^9}, {3.841749595350369*^9, 
+  3.8417496022953787`*^9}},ExpressionUUID->"bc72d976-b72f-440b-9873-\
+0217e63c2033"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"u", "[", 
+   RowBox[{"{", 
+    RowBox[{"x_", ",", "y_"}], "}"}], "]"}], ":=", " ", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Sin", "[", 
+     RowBox[{"x", " ", "+", " ", "y"}], "]"}], ",", " ", 
+    RowBox[{"x", " ", 
+     RowBox[{"Cos", "[", 
+      RowBox[{"x", " ", "+", " ", 
+       RowBox[{"Sin", "[", 
+        RowBox[{"x", " ", "y"}], "]"}]}], "]"}]}]}], 
+   "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{"VecPic", "=", 
+  RowBox[{"VectorPlot", "[", 
+   RowBox[{
+    RowBox[{"u", "[", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", " ", 
+      RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"y", ",", 
+      RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+    RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.841748950691267*^9, 3.841749008392353*^9}, {
+  3.841749064192624*^9, 3.841749066701972*^9}, {3.841749478735166*^9, 
+  3.8417494801564713`*^9}, {3.8417496052351975`*^9, 3.841749608238942*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"172c42eb-fb29-498f-8fd3-5b38d6f7cee4"],
+
+Cell["I can also solve for stream lines. ", "Text",
+ CellChangeTimes->{{3.8417490122194304`*^9, 
+  3.841749030045013*^9}},ExpressionUUID->"2d513389-b791-442c-86cf-\
+4ae67b63102b"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"p0", "=", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1"}], "}"}]}], ";", " ", 
+  RowBox[{"TMax", "=", "12"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pSol", " ", "=", " ", 
+   RowBox[{"NDSolveValue", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"p", "'"}], "[", "t", "]"}], "==", 
+        RowBox[{"u", "[", 
+         RowBox[{"p", "[", "t", "]"}], "]"}]}], ",", 
+       RowBox[{
+        RowBox[{"p", "[", "0", "]"}], "==", "p0"}]}], "}"}], ",", "p", ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"-", "TMax"}], ",", "TMax"}], "}"}]}], "]"}]}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"StreamPlot", "[", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", " ", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"PlotLegends", "\[Rule]", "Automatic"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"pSol", "[", "t", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"-", "TMax"}], ",", "TMax"}], "}"}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", "Red"}]}], "]"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.841749049342235*^9, 3.8417491160855536`*^9}, {
+  3.841749178178489*^9, 3.841749292711583*^9}, {3.841749329504679*^9, 
+  3.841749334667121*^9}, {3.8417494884802847`*^9, 3.841749522942401*^9}, {
+  3.8417496305081916`*^9, 3.841749635889617*^9}, {3.8419296125900245`*^9, 
+  3.8419296205825453`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"b37e6486-5f2a-483b-9fb8-c10044165891"],
+
+Cell["\<\
+The divergence is telling us something VERY important about the flow. \
+\>", "Text",
+ CellChangeTimes->{{3.841749574598542*^9, 
+  3.841749589773346*^9}},ExpressionUUID->"f556053e-bdb0-4fb8-999d-\
+78c8ab09c0bc"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"div", "=", 
+   RowBox[{"Div", "[", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"Show", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ContourPlot", "[", " ", 
+     RowBox[{"div", ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", 
+        RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", 
+        RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+      RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+      RowBox[{"PlotLabel", "\[Rule]", "div"}]}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"StreamPlot", "[", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", " ", 
+        RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"y", ",", 
+        RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.8417494278266664`*^9, 3.8417494373979435`*^9}, 
+   3.8417494683141923`*^9, 3.8417495708257627`*^9},
+ CellLabel->"In[16]:=",ExpressionUUID->"c45fac03-7f11-47e1-8c4a-9064f4df392b"],
+
+Cell["\<\
+I can build a divergence free field by taking the curl of a field!  Remember \
+div curl (thing)= 0!\
+\>", "Text",
+ CellChangeTimes->{{3.8417496675935073`*^9, 3.841749702577672*^9}, {
+  3.8417497540039406`*^9, 3.841749762975342*^9}, {3.8417498174418344`*^9, 
+  3.8417498180824175`*^9}, {3.8417498645497932`*^9, 
+  3.841749869899939*^9}},ExpressionUUID->"ab28565e-e343-4375-b36d-\
+8bd5d6ed64eb"],
+
+Cell["For those who have forgotten what curl is", "Text",
+ CellChangeTimes->{{3.841749874530347*^9, 
+  3.8417498998964663`*^9}},ExpressionUUID->"9b8fee97-bcc6-4fb1-972f-\
+f520b70ca952"],
+
+Cell[BoxData[
+ RowBox[{"Curl", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"fx", "[", 
+      RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", 
+     RowBox[{"fy", "[", 
+      RowBox[{"x", ",", "y", ",", "z"}], "]"}], ",", 
+     RowBox[{"fz", "[", 
+      RowBox[{"x", ",", "y", ",", "z"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.841749705690382*^9, 3.8417497069095354`*^9}, {
+  3.8417497667822495`*^9, 3.841749810044568*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"2f84a624-02ce-4da5-a83a-1053aadcc1c5"],
+
+Cell["This is simpler for a 2D curl. ", "Text",
+ CellChangeTimes->{{3.8417499102984505`*^9, 
+  3.8417499324291477`*^9}},ExpressionUUID->"23b7f4ca-f325-4b67-a607-\
+3b328934b9c6"],
+
+Cell[BoxData[
+ RowBox[{"Curl", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     RowBox[{"\[Phi]", "[", 
+      RowBox[{"x", ",", "y"}], "]"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8417498372249746`*^9, 3.8417498483582697`*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"ee7afeab-3ce5-4f97-8d0b-3e43953e7faf"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Phi]", "[", 
+   RowBox[{"{", 
+    RowBox[{"x_", ",", "y_"}], "}"}], "]"}], ":=", " ", 
+  RowBox[{"Sin", "[", 
+   RowBox[{"x", " ", "+", " ", 
+    RowBox[{"Cos", "[", 
+     RowBox[{"x", "-", 
+      SuperscriptBox["y", "2"]}], "]"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"u", " ", "[", 
+    RowBox[{"{", 
+     RowBox[{"x_", ",", "y_"}], "}"}], "]"}], "=", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"\[Phi]", "[", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", "y"}], "]"}], ",", 
+     RowBox[{"-", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"\[Phi]", "[", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", "x"}], "]"}]}]}], 
+    "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Div", "[", 
+   RowBox[{
+    RowBox[{"u", "[", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", 
+    RowBox[{
+     RowBox[{"\[Phi]", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"ContourShading", "->", "None"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Contours", "\[Rule]", "30"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourStyle", "\[Rule]", "LightPink"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"StreamPlot", "[", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", 
+       RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.84174994489551*^9, 3.8417502418047843`*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"753f605e-b42a-4280-b09d-3b5b366e80dc"],
+
+Cell["\<\
+Quite a lot of flow computations are done using \
+\[OpenCurlyDoubleQuote]potentials\[CloseCurlyDoubleQuote] like \[Phi]. \
+\>", "Text",
+ CellChangeTimes->{{3.84175026229373*^9, 
+  3.841750287493263*^9}},ExpressionUUID->"c557e7a0-12ea-4973-be88-\
+647759a39e77"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Potential Computations", "Title",
+ CellChangeTimes->{{3.8417488968798723`*^9, 3.8417488999415474`*^9}, {
+  3.841749316497835*^9, 3.8417493232138996`*^9}, {3.841751533788065*^9, 
+  3.8417515396919975`*^9}, {3.841751694989601*^9, 
+  3.841751712360008*^9}},ExpressionUUID->"58fcfc86-e85d-481d-b9bc-\
+b44f604a69ce"],
+
+Cell["Advantages", "Text",
+ CellChangeTimes->{{3.841751685665926*^9, 
+  3.8417516907158756`*^9}},ExpressionUUID->"a7098a44-48d2-4c7a-810e-\
+c0ae23ada14d"],
+
+Cell["\<\
+Automatically enforce constraints: in our case divergence of velocity is zero \
+i.e. incompressible flow \
+\>", "Item",
+ CellChangeTimes->{{3.8417515421159554`*^9, 3.8417515860702453`*^9}, {
+  3.8417516335456653`*^9, 
+  3.8417516785998144`*^9}},ExpressionUUID->"084b9095-0865-4d45-9663-\
+9b4bd056cbdf"],
+
+Cell[TextData[{
+ "Fewer fields! In our case one \[Phi] rather than two ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["u", "x"], ",", 
+      SubscriptBox["u", "y"]}], "}"}]}], TraditionalForm]],ExpressionUUID->
+  "96f5dfa9-ffe3-4e92-83ce-80a74abf7841"]
+}], "Item",
+ CellChangeTimes->{{3.8417515421159554`*^9, 
+  3.8417516284280567`*^9}},ExpressionUUID->"280ca087-a3fd-4fcb-9b36-\
+272507bae646"],
+
+Cell["Disadvantages", "Text",
+ CellChangeTimes->{{3.841751685665926*^9, 3.8417516907158756`*^9}, {
+  3.8417517241755147`*^9, 
+  3.841751729881516*^9}},ExpressionUUID->"fe877694-3797-4420-93e7-\
+000160d1ac50"],
+
+Cell[TextData[{
+ "Higher derivatives in PDEs. In our case Bi-Laplacian ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[CapitalDelta]", "2"], TraditionalForm]],ExpressionUUID->
+  "66bb6c9f-f150-424a-9fc4-b5fe3278bddc"]
+}], "Item",
+ CellChangeTimes->{{3.8417515421159554`*^9, 3.8417515860702453`*^9}, {
+  3.8417516335456653`*^9, 3.8417516785998144`*^9}, {3.8417517338356876`*^9, 
+  3.8417517812345486`*^9}},ExpressionUUID->"5a6ed9cf-7c78-4830-ad97-\
+72fc782fa7b9"],
+
+Cell["\<\
+Lack of flexibility.  For instance, in our case there is no way to relax the \
+incompressibility constraint. \
+\>", "Item",
+ CellChangeTimes->{{3.8417515421159554`*^9, 3.8417516284280567`*^9}, {
+  3.841751743921812*^9, 3.8417517542366743`*^9}, {3.8417517874083877`*^9, 
+  3.841751818390077*^9}},ExpressionUUID->"3e6db96c-698e-41ae-8867-\
+89e99120f8e5"]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1141.2, 579.6},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"0f072a5d-61db-4488-99a1-ab7f94d2bacd"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 231, 4, 146, "Title",ExpressionUUID->"b98342eb-60f7-42e6-b1c3-3bccd3f5e4bf"],
+Cell[814, 28, 651, 16, 87, "Text",ExpressionUUID->"bc72d976-b72f-440b-9873-0217e63c2033"],
+Cell[1468, 46, 1150, 31, 71, "Input",ExpressionUUID->"172c42eb-fb29-498f-8fd3-5b38d6f7cee4"],
+Cell[2621, 79, 179, 3, 52, "Text",ExpressionUUID->"2d513389-b791-442c-86cf-4ae67b63102b"],
+Cell[2803, 84, 1855, 50, 157, "Input",ExpressionUUID->"b37e6486-5f2a-483b-9fb8-c10044165891"],
+Cell[4661, 136, 220, 5, 52, "Text",ExpressionUUID->"f556053e-bdb0-4fb8-999d-78c8ab09c0bc"],
+Cell[4884, 143, 1323, 37, 128, "Input",ExpressionUUID->"c45fac03-7f11-47e1-8c4a-9064f4df392b"],
+Cell[6210, 182, 403, 8, 52, "Text",ExpressionUUID->"ab28565e-e343-4375-b36d-8bd5d6ed64eb"],
+Cell[6616, 192, 185, 3, 52, "Text",ExpressionUUID->"9b8fee97-bcc6-4fb1-972f-f520b70ca952"],
+Cell[6804, 197, 603, 15, 42, "Input",ExpressionUUID->"2f84a624-02ce-4da5-a83a-1053aadcc1c5"],
+Cell[7410, 214, 177, 3, 52, "Text",ExpressionUUID->"23b7f4ca-f325-4b67-a607-3b328934b9c6"],
+Cell[7590, 219, 410, 10, 42, "Input",ExpressionUUID->"ee7afeab-3ce5-4f97-8d0b-3e43953e7faf"],
+Cell[8003, 231, 2229, 66, 246, "Input",ExpressionUUID->"753f605e-b42a-4280-b09d-3b5b366e80dc"],
+Cell[10235, 299, 270, 6, 52, "Text",ExpressionUUID->"c557e7a0-12ea-4973-be88-647759a39e77"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10542, 310, 317, 5, 146, "Title",ExpressionUUID->"58fcfc86-e85d-481d-b9bc-b44f604a69ce"],
+Cell[10862, 317, 154, 3, 52, "Text",ExpressionUUID->"a7098a44-48d2-4c7a-810e-c0ae23ada14d"],
+Cell[11019, 322, 312, 7, 48, "Item",ExpressionUUID->"084b9095-0865-4d45-9663-9b4bd056cbdf"],
+Cell[11334, 331, 449, 13, 49, "Item",ExpressionUUID->"280ca087-a3fd-4fcb-9b36-272507bae646"],
+Cell[11786, 346, 208, 4, 52, "Text",ExpressionUUID->"fe877694-3797-4420-93e7-000160d1ac50"],
+Cell[11997, 352, 464, 10, 48, "Item",ExpressionUUID->"5a6ed9cf-7c78-4830-ad97-72fc782fa7b9"],
+Cell[12464, 364, 362, 7, 48, "Item",ExpressionUUID->"3e6db96c-698e-41ae-8867-89e99120f8e5"]
+}, Open  ]]
+}
+]
+*)
+

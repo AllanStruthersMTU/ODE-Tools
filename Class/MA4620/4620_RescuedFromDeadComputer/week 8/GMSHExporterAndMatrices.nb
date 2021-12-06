@@ -1,0 +1,654 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     25333,        646]
+NotebookOptionsPosition[     23503,        611]
+NotebookOutlinePosition[     23954,        628]
+CellTagsIndexPosition[     23911,        625]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Mathematica has some FE and Meshing Capabilities.", "Title",
+ CellChangeTimes->{{3.843557589398923*^9, 3.8435575937932777`*^9}, {
+  3.843557665629393*^9, 
+  3.8435576801637473`*^9}},ExpressionUUID->"84523820-bb6e-40b8-aca3-\
+55035277cf45"],
+
+Cell[CellGroupData[{
+
+Cell["GMSH Exporter", "Section",
+ CellChangeTimes->{{3.8435599732822895`*^9, 3.8435599975471897`*^9}, {
+  3.843642075689913*^9, 
+  3.843642079263419*^9}},ExpressionUUID->"f1a2fde1-a554-4536-8b7b-\
+8f85f6b9a00a"],
+
+Cell["\<\
+Exporting a msh file for a Mathematica mesh. 
+
+I am taking the format from \
+http://www.manpagez.com/info/gmsh/gmsh-2.2.6/gmsh_63.php 
+I hope it is correct.\
+\>", "Text",
+ CellChangeTimes->{{3.843562188653516*^9, 3.843562201397094*^9}, {
+  3.843642085576676*^9, 3.8436421421112576`*^9}, {3.8436432038726096`*^9, 
+  3.8436432096409893`*^9}},ExpressionUUID->"30cd5f03-cc81-4a02-abe3-\
+e5ee3ae1b79a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ExportMSH", "[", 
+   RowBox[{"fileName_String", ",", " ", "meshMma_ElementMesh"}], "]"}], " ", ":=",
+   " ", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"outStream", " ", "=", " ", 
+       RowBox[{"OpenWrite", "[", 
+        RowBox[{"StringJoin", "[", 
+         RowBox[{"fileName", ",", "\"\<.msh\>\""}], "]"}], "]"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Points", " ", "=", " ", 
+       RowBox[{"meshMma", "[", "\"\<Coordinates\>\"", "]"}]}], ",", " ", "x", 
+      ",", "y", ",", "z", ",", "\[IndentingNewLine]", 
+      RowBox[{"Elements", "=", 
+       RowBox[{
+        RowBox[{"meshMma", "[", "\"\<MeshElements\>\"", "]"}], 
+        "\[LeftDoubleBracket]", 
+        RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}]}], ",", "p1", ",", 
+      "p2", ",", "p3", ",", "p4", ",", "\[IndentingNewLine]", "nPts", ",", 
+      " ", "nElements", ",", "type"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", "Header", " ", "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"outStream", ",", "\"\<$MeshFormat\>\""}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"outStream", ",", "\"\<2.0 0 8\>\""}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"outStream", ",", "\"\<$EndMeshFormat\>\""}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{"Nodes", " ", 
+       RowBox[{"i", ".", "e", ".", " ", "Vertices"}]}], " ", "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"Points", "=", 
+      RowBox[{"RandomReal", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"7", ",", "3"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"nPts", "=", 
+      RowBox[{"Length", "[", "Points", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"WriteString", "[", 
+      RowBox[{"outStream", ",", "\"\<$Nodes\\n\>\"", ",", "nPts", ","}], " ", 
+      "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"outStream", ",", 
+       RowBox[{"ToString", "[", "nPts", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x", ",", "y", ",", "z"}], "}"}], "=", 
+         RowBox[{
+         "Points", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}]}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{"WriteString", "[", 
+         RowBox[{
+         "outStream", ",", "i", ",", "\"\< \>\"", ",", " ", "x", ",", " ", 
+          "\"\< \>\"", ",", "y", ",", " ", "\"\< \>\"", ",", "z", ",", " ", 
+          "\"\<\\n\>\""}], "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "nPts"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"outStream", ",", "\"\<$EndNodes\>\""}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{
+       "Elements", " ", "only", " ", "doing", " ", "tetrahedra", " ", 
+        "type"}], "=", 
+       RowBox[{"4", " ", "right", " ", "now"}]}], " ", "*)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{"type", "=", "4"}], ";", " ", "\[IndentingNewLine]", 
+     RowBox[{"nElements", "=", 
+      RowBox[{"Length", "[", "Points", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"WriteString", "[", 
+      RowBox[{
+      "outStream", ",", "\"\<$Elements\\n\>\"", ",", "nElements", ",", " ", 
+       "\"\<\\n\>\""}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Do", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"p1", ",", "p2", ",", "p3", ",", "p4"}], "}"}], "=", 
+         RowBox[{
+         "Elements", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}]}],
+         ";", "\[IndentingNewLine]", 
+        RowBox[{"WriteString", "[", 
+         RowBox[{
+         "outStream", ",", "i", ",", "\"\< \>\"", ",", " ", "type", ",", 
+          "\"\< \>\"", ",", " ", "99", ",", "\"\< \>\"", " ", ",", " ", "2", 
+          ",", " ", "\"\< \>\"", ",", " ", "p1", ",", " ", "\"\< \>\"", ",", 
+          "p2", ",", " ", "\"\< \>\"", ",", "p3", ",", "\"\< \>\"", ",", " ", 
+          "p4", ",", " ", "\"\<\\n\>\""}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "1", ",", "nElements"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"outStream", ",", "\"\<$EndElements\>\""}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{"Not", " ", "doing", " ", "any", " ", "tags"}], " ", "-", " ", 
+       RowBox[{"no", " ", "idea", " ", "if", " ", "this", " ", "is", " ", 
+        RowBox[{"needed", ".", " ", "I"}], " ", "was", " ", "on", " ", "auto",
+         " ", 
+        RowBox[{"pilot", "!"}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{"WriteString", "[", 
+        RowBox[{
+        "outStream", ",", "\"\<$NodeData\\n\>\"", ",", "0", ",", 
+         "\"\<\\n\>\"", ",", "0", ",", "\"\<\\n\>\"", ",", "0", ",", 
+         "\"\<\\n\>\"", ",", " ", "\"\<$EndNodeData\\n\>\""}], "]"}], ";"}], 
+      " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"Close", "[", "outStream", "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQA2IQLW9knaK1+I2jnhJ/MYhW4btZBqInx+hNBdGdL9xm
+guiuiw2zQPSsHPeVIDrJjXE3iGZreXkIRE/bXXsBRGuJs1wD0e+tuW6C6C8F
+y++B6Mhi2Qcg2q+g7gmIdtm3FUxPuHz9FYjuvaj0FUT/e5HGqA2k73TysILo
+flEmLhB9xvw5H4iOCM4WBdHHm4+A6U0vGORA9IcTHWogeoM9lxWI/qm3wQlE
+/zO45Aai9+Ufcwfr3/45BURv9jlTCqI7Z2jXgOhzyucaQPSr4KxWEP3DNG0C
+iJ60/L2TDsidi5TjQDTP0nZfXSAdkpYcDaL/PZNIAdG/T3GnguhDpl+LQPQU
+x64OEA0Aqx2vjA==
+  "],
+ CellLabel->
+  "In[340]:=",ExpressionUUID->"ab6c94b5-9237-49cf-b9cc-62196c0b487f"],
+
+Cell["Test", "Text",
+ CellChangeTimes->{{3.8436485941031413`*^9, 
+  3.8436485964856462`*^9}},ExpressionUUID->"4bc16449-54da-442f-933c-\
+063cf0bfca11"],
+
+Cell[BoxData[{
+ RowBox[{"<<", "NDSolve`FEM`"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[CapitalOmega]", "=", 
+    RowBox[{"RegionUnion", "[", " ", 
+     RowBox[{
+      RowBox[{"Cuboid", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", "1", ",", "1"}], "}"}]}], "]"}], ",", 
+      RowBox[{"Cuboid", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"0.5", ",", "0.5", ",", "0.5"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"1.5", ",", "1.5", ",", "1.5"}], "}"}]}], "]"}]}], "]"}]}], 
+   ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"\[CapitalOmega]", "=", 
+     RowBox[{"RegionUnion", "[", " ", 
+      RowBox[{
+       RowBox[{"Ball", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "1"}], "]"}], ",", 
+       RowBox[{"Ball", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0.5", ",", "0.5", ",", "0.5"}], "}"}], ",", "0.8"}], 
+        "]"}]}], "]"}]}], ";"}], "*)"}]}], "\n", 
+ RowBox[{"TestMesh", "=", 
+  RowBox[{"ToElementMesh", "[", 
+   RowBox[{"\[CapitalOmega]", ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "}"}], ",", 
+    RowBox[{"\"\<MaxCellMeasure\>\"", "->", "0.5"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<MeshOrder\>\"", "->", "1"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"\"\<MeshElementType\>\"", "\[Rule]", "TetrahedronElement"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Points", "=", 
+   RowBox[{"Chop", "[", 
+    RowBox[{"TestMesh", "[", "\"\<Coordinates\>\"", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Elements", " ", "=", 
+   RowBox[{
+    RowBox[{"TestMesh", "[", "\"\<MeshElements\>\"", "]"}], 
+    "\[LeftDoubleBracket]", 
+    RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"TestMesh", "[", 
+    RowBox[{"\"\<Wireframe\>\"", "[", 
+     RowBox[{"\"\<MeshElement\>\"", "->", "\"\<MeshElements\>\""}], "]"}], 
+    "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Red", ",", " ", 
+      RowBox[{"PointSize", "[", "0.02", "]"}], ",", 
+      RowBox[{"Point", "[", "Points", "]"}]}], "}"}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Red", ",", " ", 
+      RowBox[{"PointSize", "[", "0.02", "]"}], ",", 
+      RowBox[{"Point", "[", "Points", "]"}]}], "}"}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetDirectory", "[", 
+  "\"\<C:\\\\Users\\\\AllanStruthers\\\\Desktop\\\\Classes\\\\4620\\\\week \
+8\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"ExportMSH", "[", 
+  RowBox[{"\"\<MSHTest\>\"", ",", "TestMesh"}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.843644567204835*^9, 3.8436446154796953`*^9}, {
+   3.843644701165218*^9, 3.843645055159279*^9}, {3.8436451088896356`*^9, 
+   3.8436453806269674`*^9}, {3.8436455293939543`*^9, 
+   3.8436455535603995`*^9}, {3.8436456200478487`*^9, 3.843645641895898*^9}, {
+   3.8436457164257183`*^9, 3.843645913755833*^9}, {3.843645955070784*^9, 
+   3.843645957817084*^9}, {3.843648307837505*^9, 3.8436483266382427`*^9}, 
+   3.843648598541433*^9},
+ CellLabel->
+  "In[341]:=",ExpressionUUID->"63962e6c-bf94-4fc4-9e5c-e9c4fb2f8202"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"<<", "NDSolve`FEM`"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[CapitalOmega]", "=", 
+     RowBox[{"Ball", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "2"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[CapitalOmega]", "=", 
+     RowBox[{"RegionDifference", "[", 
+      RowBox[{"\[CapitalOmega]", ",", 
+       RowBox[{"Ball", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", "1.4"}], "]"}]}], 
+      "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[CapitalOmega]", "=", 
+     RowBox[{"RegionDifference", "[", 
+      RowBox[{"\[CapitalOmega]", ",", " ", 
+       RowBox[{"Cylinder", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0", ",", 
+             RowBox[{"-", "10"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "0", ",", "10"}], "}"}]}], "}"}], ",", "0.6"}], 
+        "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[CapitalOmega]", "=", 
+     RowBox[{"RegionDifference", "[", 
+      RowBox[{"\[CapitalOmega]", ",", " ", 
+       RowBox[{"Cylinder", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"0", ",", 
+             RowBox[{"-", "10"}], ",", "0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "10", ",", "0"}], "}"}]}], "}"}], ",", "0.6"}], 
+        "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"DeathStarMesh", "=", 
+    RowBox[{"ToElementMesh", "[", 
+     RowBox[{"\[CapitalOmega]", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "10"}], ",", "10"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "10"}], ",", "10"}], "}"}]}], "}"}]}], "]"}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"DeathStarMesh", "[", "\"\<Wireframe\>\"", "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"DeathStarMesh", "[", 
+    RowBox[{"\"\<Wireframe\>\"", "[", 
+     RowBox[{"\"\<MeshElement\>\"", "->", "\"\<MeshElements\>\""}], "]"}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.8435611872039323`*^9, 3.843561249525779*^9}, {
+  3.8435613588049035`*^9, 3.843561560301836*^9}, {3.843562272356905*^9, 
+  3.8435622884303493`*^9}, {3.8435623638585587`*^9, 3.843562373010344*^9}, {
+  3.843563501576043*^9, 3.8435635401612144`*^9}},
+ CellLabel->
+  "In[436]:=",ExpressionUUID->"87b5c19b-6242-4fea-aaa2-278c13c6322d"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["FEA internals", "Section",
+ CellChangeTimes->{{3.8436486935899096`*^9, 
+  3.8436486978140345`*^9}},ExpressionUUID->"f805763c-be55-442e-9df5-\
+5b095f3ed227"],
+
+Cell["\<\
+I am going to solve a simple Laplacian problem on a rectangle.  I am going to \
+rescue the matrix from the inner workings of Mathematica and look at the \
+eigenvectors and stuff.\
+\>", "Text",
+ CellChangeTimes->{{3.8436487001508107`*^9, 3.843648779549945*^9}, {
+  3.8436511961816316`*^9, 
+  3.843651199629531*^9}},ExpressionUUID->"6b08acbc-26ba-4865-b687-\
+55c24e774868"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Omega", "=", 
+   RowBox[{"Rectangle", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Pi]", ",", 
+       RowBox[{"2", "\[Pi]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"x_", ",", "y_"}], "]"}], ":=", " ", 
+  RowBox[{"Sin", "[", 
+   RowBox[{"x", "+", 
+    RowBox[{"0.1", " ", 
+     SuperscriptBox["y", "2"]}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"uSol", " ", "=", " ", 
+   RowBox[{"NDSolveValue", "[", " ", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"Laplacian", "[", 
+          RowBox[{
+           RowBox[{"u", "[", 
+            RowBox[{"x", ",", "y"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], "==", 
+        RowBox[{"f", "[", 
+         RowBox[{"x", ",", "y"}], "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"DirichletCondition", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "y"}], "]"}], "==", "0"}], ",", "True"}], 
+        "]"}]}], "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+     "u", ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "Omega"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Method", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<PDEDiscretization\>\"", "->", "\"\<FiniteElement\>\""}], 
+       "}"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ContourPlot", "[", 
+  RowBox[{
+   RowBox[{"uSol", "[", 
+    RowBox[{"x", ",", "y"}], "]"}], ",", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "Omega"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"PlotLegends", "\[Rule]", "Automatic"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"PlotRange", "->", "All"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<x\>\"", ",", "\"\<y\>\""}], "}"}]}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.843648784304467*^9, 3.8436488297153063`*^9}, {
+  3.843651183573106*^9, 3.8436512997450533`*^9}, {3.8436513405822344`*^9, 
+  3.8436514599186535`*^9}, {3.84365190841691*^9, 3.8436519820238285`*^9}, {
+  3.8436520151296515`*^9, 3.843652023271533*^9}, {3.8436520676220365`*^9, 
+  3.843652186490875*^9}, {3.84365266634266*^9, 3.8436526819494247`*^9}, {
+  3.8436528582171974`*^9, 3.8436528759664307`*^9}, {3.843653058815866*^9, 
+  3.843653176955545*^9}},
+ CellLabel->
+  "In[126]:=",ExpressionUUID->"b2e1f2d6-c32b-4192-8dcc-43aae236bc26"],
+
+Cell["\<\
+we are going to split this up into little steps.  The first step builds a \
+structure that we start exploring.  \
+\>", "Text",
+ CellChangeTimes->{{3.843651786927263*^9, 3.8436518073976374`*^9}, {
+  3.8436523350228076`*^9, 
+  3.843652400197931*^9}},ExpressionUUID->"501ad818-6a3c-463b-a803-\
+3569d5844112"],
+
+Cell[BoxData[{
+ RowBox[{"Needs", "[", "\"\<NDSolve`FEM`\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SystemOptions", "[", "\"\<FiniteElementOptions\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", "state", "}"}], "=", 
+   RowBox[{"NDSolve`ProcessEquations", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"Laplacian", "[", 
+          RowBox[{
+           RowBox[{"u", "[", 
+            RowBox[{"x", ",", "y"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], "==", 
+        RowBox[{"f", "[", 
+         RowBox[{"x", ",", "y"}], "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"DirichletCondition", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "y"}], "]"}], "==", "1"}], ",", 
+         RowBox[{"And", "[", 
+          RowBox[{
+           RowBox[{"x", ">", 
+            RowBox[{"\[Pi]", "/", "2"}]}], ",", 
+           RowBox[{"y", ">", "\[Pi]"}]}], "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", "u", ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "Omega"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Method", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<PDEDiscretization\>\"", "->", 
+        RowBox[{"{", 
+         RowBox[{"\"\<FiniteElement\>\"", ",", 
+          RowBox[{"\"\<MeshOptions\>\"", "->", 
+           RowBox[{"{", 
+            RowBox[{"\"\<MaxCellMeasure\>\"", "->", "0.1"}], "}"}]}]}], 
+         "}"}]}], "}"}]}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"FEMData", "=", 
+  RowBox[{
+  "state", "[", "\"\<FiniteElementData\>\"", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"FEMData", "[", "\"\<Properties\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SpaceData", "=", 
+  RowBox[{"NDSolve`SolutionData", "[", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Space\>\"", "->", "Omega"}], "}"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.8436518799684353`*^9, 3.843651880698323*^9}, {
+   3.843652233280337*^9, 3.843652324621292*^9}, {3.843652801493146*^9, 
+   3.8436528360055904`*^9}, {3.843653205144012*^9, 3.8436532062604656`*^9}, {
+   3.8436532762714434`*^9, 3.8436532868138723`*^9}, {3.8436533230545197`*^9, 
+   3.8436533236116743`*^9}, {3.843653739574732*^9, 3.843653790888754*^9}, {
+   3.8436538729246626`*^9, 3.843654050103295*^9}, 3.8436542875834923`*^9, {
+   3.843654320748974*^9, 3.8436543683217278`*^9}, {3.843654400400643*^9, 
+   3.8436545661516285`*^9}, {3.843654599600047*^9, 3.8436546323436327`*^9}},
+ CellLabel->
+  "In[268]:=",ExpressionUUID->"b943ec4b-281a-4e45-9772-9b2daf4bccef"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"DiscretePDE", "=", 
+   RowBox[{"NDSolve`DiscretizePDE", "[", 
+    RowBox[{
+     RowBox[{"FEMData", "[", "\"\<PDECoefficientData\>\"", "]"}], ",", 
+     RowBox[{"FEMData", "[", "\"\<FEMMethodData\>\"", "]"}], ",", "sd"}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"DiscretePDE", "[", "\"\<SystemMatrices\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.8436518799684353`*^9, 3.843651880698323*^9}, {
+   3.843652233280337*^9, 3.843652324621292*^9}, {3.843652801493146*^9, 
+   3.8436528360055904`*^9}, {3.843653205144012*^9, 3.8436532062604656`*^9}, {
+   3.8436532762714434`*^9, 3.8436532868138723`*^9}, {3.8436533230545197`*^9, 
+   3.8436533236116743`*^9}, {3.843653739574732*^9, 3.843653790888754*^9}, {
+   3.8436538729246626`*^9, 3.843654050103295*^9}, 3.8436542875834923`*^9, {
+   3.843654320748974*^9, 3.8436543683217278`*^9}, {3.843654400400643*^9, 
+   3.8436545661516285`*^9}, {3.843654599600047*^9, 
+   3.8436546323436327`*^9}},ExpressionUUID->"a1f3c072-0d3e-4127-bed2-\
+17bc40db583a"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", "state", "}"}], "=", 
+   RowBox[{"NDSolve`ProcessEquations", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"op", "==", 
+        RowBox[{"Subscript", "[", 
+         RowBox[{"\[CapitalGamma]", ",", "N"}], "]"}]}], ",", 
+       RowBox[{"Subscript", "[", 
+        RowBox[{"\[CapitalGamma]", ",", "D"}], "]"}]}], "}"}], ",", "u", ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "nr"}], ",", 
+     RowBox[{"Method", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<FiniteElement\>\"", ",", 
+        RowBox[{"\"\<MeshOptions\>\"", "->", 
+         RowBox[{"{", 
+          RowBox[{"\"\<MaxCellMeasure\>\"", "->", "0.1"}], "}"}]}]}], 
+       "}"}]}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{"femdata", "=", 
+  RowBox[{
+  "state", "[", "\"\<FiniteElementData\>\"", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"discretePDE", "=", 
+  RowBox[{"DiscretizePDE", "[", 
+   RowBox[{"initCoeffs", ",", "methodData", ",", "sd"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.8436541979399624`*^9, 
+  3.843654220341023*^9}},ExpressionUUID->"9ea9f958-6be2-4d76-bc68-\
+fbf4dc8018c5"],
+
+Cell[BoxData[{
+ RowBox[{"variableData", "=", 
+  RowBox[{"NDSolve`VariableData", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\"\<DependentVariables\>\"", "\[Rule]", 
+      RowBox[{"{", "u", "}"}]}], ",", 
+     RowBox[{"\"\<Space\>\"", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}]}]}], "}"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"spaceData", "=", 
+  RowBox[{"NDSolve`SolutionData", "[", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Space\>\"", "\[Rule]", "Omega"}], "}"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.8436527890693417`*^9, 3.843652789559495*^9}, {
+  3.843652843614502*^9, 3.8436528453179674`*^9}, {3.843652889039893*^9, 
+  3.8436529673293743`*^9}},
+ CellLabel->
+  "In[108]:=",ExpressionUUID->"ac60273b-b8f3-4ff9-8f01-f2cbaccb2639"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{1141.2, 579.6},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+TaggingRules->Association["TryRealOnly" -> False],
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"d5221cf6-06b5-429d-a48d-fb21fa09d845"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 245, 4, 98, "Title",ExpressionUUID->"84523820-bb6e-40b8-aca3-55035277cf45"],
+Cell[CellGroupData[{
+Cell[850, 30, 211, 4, 67, "Section",ExpressionUUID->"f1a2fde1-a554-4536-8b7b-8f85f6b9a00a"],
+Cell[1064, 36, 407, 10, 104, "Text",ExpressionUUID->"30cd5f03-cc81-4a02-abe3-e5ee3ae1b79a"],
+Cell[1474, 48, 6116, 141, 619, "Input",ExpressionUUID->"ab6c94b5-9237-49cf-b9cc-62196c0b487f"],
+Cell[7593, 191, 150, 3, 35, "Text",ExpressionUUID->"4bc16449-54da-442f-933c-063cf0bfca11"],
+Cell[7746, 196, 3722, 97, 314, "Input",ExpressionUUID->"63962e6c-bf94-4fc4-9e5c-e9c4fb2f8202"],
+Cell[11471, 295, 2743, 74, 181, "Input",ExpressionUUID->"87b5c19b-6242-4fea-aaa2-278c13c6322d"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[14251, 374, 162, 3, 53, "Section",ExpressionUUID->"f805763c-be55-442e-9df5-5b095f3ed227"],
+Cell[14416, 379, 381, 8, 58, "Text",ExpressionUUID->"6b08acbc-26ba-4865-b687-55c24e774868"],
+Cell[14800, 389, 2680, 71, 241, "Input",ExpressionUUID->"b2e1f2d6-c32b-4192-8dcc-43aae236bc26"],
+Cell[17483, 462, 315, 7, 35, "Text",ExpressionUUID->"501ad818-6a3c-463b-a803-3569d5844112"],
+Cell[17801, 471, 2691, 62, 219, "Input",ExpressionUUID->"b943ec4b-281a-4e45-9772-9b2daf4bccef"],
+Cell[20495, 535, 1035, 18, 48, "Input",ExpressionUUID->"a1f3c072-0d3e-4127-bed2-17bc40db583a"],
+Cell[21533, 555, 1165, 31, 86, "Input",ExpressionUUID->"9ea9f958-6be2-4d76-bc68-fbf4dc8018c5"],
+Cell[22701, 588, 774, 19, 48, "Input",ExpressionUUID->"ac60273b-b8f3-4ff9-8f01-f2cbaccb2639"]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
