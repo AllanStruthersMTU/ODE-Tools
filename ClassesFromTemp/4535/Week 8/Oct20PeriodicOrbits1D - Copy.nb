@@ -1,0 +1,1438 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     55786,       1430]
+NotebookOptionsPosition[     51270,       1359]
+NotebookOutlinePosition[     51781,       1378]
+CellTagsIndexPosition[     51738,       1375]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Finding Periodic Sequences in 1D", "Title",
+ CellChangeTimes->{{3.842619649482194*^9, 3.8426196788846254`*^9}, {
+  3.843055168306638*^9, 3.8430551903925853`*^9}, {3.843572708748923*^9, 
+  3.8435727097834487`*^9}},ExpressionUUID->"57b8184d-9fed-421d-a8bb-\
+2b34c93a613d"],
+
+Cell[TextData[{
+ "For a function ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", ":", "\[DoubleStruckCapitalR]"}], "\[Rule]", 
+    "\[DoubleStruckCapitalR]"}], TraditionalForm]],ExpressionUUID->
+  "34004bc4-5e5e-4c4f-82ec-46cee3670700"],
+ "  consider the sequence defined recursively by \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", 
+     RowBox[{"n", "+", "1"}]], "=", 
+    RowBox[{"f", "(", 
+     SubscriptBox["p", "n"], ")"}]}], TraditionalForm]],ExpressionUUID->
+  "443dcf64-df34-40ab-a784-ceff6a3099ea"],
+ "\nand an initial value ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "0"], "\[Element]", "\[DoubleStruckCapitalR]"}], 
+   TraditionalForm]],ExpressionUUID->"846225c5-80b3-4907-bbc4-f3cab6f52ff8"],
+ ". We will make smoothness assumptions about f as we need them.  We learned \
+that we will never see an unstable periodic orbit by iterating. We learned \
+that a stable periodic orbit with a tiny stability region was also very hard \
+to find!"
+}], "Text",
+ CellChangeTimes->{{3.8426196827032185`*^9, 3.842619816086689*^9}, {
+  3.8430552002948523`*^9, 3.8430553708600407`*^9}, {3.843657550774706*^9, 
+  3.8436576396278777`*^9}, {3.8437478810771937`*^9, 
+  3.843747885762995*^9}},ExpressionUUID->"e938b877-f743-4be2-8417-\
+f82999562190"],
+
+Cell["Some theory and pictures would probably help.", "Text",
+ CellChangeTimes->{{3.84365764502096*^9, 
+  3.843657661236375*^9}},ExpressionUUID->"3ce82336-1499-45b4-a17c-\
+4ea754eba615"],
+
+Cell[CellGroupData[{
+
+Cell["Web Diagram", "Section",
+ CellChangeTimes->{{3.843657669519476*^9, 
+  3.8436576759902353`*^9}},ExpressionUUID->"22c24af5-2ae8-4f59-9a77-\
+47a99aac5b64"],
+
+Cell["We can draw a picture of a single step. ", "Text",
+ CellChangeTimes->{{3.8436576805974216`*^9, 
+  3.843657700435774*^9}},ExpressionUUID->"a2885193-b906-43f2-8977-\
+06acc8d0f1d5"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"f", "[", "r_", "]"}], "[", "x_", "]"}], ":=", " ", 
+  RowBox[{"r", " ", "x", " ", 
+   RowBox[{"(", 
+    RowBox[{"1", "-", "x"}], ")"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"r", "=", "2.95"}], ";", " ", 
+  RowBox[{"x0", "=", "0.5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Pic", "=", 
+  RowBox[{"Plot", "[", " ", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"f", "[", " ", "r", "]"}], "[", "x", "]"}], ",", "x"}], "}"}], 
+    ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", " ", "0", ",", " ", "1.2"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<\!\(\*SubscriptBox[\(p\), \(n\)]\)\>\"", ",", 
+       "\"\<\!\(\*SubscriptBox[\(p\), \(n + 1\)]\)\>\""}], "}"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"PlotLabel", "\[Rule]", "r"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Epilog", "->", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"pts", "=", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"x0", ",", "x0"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x0", ",", 
+             RowBox[{
+              RowBox[{"f", "[", "r", "]"}], "[", "x0", "]"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"f", "[", "r", "]"}], "[", "x0", "]"}], ",", 
+             RowBox[{
+              RowBox[{"f", "[", "r", "]"}], "[", "x0", "]"}]}], "}"}]}], 
+          "}"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", " ", 
+          RowBox[{"PointSize", "[", "0.02", "]"}], ",", " ", 
+          RowBox[{"Point", "[", "pts", "]"}]}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Arrow", "[", "pts", "]"}]}], "\[IndentingNewLine]", "}"}]}]}],
+    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.843055373096547*^9, 3.843055395448204*^9}, {
+  3.8430555544594474`*^9, 3.843055828336031*^9}, {3.8430564610761395`*^9, 
+  3.8430565214936976`*^9}, {3.8435727175647593`*^9, 3.843572939297348*^9}, {
+  3.8435729785417347`*^9, 3.8435730075072155`*^9}, {3.8435730500603275`*^9, 
+  3.8435730504163656`*^9}, {3.843575833029291*^9, 3.843575833613907*^9}, {
+  3.8435758999736557`*^9, 3.8435759073383064`*^9}, {3.8435759486548977`*^9, 
+  3.843575952370414*^9}, {3.8435766102707453`*^9, 3.8435766645932603`*^9}, {
+  3.8436569161428475`*^9, 3.8436571966872015`*^9}, {3.843657242645297*^9, 
+  3.843657535374544*^9}, {3.843657723222618*^9, 3.8436578608221684`*^9}, {
+  3.8436585037009945`*^9, 3.843658635181426*^9}, {3.8436587948789463`*^9, 
+  3.8436588260217*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"08c5d593-73a2-43bc-be76-8b62f2f7faa7"],
+
+Cell["\<\
+If we repeat this we see that it skitters into the fixed point provided we \
+are close enough and \
+\>", "Text",
+ CellChangeTimes->{{3.8436577063241034`*^9, 3.843657715661535*^9}, {
+  3.8436586478932433`*^9, 3.843658699627556*^9}, {3.843721545645328*^9, 
+  3.8437215473897443`*^9}},ExpressionUUID->"b2c4709d-b66a-4e53-8b37-\
+ac03d1f4301a"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"r", "=", "3.02"}], ";", " ", 
+  RowBox[{"x0", "=", "0.2"}], ";", 
+  RowBox[{"MaxIter", "=", "12"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xs", "=", 
+   RowBox[{"NestList", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], ",", "x0", ",", "MaxIter"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Bits", "=", 
+    RowBox[{"Table", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"xOld", ",", "xNew"}], "}"}], "=", 
+        RowBox[{"xs", "\[LeftDoubleBracket]", 
+         RowBox[{"i", ";;", 
+          RowBox[{"i", "+", "1"}]}], "\[RightDoubleBracket]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"Red", ",", " ", 
+           RowBox[{"Point", "[", 
+            RowBox[{"{", 
+             RowBox[{"xOld", ",", "xOld"}], "}"}], "]"}], ",", 
+           RowBox[{"Point", "[", 
+            RowBox[{"{", 
+             RowBox[{"xOld", ",", "xNew"}], "}"}], "]"}]}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Arrow", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"xOld", ",", "xOld"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"xOld", ",", "xNew"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"xNew", ",", "xNew"}], "}"}]}], "}"}], "]"}]}], "}"}]}], 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", 
+        RowBox[{
+         RowBox[{"Length", "[", "xs", "]"}], "-", "1"}]}], "}"}]}], "]"}]}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Plot", "[", " ", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"f", "[", " ", "r", "]"}], "[", "x", "]"}], ",", 
+       RowBox[{
+        RowBox[{"f", "[", " ", "r", "]"}], "[", 
+        RowBox[{
+         RowBox[{"f", "[", "r", "]"}], "[", "x", "]"}], "]"}], ",", "x"}], 
+      "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", " ", "0", ",", " ", "1.2"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<\!\(\*SubscriptBox[\(p\), \(n\)]\)\>\"", ",", 
+        "\"\<\!\(\*SubscriptBox[\(p\), \(n + 1\)]\)\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<r=``, i=``\>\"", ",", "r", ",", "i"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Epilog", "->", 
+      RowBox[{"Bits", "\[LeftDoubleBracket]", 
+       RowBox[{"1", ";;", "i"}], "\[RightDoubleBracket]"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "1", ",", 
+     RowBox[{"Length", "[", "Bits", "]"}], ",", "1"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.843658722092419*^9, 3.843659232091265*^9}, {
+   3.8436592635834136`*^9, 3.843659386254984*^9}, {3.843659422676038*^9, 
+   3.843659451565053*^9}, {3.843659484696803*^9, 3.8436595638966293`*^9}, {
+   3.843659607175189*^9, 3.843659685949213*^9}, {3.8437202465835404`*^9, 
+   3.8437202685565577`*^9}, {3.8437215540982523`*^9, 3.84372156767934*^9}, {
+   3.8437493097050743`*^9, 3.8437493184356995`*^9}, {3.8437493550666065`*^9, 
+   3.843749360760335*^9}, {3.8437494066265697`*^9, 3.8437494160020285`*^9}, 
+   3.84374949147567*^9},
+ CellLabel->"In[24]:=",ExpressionUUID->"b4048c63-c4a8-4256-9656-6ac554201cc2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculus and Fixed Points", "Section",
+ CellChangeTimes->{{3.843659718948833*^9, 3.843659737021468*^9}, {
+  3.8437216131274867`*^9, 
+  3.8437216151156263`*^9}},ExpressionUUID->"c6691282-081c-4206-95e6-\
+1045f61fd11c"],
+
+Cell[TextData[{
+ "A fixed point or period ",
+ Cell[BoxData[
+  FormBox["1", TraditionalForm]],ExpressionUUID->
+  "ce493ea3-9fc7-4bad-9633-fec96d3b9a3a"],
+ " solution satisfies\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], "[", "p", "]"}], "=", "p"}], 
+   TraditionalForm]],ExpressionUUID->"fa46b331-e4a8-4280-a509-11e74c45b284"],
+ "\nAnother way to think of this is as a solution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"g", "[", "x", "]"}], "=", "x"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "5ce82dd4-adfe-4b13-bf56-0f8e502a86ef"],
+ " or ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"g", "[", "x", "]"}], "-", "x"}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "aec47417-aa66-482f-a89f-cd3ce6b77d03"],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"g", "[", "x", "]"}], "=", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], "[", "x", "]"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "12d61acb-4593-43d9-8a00-60bbba0d6903"],
+ ". \nHere is our visualization again! What we want to know now is how to \
+tell when things are stable.  As noted it would be cool to find out how big \
+the stability region is. "
+}], "Text",
+ CellChangeTimes->{{3.8436597403011417`*^9, 3.8436598495890656`*^9}, {
+  3.843660176229474*^9, 3.8436602634445314`*^9}, {3.843721627164931*^9, 
+  3.843721719658208*^9}, {3.84372177843687*^9, 
+  3.8437218088661385`*^9}},ExpressionUUID->"58809c8c-cff6-43ce-a72a-\
+5d04f61d2892"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"r0", "=", "3.05"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"g", "[", "x_", "]"}], "=", 
+  RowBox[{
+   RowBox[{"f", "[", "r0", "]"}], "[", "x", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pts", " ", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r0", ",", "x"}], "}"}], "/.", 
+    RowBox[{"NSolve", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "x", "]"}], "-", "x"}], " ", "==", "0"}], ",", "x", 
+      ",", "Reals"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TabView", "[", "\[IndentingNewLine]", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"\"\<g[x]=x\>\"", " ", "->", " ", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"g", "[", "x", "]"}], ",", "x"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<x\>\"", ",", "\"\<g\>\""}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"GridLines", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"pts", "\[LeftDoubleBracket]", 
+           RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+          "None"}], "}"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"PlotLabel", "->", 
+        RowBox[{"StringForm", "[", 
+         RowBox[{"\"\<r = ``\>\"", ",", "r0"}], "]"}]}]}], "]"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"\"\<g[x]-x=0\>\"", " ", "->", " ", 
+     RowBox[{"Plot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "x", "]"}], "-", "x"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<x\>\"", ",", "\"\<g[x]-x\>\""}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"GridLines", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"pts", "\[LeftDoubleBracket]", 
+           RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+          "None"}], "}"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"PlotLabel", "->", 
+        RowBox[{"StringForm", "[", 
+         RowBox[{"\"\<r = ``\>\"", ",", "r0"}], "]"}]}]}], "]"}]}]}], 
+   "\[IndentingNewLine]", "}"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.8436603724582443`*^9, 3.8436604343961315`*^9}, {
+  3.8436604752051578`*^9, 3.8436604818519497`*^9}, {3.8436605231832113`*^9, 
+  3.8436605621596236`*^9}, {3.8436606057008567`*^9, 3.8436606098878117`*^9}, {
+  3.843660663020552*^9, 3.8436607278491306`*^9}, {3.8436616911565866`*^9, 
+  3.843661754783003*^9}, {3.843661786572482*^9, 3.843661816400955*^9}, {
+  3.8437217466851788`*^9, 3.8437217509682283`*^9}, {3.84372182304513*^9, 
+  3.8437218863868256`*^9}, {3.8437219951572175`*^9, 3.843721997061946*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"149b7af1-ca90-4983-baab-e352f89f901c"],
+
+Cell["\<\
+Our single best tool is calculus!  So think about the linearization about the \
+fixed points. \
+\>", "Text",
+ CellChangeTimes->{{3.84366313110052*^9, 
+  3.843663194531131*^9}},ExpressionUUID->"50a0e836-f178-47fc-8c78-\
+33c27a484069"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"r0", "=", "2.95"}], ";", " ", 
+  RowBox[{"x0", "=", "0.7"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"g", "[", "x_", "]"}], "=", 
+   RowBox[{
+    RowBox[{"f", "[", "r0", "]"}], "[", "x", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"NestList", "[", 
+  RowBox[{"g", ",", "x0", ",", "34"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xs", "=", 
+   RowBox[{"x", "/.", 
+    RowBox[{"NSolve", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "x", "]"}], "-", "x"}], " ", "==", "0"}], ",", "x", 
+      ",", "Reals"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ms", "=", 
+   RowBox[{
+    RowBox[{"Map", "[", 
+     RowBox[{
+      RowBox[{"g", "'"}], ",", "xs"}], "]"}], "-", "1"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Pic", "=", " ", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"g", "[", "x", "]"}], "-", "x"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotStyle", "\[Rule]", "Black"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<x\>\"", ",", "\"\<g[x]-x\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"GridLines", "->", 
+      RowBox[{"{", 
+       RowBox[{"xs", ",", "None"}], "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Epilog", "->", 
+      RowBox[{"{", 
+       RowBox[{"Red", ",", " ", 
+        RowBox[{"PointSize", "[", "0.02", "]"}], ",", " ", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"Point", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+             "xs", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}], 
+             ",", "0"}], "}"}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"Length", "[", "xs", "]"}]}], "}"}]}], "]"}]}], "}"}]}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "->", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<r = `` slopes = ``\>\"", ",", "r0", ",", " ", "ms"}], 
+       "]"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"width", "=", "0.15"}], ";", " ", 
+  RowBox[{"ms", "=", 
+   RowBox[{
+    RowBox[{"Map", "[", 
+     RowBox[{
+      RowBox[{"g", "'"}], ",", "xs"}], "]"}], "-", "1"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", 
+  RowBox[{"Pic", ",", 
+   RowBox[{"ParametricPlot", "[", " ", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Evaluate", "[", 
+      RowBox[{"Table", "[", " ", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"\[CapitalDelta]x", "+", 
+           RowBox[{
+           "xs", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}]}], 
+          ",", " ", 
+          RowBox[{
+           RowBox[{
+           "ms", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}], " ", 
+           "\[CapitalDelta]x"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", 
+          RowBox[{"Length", "[", "xs", "]"}]}], "}"}]}], "]"}], "]"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"\[CapitalDelta]x", ",", 
+       RowBox[{"-", "width"}], ",", "width"}], "}"}]}], "]"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.843663206128431*^9, 3.84366393647823*^9}, {
+  3.843721906975145*^9, 3.8437219199977818`*^9}, {3.8437220956671114`*^9, 
+  3.8437221518284063`*^9}, {3.8437222129523287`*^9, 3.843722232186041*^9}},
+ CellLabel->"In[32]:=",ExpressionUUID->"20f200b5-1c16-4c23-a1aa-1aa09a4188f6"],
+
+Cell[TextData[{
+ "The whole point of calculus (well at least the differential part) is that \
+near enough to each red dot the appropriate linearization acts like the \
+function it is linearizing.    So what does that mean for our iteration\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", 
+     RowBox[{"n", "+", "1"}]], "=", 
+    RowBox[{"g", "[", 
+     SubscriptBox["p", "n"], "]"}]}], TraditionalForm]],ExpressionUUID->
+  "46df8d10-6bcc-445c-9dcd-5173bfff82b3"],
+ ".  "
+}], "Text",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437224669549513`*^9}},ExpressionUUID->"9a3067ed-6578-439b-bfac-\
+16fa45d5b8d0"],
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "n"], "\[Rule]", 
+    SubscriptBox["p", "*"]}], TraditionalForm]],ExpressionUUID->
+  "a97913ef-d57b-419d-a780-31fc323ffbf8"],
+ "  and ",
+ Cell[BoxData[
+  FormBox["g", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "4bd6578a-e8bc-4b80-b01d-15204cd66623"],
+ " is continuous then  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "*"], "=", 
+    RowBox[{"g", "[", 
+     SubscriptBox["p", "*"], "]"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6125c239-ed8c-4407-ab63-4f8405fc38d8"],
+ ":  I do not think this is surprising but it is not true without the \
+continuity assumption."
+}], "Item",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437224774293327`*^9}},ExpressionUUID->"ecee6da2-0b04-426e-bf2b-\
+811c02edaf2e"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "If g makes things closer together in the sense that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{
+     RowBox[{"g", "[", 
+      SubscriptBox["x", "1"], "]"}], "-", 
+     RowBox[{"g", "[", 
+      SubscriptBox["x", "2"], "]"}]}], "|", 
+    RowBox[{"\[LessEqual]", " ", "L"}], "|", 
+    RowBox[{
+     SubscriptBox["x", "1"], "-", 
+     SubscriptBox["x", "2"]}], "|"}], TraditionalForm]],ExpressionUUID->
+  "5e8232df-92a6-4662-a89a-0eaded6c722c"],
+ " with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"L", "<", "1"}], TraditionalForm]],ExpressionUUID->
+  "967e8216-40b9-4236-b2b8-c614e8e7e31e"],
+ " then \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"|", 
+     RowBox[{
+      SubscriptBox["p", "n"], "-", 
+      SubscriptBox["p", 
+       RowBox[{"n", "+", "1"}]]}], "|"}], "=", 
+    RowBox[{
+     RowBox[{"|", 
+      RowBox[{
+       RowBox[{"g", "[", 
+        SubscriptBox["p", 
+         RowBox[{"n", "-", "1"}]], "]"}], "-", 
+       RowBox[{"g", "[", 
+        SubscriptBox["p", "n"], "]"}]}], "|", 
+      RowBox[{"\[LessEqual]", "L"}], "|", 
+      RowBox[{
+       SubscriptBox["p", 
+        RowBox[{"n", "-", "1"}]], "-", 
+       SubscriptBox["p", "n"]}], "|"}], "=", 
+     RowBox[{"L", "|", 
+      RowBox[{
+       RowBox[{"g", "[", 
+        SubscriptBox["p", 
+         RowBox[{"n", "-", "2"}]], "]"}], "-", 
+       RowBox[{"g", "[", 
+        SubscriptBox["p", 
+         RowBox[{"n", "-", "1"}]], "]"}]}], "|", 
+      RowBox[{"\[LessEqual]", 
+       SuperscriptBox["L", "2"]}], "|", 
+      RowBox[{
+       SubscriptBox["p", 
+        RowBox[{"n", "-", "2"}]], "-", 
+       SubscriptBox["p", 
+        RowBox[{"n", "-", "1"}]]}], "|"}]}]}], TraditionalForm]],
+  ExpressionUUID->"a7c75ff7-554f-4c1a-9352-c0dfec31df00"],
+ "\nContinuing this gives. \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{
+     SubscriptBox["p", "n"], "-", 
+     SubscriptBox["p", 
+      RowBox[{"n", "+", "1"}]]}], "|", 
+    RowBox[{"\[LessEqual]", 
+     SuperscriptBox["L", "n"]}], "|", 
+    RowBox[{
+     SubscriptBox["p", "0"], "-", 
+     SubscriptBox["p", "1"]}], "|"}], TraditionalForm]], "Subitem",
+  ExpressionUUID->"13e34987-2b78-4dd9-a265-e558e5494a91"]
+}], "Item",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437226663237004`*^9}, {3.8437227485240602`*^9, 3.8437227507212353`*^9}, {
+  3.8437227826980047`*^9, 3.8437229239214315`*^9}, {3.8437230110153933`*^9, 
+  3.8437230286396503`*^9}, {3.8437231632907085`*^9, 
+  3.8437231632907085`*^9}},ExpressionUUID->"fc1abf60-4e0a-4afc-9ded-\
+d6d4f4bfa102"],
+
+Cell["Functions g doing this are called contractions.", "Subitem",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437226663237004`*^9}, {3.8437227485240602`*^9, 3.8437227507212353`*^9}, {
+  3.8437227826980047`*^9, 3.8437229239214315`*^9}, {3.8437230110153933`*^9, 
+  3.8437230286396503`*^9}, {3.843723169667919*^9, 3.8437232430706263`*^9}, {
+  3.8437234336153355`*^9, 3.8437234336153355`*^9}, {3.843723500517462*^9, 
+  3.843723533070876*^9}},ExpressionUUID->"8117389a-068d-440b-b374-\
+8538830071d1"],
+
+Cell[TextData[{
+ "Slightly more generally the distance condition is called Holder continuous \
+with Lipschitz constant ",
+ Cell[BoxData[
+  FormBox["L", TraditionalForm]],ExpressionUUID->
+  "b979df58-1a5c-40e6-9251-236cab090259"],
+ " less than one.  "
+}], "Subitem",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437226663237004`*^9}, {3.8437227485240602`*^9, 3.8437227507212353`*^9}, {
+  3.8437227826980047`*^9, 3.8437229239214315`*^9}, {3.8437230110153933`*^9, 
+  3.8437230286396503`*^9}, {3.843723169667919*^9, 3.8437232430706263`*^9}, {
+  3.8437234336153355`*^9, 3.8437234336153355`*^9}, {3.843723538392193*^9, 
+  3.8437235507177005`*^9}},ExpressionUUID->"a5dc8fe7-a85b-44e2-9e00-\
+1e865a818352"],
+
+Cell[TextData[{
+ "An easy way to check the distance condition of a smooth function on ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", "\[DoubleStruckCapitalR]"}], TraditionalForm]],ExpressionUUID->
+  "315ed521-c017-49c6-9376-f54f1f6e6971"],
+ " is to take the absolute value of the first derivative. derivative"
+}], "Subitem",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437226663237004`*^9}, {3.8437227485240602`*^9, 3.8437227507212353`*^9}, {
+  3.8437227826980047`*^9, 3.8437229239214315`*^9}, {3.8437230110153933`*^9, 
+  3.8437230286396503`*^9}, {3.843723169667919*^9, 3.8437232430706263`*^9}, {
+  3.8437234351603947`*^9, 3.843723471857833*^9}, {3.843723559519158*^9, 
+  3.8437236223078775`*^9}},ExpressionUUID->"69bab950-48a7-4560-8349-\
+13a5898d5d2d"]
+}, Open  ]],
+
+Cell[TextData[{
+ "If",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{
+     SubscriptBox["p", "n"], "-", 
+     SubscriptBox["p", 
+      RowBox[{"n", "+", "1"}]]}], "|", 
+    RowBox[{"\[LessEqual]", 
+     SuperscriptBox["L", "n"]}], "|", 
+    RowBox[{
+     SubscriptBox["p", "0"], "-", 
+     SubscriptBox["p", "1"]}], "|"}], TraditionalForm]], "Subitem",
+  ExpressionUUID->"90287bbb-c197-4580-8933-6530b3c71f0e"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"0", "\[LessEqual]", "L", "<", "1"}], TraditionalForm]],
+  ExpressionUUID->"fba9a13c-54f7-47cc-bca4-022bafb220db"],
+ " then",
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"|", 
+     RowBox[{
+      SubscriptBox["p", "n"], "-", 
+      SubscriptBox["p", 
+       RowBox[{"n", "+", "1"}]]}], "|"}], " ", "->", "0"}], TraditionalForm]],
+  ExpressionUUID->"7779cc95-de6b-4f83-9cd5-7b899465b606"],
+ " and since ",
+ Cell[BoxData[
+  FormBox["\[DoubleStruckCapitalR]", TraditionalForm]],ExpressionUUID->
+  "451654af-15f6-4560-b84e-051c42478ce4"],
+ " has no holes (fancy way to say this is \[DoubleStruckCapitalR] is \
+complete) this Cauchy sequence converges to something i.e. ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "n"], "->", 
+    SubscriptBox["p", "*"]}], TraditionalForm]],ExpressionUUID->
+  "686967d4-0749-4fd6-acd1-069213c2eb4e"],
+ " which ",
+ Cell[BoxData[
+  RowBox[{
+   SubscriptBox["p", "*"], "=", 
+   RowBox[{
+    RowBox[{"g", "[", 
+     SubscriptBox["p", "*"], "]"}], "."}]}]],ExpressionUUID->
+  "964fc239-0cb0-452e-8811-f2c59e6ef0eb"],
+ " "
+}], "Item",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437226663237004`*^9}, {3.8437227485240602`*^9, 3.8437227507212353`*^9}, {
+  3.8437227826980047`*^9, 3.8437229239214315`*^9}, {3.8437230110153933`*^9, 
+  3.8437230286396503`*^9}, {3.8437231632907085`*^9, 3.8437231632907085`*^9}, {
+  3.8437236396770086`*^9, 
+  3.843723845575512*^9}},ExpressionUUID->"51d62661-26c9-44c4-9287-\
+74aee37f9abf"],
+
+Cell["\<\
+Making this all work on a little interval near each fixed point is a little \
+complicated. \
+\>", "Item",
+ CellChangeTimes->{{3.843663962315383*^9, 3.8436640346441483`*^9}, {
+  3.8436640690111094`*^9, 3.8436640695644393`*^9}, {3.843664514052737*^9, 
+  3.843664962590664*^9}, {3.8436650202584753`*^9, 3.843665052539878*^9}, {
+  3.8437222523546195`*^9, 3.843722252713869*^9}, {3.843722324185525*^9, 
+  3.8437226663237004`*^9}, {3.8437227485240602`*^9, 3.8437227507212353`*^9}, {
+  3.8437227826980047`*^9, 3.8437229239214315`*^9}, {3.8437230110153933`*^9, 
+  3.8437230286396503`*^9}, {3.8437231632907085`*^9, 3.8437231632907085`*^9}, {
+  3.843723862720172*^9, 3.843723896405902*^9}, {3.8437245250940294`*^9, 
+  3.8437245298957253`*^9}},ExpressionUUID->"025e8835-41d4-41e7-a517-\
+f2fbb8a6bb3c"],
+
+Cell[TextData[{
+ "Putting this together a fixed point ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "*"], "=", 
+    RowBox[{"g", "[", 
+     SubscriptBox["p", "*"], "]"}]}], TraditionalForm]],
+  InitializationCell->True,ExpressionUUID->
+  "9b608f93-51d7-489e-8630-ac0e9626809f"],
+ " of a smooth function g is stable if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"|", 
+    RowBox[{
+     RowBox[{"g", "'"}], "[", 
+     SubscriptBox["p", "*"], "]"}], "|", 
+    RowBox[{"\[LessEqual]", "L", "<", "1"}]}], TraditionalForm]],
+  ExpressionUUID->"0b9031cc-8c44-4511-8e20-388dde40ffdc"],
+ " for ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],ExpressionUUID->
+  "65ac1c48-01e3-430b-8fbe-36cb409de198"],
+ " near ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "*"], TraditionalForm]],ExpressionUUID->
+  "3a204312-9389-4dce-a63d-acd28f1e518e"],
+ ".   This means we can tell the difference between stable and unstable \
+periodic points.  "
+}], "Text",
+ CellChangeTimes->{{3.843724561333374*^9, 3.8437247783798447`*^9}, {
+  3.84375040976355*^9, 
+  3.8437504111827707`*^9}},ExpressionUUID->"0ccb6436-14fc-4a8c-adbd-\
+98ad2cb91262"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculus and Periodic Points", "Section",
+ CellChangeTimes->{{3.843659718948833*^9, 
+  3.843659737021468*^9}},ExpressionUUID->"ad52f609-d84a-443f-a046-\
+89dfeca47ed6"],
+
+Cell[TextData[{
+ "Once more a period ",
+ Cell[BoxData[
+  FormBox["2", TraditionalForm]],ExpressionUUID->
+  "412b262e-54aa-46d9-8fbb-c3becfbb5cc7"],
+ " solution satisfies\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], "[", 
+     RowBox[{
+      RowBox[{"f", "[", "r", "]"}], "[", "p", "]"}], "]"}], "=", "p"}], 
+   TraditionalForm]],ExpressionUUID->"f94a243f-e8e1-435a-ac59-02f9ec3708ce"],
+ "\nor as we have been writing it in the computer \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"Nest", "[", 
+     RowBox[{
+      RowBox[{"f", "[", "r", "]"}], ",", "p", ",", "2"}], "]"}], "==", "p"}], 
+   TraditionalForm]],ExpressionUUID->"d0b3e7b6-8262-45f9-afa5-1983b40bfd25"],
+ ".\nHere is our visualization again! We now know how to tell is a period two \
+point is stable!  As noted it would be cool to find out how big the stability \
+region is. "
+}], "Text",
+ CellChangeTimes->{{3.8436597403011417`*^9, 3.8436598495890656`*^9}, {
+  3.843660176229474*^9, 3.8436602634445314`*^9}, {3.843726171753542*^9, 
+  3.8437261929297047`*^9}},ExpressionUUID->"6ca018ec-5bb5-40e1-b399-\
+087248b3d6af"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", 
+  RowBox[{"g", ",", "r", ",", "x"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"g", "[", "r_", "]"}], "[", "x_", "]"}], ":=", 
+   RowBox[{"Nest", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], ",", "x", ",", "p"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", " ", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "'"}], "[", "x", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "2", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"FrameLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<r\>\"", ",", "\"\<x\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<Period ``\>\"", ",", "p"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Contours", "->", 
+      RowBox[{"{", "1", "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourShading", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"LightGreen", ",", "LightRed"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "[", "x", "]"}], "-", "x"}], " ", "==", 
+      "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "2", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourStyle", "\[Rule]", "Blue"}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.8436598681754436`*^9, 3.84366009005294*^9}, {
+  3.8436601546285295`*^9, 3.843660164243697*^9}, {3.8437258304426546`*^9, 
+  3.843725834963595*^9}, {3.8437259213298473`*^9, 3.843726121059845*^9}, {
+  3.843726198484929*^9, 3.8437263377712355`*^9}},
+ CellLabel->"In[44]:=",ExpressionUUID->"1dc7e0cf-366d-4d26-97e3-b85622bd2ece"],
+
+Cell[TextData[{
+ "Once we have thought about it correctly we should be able to do other \
+values of ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1166d923-8416-4a8b-8565-2e15f762ac65"],
+ ".  Here is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", "4"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1758a24f-dd65-44cb-a169-d90cd7e2208e"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.8437263613548255`*^9, 3.8437263860188055`*^9}, {
+  3.8437264518036346`*^9, 
+  3.8437264573866053`*^9}},ExpressionUUID->"f4056e99-d1d2-4cd0-9114-\
+0c088d50f2f9"],
+
+Cell[CellGroupData[{
+
+Cell["Order 4", "Subsection",
+ CellChangeTimes->{{3.8437279171862183`*^9, 
+  3.8437279371305113`*^9}},ExpressionUUID->"e995275f-98c0-4aa5-81cc-\
+47bfd13c489c"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", 
+  RowBox[{"g", ",", "r", ",", "x"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p", "=", "4"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"g", "[", "r_", "]"}], "[", "x_", "]"}], ":=", 
+   RowBox[{"Nest", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], ",", "x", ",", "p"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", " ", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "'"}], "[", "x", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "2", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"FrameLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<r\>\"", ",", "\"\<x\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "50"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<Period ``\>\"", ",", "p"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Contours", "->", 
+      RowBox[{"{", "1", "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourShading", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"LightGreen", ",", "LightRed"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "[", "x", "]"}], "-", "x"}], " ", "==", 
+      "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "2", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourStyle", "\[Rule]", "Blue"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "50"}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.8436598681754436`*^9, 3.84366009005294*^9}, {
+  3.8436601546285295`*^9, 3.843660164243697*^9}, {3.8437258304426546`*^9, 
+  3.843725834963595*^9}, {3.8437259213298473`*^9, 3.843726121059845*^9}, {
+  3.843726198484929*^9, 3.8437263377712355`*^9}, {3.84372638893969*^9, 
+  3.843726425004283*^9}},
+ CellLabel->"In[48]:=",ExpressionUUID->"84067474-a7d5-457a-b57a-07b9128034d5"],
+
+Cell["\<\
+We need to zoom in to see detail. The stability window is tiny at some \
+points! \
+\>", "Text",
+ CellChangeTimes->{{3.8437264653871546`*^9, 3.8437264811929073`*^9}, {
+  3.8437265563066683`*^9, 
+  3.8437265700272703`*^9}},ExpressionUUID->"d9e0a045-fd60-410f-afd7-\
+98fab085671e"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", 
+  RowBox[{"g", ",", "r", ",", "x"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p", "=", "4"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"g", "[", "r_", "]"}], "[", "x_", "]"}], ":=", 
+   RowBox[{"Nest", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], ",", "x", ",", "p"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", " ", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "'"}], "[", "x", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3.3", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "0.5"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"FrameLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<r\>\"", ",", "\"\<x\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "50"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<Period ``\>\"", ",", "p"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Contours", "->", 
+      RowBox[{"{", "1", "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourShading", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"LightGreen", ",", "LightRed"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "[", "x", "]"}], "-", "x"}], " ", "==", 
+      "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3.3", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "0.5"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ContourStyle", "\[Rule]", "Blue"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "50"}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.8436598681754436`*^9, 3.84366009005294*^9}, {
+  3.8436601546285295`*^9, 3.843660164243697*^9}, {3.8437258304426546`*^9, 
+  3.843725834963595*^9}, {3.8437259213298473`*^9, 3.843726121059845*^9}, {
+  3.843726198484929*^9, 3.8437263377712355`*^9}, {3.84372638893969*^9, 
+  3.843726425004283*^9}, {3.8437264883348355`*^9, 3.843726533314227*^9}},
+ CellLabel->"In[52]:=",ExpressionUUID->"e9997e47-689e-4626-ad26-8cf910e57a97"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Order 3", "Subsection",
+ CellChangeTimes->{{3.8437279171862183`*^9, 
+  3.8437279188272853`*^9}},ExpressionUUID->"c1117fda-1a8b-43c4-bb36-\
+8357949cbac5"],
+
+Cell["\<\
+We have been interested in order 3!  Looks like we would need to be very \
+careful near the top value.\
+\>", "Text",
+ CellChangeTimes->{{3.843726613106074*^9, 3.843726640748116*^9}, {
+  3.843726718761241*^9, 
+  3.843726749730035*^9}},ExpressionUUID->"8755ea09-93c6-45b8-8bac-\
+252ef2ca9baa"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", 
+  RowBox[{"g", ",", "r", ",", "x"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"g", "[", "r_", "]"}], "[", "x_", "]"}], ":=", 
+   RowBox[{"Nest", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], ",", "x", ",", "p"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", " ", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "'"}], "[", "x", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"FrameLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<r\>\"", ",", "\"\<x\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<Period ``\>\"", ",", "p"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Contours", "->", 
+      RowBox[{"{", "1", "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourShading", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"LightGreen", ",", "LightRed"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "[", "x", "]"}], "-", "x"}], " ", "==", 
+      "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3", ",", "4.5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourStyle", "\[Rule]", "Blue"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "50"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Epilog", "->", " ", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3.832", ",", "0.1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3.832", ",", "1"}], "}"}]}], "}"}], "]"}]}]}], 
+  "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.8436598681754436`*^9, 3.84366009005294*^9}, {
+  3.8436601546285295`*^9, 3.843660164243697*^9}, {3.8437258304426546`*^9, 
+  3.843725834963595*^9}, {3.8437259213298473`*^9, 3.843726121059845*^9}, {
+  3.843726198484929*^9, 3.8437263377712355`*^9}, {3.84372638893969*^9, 
+  3.843726425004283*^9}, {3.8437266327472305`*^9, 3.843726632946734*^9}, {
+  3.843726667247778*^9, 3.843726699321951*^9}, {3.8437267912064724`*^9, 
+  3.843726895122307*^9}},
+ CellLabel->"In[56]:=",ExpressionUUID->"a6254976-fb1e-4fca-a6c7-6363864d920d"],
+
+Cell["\<\
+Lets use all our new stuff to find a stable period 3 orbit.  Here is a close \
+up\
+\>", "Text",
+ CellChangeTimes->{{3.843726905842721*^9, 3.8437269334733505`*^9}, {
+  3.843727061656727*^9, 
+  3.8437270647940226`*^9}},ExpressionUUID->"8805ff17-8361-4c29-a267-\
+a92a38f80b03"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", 
+  RowBox[{"g", ",", "r", ",", "x"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"g", "[", "r_", "]"}], "[", "x_", "]"}], ":=", 
+   RowBox[{"Nest", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], ",", "x", ",", "p"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", " ", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "'"}], "[", "x", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3.8", ",", "3.85"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"FrameLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<r\>\"", ",", "\"\<x\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<Period ``\>\"", ",", "p"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Contours", "->", 
+      RowBox[{"{", "1", "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourShading", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"LightGreen", ",", "LightRed"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "[", "x", "]"}], "-", "x"}], " ", "==", 
+      "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3.8", ",", "3.85"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.1", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourStyle", "\[Rule]", "Blue"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "200"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Epilog", "->", " ", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3.831", ",", "0.1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3.831", ",", "1"}], "}"}]}], "}"}], "]"}]}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.843726961453638*^9, 3.8437270504895344`*^9}, {
+  3.8437270937408233`*^9, 3.843727094454407*^9}},
+ CellLabel->"In[60]:=",ExpressionUUID->"6f734361-3f76-4f20-9342-cd315bfe7730"],
+
+Cell["Here is an extreme close up.", "Text",
+ CellChangeTimes->{{3.8437271252008457`*^9, 
+  3.8437271328403707`*^9}},ExpressionUUID->"86b30882-5fe7-4273-97b7-\
+b3221d36a57a"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", 
+  RowBox[{"g", ",", "r", ",", "x"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"p", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"g", "[", "r_", "]"}], "[", "x_", "]"}], ":=", 
+   RowBox[{"Nest", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r", "]"}], ",", "x", ",", "p"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", " ", 
+    RowBox[{
+     RowBox[{"Abs", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "'"}], "[", "x", "]"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3.8", ",", "3.85"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.9", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"FrameLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<r\>\"", ",", "\"\<x\>\""}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "100"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", 
+      RowBox[{"StringForm", "[", 
+       RowBox[{"\"\<Period ``\>\"", ",", "p"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Contours", "->", 
+      RowBox[{"{", "1", "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourShading", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"LightGreen", ",", "LightRed"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ContourPlot", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"g", "[", "r", "]"}], "[", "x", "]"}], "-", "x"}], " ", "==", 
+      "0"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"r", ",", "3.8", ",", "3.85"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0.9", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ContourStyle", "\[Rule]", "Blue"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"PlotPoints", "\[Rule]", "200"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Epilog", "->", " ", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3.831", ",", "0.1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3.831", ",", "1"}], "}"}]}], "}"}], "]"}]}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.843726961453638*^9, 3.8437270504895344`*^9}, {
+  3.8437270937408233`*^9, 3.843727094454407*^9}, {3.843727145507409*^9, 
+  3.8437271504074097`*^9}},
+ CellLabel->"In[64]:=",ExpressionUUID->"0f9eef52-8fb9-41f8-957c-7d9f8056d0c3"],
+
+Cell["Hopefully this does not need extreme accuracy!", "Text",
+ CellChangeTimes->{{3.843727435705021*^9, 
+  3.8437274516266694`*^9}},ExpressionUUID->"5669f7dd-812d-431f-a2f7-\
+b8052d8548e7"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"p", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"g", "[", "r_", "]"}], "[", "x_", "]"}], ":=", 
+  RowBox[{"Nest", "[", 
+   RowBox[{
+    RowBox[{"f", "[", "r", "]"}], ",", "x", ",", "p"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"r0", "=", "3.831"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"x", "/.", 
+  RowBox[{"NSolve", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"g", "[", "r0", "]"}], "[", "x", "]"}], "==", "x"}], ",", "x", 
+    ",", "Reals"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.843726760501093*^9, 3.8437267868437514`*^9}, {
+  3.843727188800664*^9, 3.843727325171023*^9}, {3.8437273590977364`*^9, 
+  3.8437273688909874`*^9}},
+ CellLabel->"In[72]:=",ExpressionUUID->"9d673c9a-84c1-4702-b0ab-5e1b3c00fe7c"],
+
+Cell["\<\
+Lets see if it works!  It seems to head for the stable period 3 solution\
+\>", "Text",
+ CellChangeTimes->{{3.843727804353162*^9, 3.843727827674957*^9}, {
+  3.843729061930993*^9, 3.8437290807216024`*^9}, {3.843729206096389*^9, 
+  3.8437292437464314`*^9}},ExpressionUUID->"c4a38521-5dbb-46d6-a571-\
+ee676e29b154"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"MaxIter", "=", "123"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"\[Epsilon]", " ", "=", " ", 
+  RowBox[{"+", "0.04"}]}], "\[IndentingNewLine]", 
+ RowBox[{"x0", "=", 
+  RowBox[{"0.9577353242916914`", "+", "\[Epsilon]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Points", " ", "=", 
+   RowBox[{"NestList", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r0", "]"}], ",", "x0", ",", "MaxIter"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"NestList", "[", 
+    RowBox[{
+     RowBox[{"f", "[", "r0", "]"}], ",", "x0", ",", "MaxIter"}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Mesh", "->", "All"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Joined", "->", "True"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"PlotStyle", "\[Rule]", "Dashed"}]}], "\[IndentingNewLine]", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.84372733936664*^9, 3.843727424955855*^9}, {
+  3.843727467643676*^9, 3.8437275428426647`*^9}, {3.8437275938815823`*^9, 
+  3.84372769033142*^9}, {3.843727722256282*^9, 3.84372779109089*^9}, {
+  3.8437290907399244`*^9, 3.843729194570794*^9}, {3.843729252586528*^9, 
+  3.843729326723708*^9}, {3.843751209342762*^9, 3.843751322373496*^9}, {
+  3.8437514092860403`*^9, 3.843751455756951*^9}},
+ CellLabel->
+  "In[128]:=",ExpressionUUID->"29b0cade-ea1e-421c-bfb7-208988ef52d4"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1141.2, 548.4},
+WindowMargins->{{0, Automatic}, {Automatic, 13.2}},
+TaggingRules->Association["TryRealOnly" -> False],
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"b147a63f-8f75-4e3a-b437-23c3d853601e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 276, 4, 146, "Title",ExpressionUUID->"57b8184d-9fed-421d-a8bb-2b34c93a613d"],
+Cell[859, 28, 1293, 32, 190, "Text",ExpressionUUID->"e938b877-f743-4be2-8417-f82999562190"],
+Cell[2155, 62, 186, 3, 52, "Text",ExpressionUUID->"3ce82336-1499-45b4-a17c-4ea754eba615"],
+Cell[CellGroupData[{
+Cell[2366, 69, 158, 3, 100, "Section",ExpressionUUID->"22c24af5-2ae8-4f59-9a77-47a99aac5b64"],
+Cell[2527, 74, 184, 3, 52, "Text",ExpressionUUID->"a2885193-b906-43f2-8977-06acc8d0f1d5"],
+Cell[2714, 79, 2841, 66, 357, "Input",ExpressionUUID->"08c5d593-73a2-43bc-be76-8b62f2f7faa7"],
+Cell[5558, 147, 349, 7, 52, "Text",ExpressionUUID->"b2c4709d-b66a-4e53-8b37-ac03d1f4301a"],
+Cell[5910, 156, 3617, 92, 443, "Input",ExpressionUUID->"b4048c63-c4a8-4256-9656-6ac554201cc2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9564, 253, 223, 4, 100, "Section",ExpressionUUID->"c6691282-081c-4206-95e6-1045f61fd11c"],
+Cell[9790, 259, 1587, 44, 156, "Text",ExpressionUUID->"58809c8c-cff6-43ce-a72a-5d04f61d2892"],
+Cell[11380, 305, 2982, 71, 386, "Input",ExpressionUUID->"149b7af1-ca90-4983-baab-e352f89f901c"],
+Cell[14365, 378, 243, 6, 52, "Text",ExpressionUUID->"50a0e836-f178-47fc-8c78-33c27a484069"],
+Cell[14611, 386, 3601, 100, 443, "Input",ExpressionUUID->"20f200b5-1c16-4c23-a1aa-1aa09a4188f6"],
+Cell[18215, 488, 878, 19, 121, "Text",ExpressionUUID->"9a3067ed-6578-439b-bfac-16fa45d5b8d0"],
+Cell[19096, 509, 1112, 30, 79, "Item",ExpressionUUID->"ecee6da2-0b04-426e-bf2b-811c02edaf2e"],
+Cell[CellGroupData[{
+Cell[20233, 543, 2778, 81, 144, "Item",ExpressionUUID->"fc1abf60-4e0a-4afc-9ded-d6d4f4bfa102"],
+Cell[23014, 626, 749, 10, 39, "Subitem",ExpressionUUID->"8117389a-068d-440b-b374-8538830071d1"],
+Cell[23766, 638, 950, 17, 67, "Subitem",ExpressionUUID->"a5dc8fe7-a85b-44e2-9e00-1e865a818352"],
+Cell[24719, 657, 1005, 17, 67, "Subitem",ExpressionUUID->"69bab950-48a7-4560-8349-13a5898d5d2d"]
+}, Open  ]],
+Cell[25739, 677, 2193, 62, 79, "Item",ExpressionUUID->"51d62661-26c9-44c4-9287-74aee37f9abf"],
+Cell[27935, 741, 800, 13, 48, "Item",ExpressionUUID->"025e8835-41d4-41e7-a517-f2fbb8a6bb3c"],
+Cell[28738, 756, 1135, 34, 87, "Text",ExpressionUUID->"0ccb6436-14fc-4a8c-adbd-98ad2cb91262"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29910, 795, 173, 3, 100, "Section",ExpressionUUID->"ad52f609-d84a-443f-a046-89dfeca47ed6"],
+Cell[30086, 800, 1138, 29, 225, "Text",ExpressionUUID->"6ca018ec-5bb5-40e1-b399-087248b3d6af"],
+Cell[31227, 831, 2252, 56, 414, "Input",ExpressionUUID->"1dc7e0cf-366d-4d26-97e3-b85622bd2ece"],
+Cell[33482, 889, 621, 18, 52, "Text",ExpressionUUID->"f4056e99-d1d2-4cd0-9114-0c088d50f2f9"],
+Cell[CellGroupData[{
+Cell[34128, 911, 159, 3, 81, "Subsection",ExpressionUUID->"e995275f-98c0-4aa5-81cc-47bfd13c489c"],
+Cell[34290, 916, 2450, 59, 471, "Input",ExpressionUUID->"84067474-a7d5-457a-b57a-07b9128034d5"],
+Cell[36743, 977, 288, 7, 52, "Text",ExpressionUUID->"d9e0a045-fd60-410f-afd7-98fab085671e"],
+Cell[37034, 986, 2518, 61, 471, "Input",ExpressionUUID->"e9997e47-689e-4626-ad26-8cf910e57a97"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39589, 1052, 159, 3, 81, "Subsection",ExpressionUUID->"c1117fda-1a8b-43c4-bb36-8357949cbac5"],
+Cell[39751, 1057, 301, 7, 52, "Text",ExpressionUUID->"8755ea09-93c6-45b8-8bac-252ef2ca9baa"],
+Cell[40055, 1066, 2881, 70, 500, "Input",ExpressionUUID->"a6254976-fb1e-4fca-a6c7-6363864d920d"],
+Cell[42939, 1138, 284, 7, 52, "Text",ExpressionUUID->"8805ff17-8361-4c29-a267-a92a38f80b03"],
+Cell[43226, 1147, 2520, 65, 471, "Input",ExpressionUUID->"6f734361-3f76-4f20-9342-cd315bfe7730"],
+Cell[45749, 1214, 174, 3, 52, "Text",ExpressionUUID->"86b30882-5fe7-4273-97b7-b3221d36a57a"],
+Cell[45926, 1219, 2571, 66, 471, "Input",ExpressionUUID->"0f9eef52-8fb9-41f8-957c-7d9f8056d0c3"],
+Cell[48500, 1287, 190, 3, 52, "Text",ExpressionUUID->"5669f7dd-812d-431f-a2f7-b8052d8548e7"],
+Cell[48693, 1292, 817, 22, 129, "Input",ExpressionUUID->"9d673c9a-84c1-4702-b0ab-5e1b3c00fe7c"],
+Cell[49513, 1316, 321, 6, 52, "Text",ExpressionUUID->"c4a38521-5dbb-46d6-a571-ee676e29b154"],
+Cell[49837, 1324, 1393, 30, 300, "Input",ExpressionUUID->"29b0cade-ea1e-421c-bfb7-208988ef52d4"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
