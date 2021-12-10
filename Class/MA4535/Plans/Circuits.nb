@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      2284,         65]
-NotebookOptionsPosition[      1725,         46]
-NotebookOutlinePosition[      2209,         64]
-CellTagsIndexPosition[      2166,         61]
+NotebookDataLength[      2321,         66]
+NotebookOptionsPosition[      1762,         47]
+NotebookOutlinePosition[      2246,         65]
+CellTagsIndexPosition[      2203,         62]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -34,13 +34,14 @@ circuits that are much cheaper.  The difference is 4 quadrant versus two \
 quadrant: this mean signs!  An example is \[OpenCurlyDoubleQuote]GT4123BCDA\
 \[CloseCurlyDoubleQuote].  Spec sheets for both are in this directory. 
 
-There should be a menagerie of chaotic circuits using these chips. \
+There should be a menagerie of chaotic circuits using these chips.  Certainly \
+Rosseler and Lorentz. \
 \>", "Text",
  CellChangeTimes->{{3.8480440757467265`*^9, 3.8480440781928034`*^9}, {
   3.8480443114389057`*^9, 3.8480443128547893`*^9}, {3.848142579638158*^9, 
   3.8481426650221577`*^9}, {3.8481427877617397`*^9, 3.848142859034043*^9}, {
   3.848143015106017*^9, 3.848143027480229*^9}, {3.848143096723195*^9, 
-  3.848143157387996*^9}},ExpressionUUID->"4c0a39a4-0142-48b3-8b08-\
+  3.8481431781127853`*^9}},ExpressionUUID->"4c0a39a4-0142-48b3-8b08-\
 dafded9a9dfe"]
 }, Open  ]]
 },
@@ -65,7 +66,7 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 216, 4, 98, "Title",ExpressionUUID->"aca35ae4-10dc-40f8-8bf1-f99753062b07"],
-Cell[799, 28, 910, 15, 127, "Text",ExpressionUUID->"4c0a39a4-0142-48b3-8b08-dafded9a9dfe"]
+Cell[799, 28, 947, 16, 127, "Text",ExpressionUUID->"4c0a39a4-0142-48b3-8b08-dafded9a9dfe"]
 }, Open  ]]
 }
 ]
