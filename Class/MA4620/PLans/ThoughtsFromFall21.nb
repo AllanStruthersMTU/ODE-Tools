@@ -1,0 +1,643 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     26445,        635]
+NotebookOptionsPosition[     21625,        554]
+NotebookOutlinePosition[     22076,        572]
+CellTagsIndexPosition[     22033,        569]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Fall 2021", "Title",
+ CellChangeTimes->{{3.843392844148251*^9, 3.8433928580497227`*^9}, {
+  3.848226007895575*^9, 
+  3.848226009677524*^9}},ExpressionUUID->"37f704e5-f688-496c-9766-\
+8ee2fb97dae4"],
+
+Cell[CellGroupData[{
+
+Cell["General Thoughts", "Section",
+ CellChangeTimes->{{3.848226679797*^9, 
+  3.84822669220648*^9}},ExpressionUUID->"5aa491ed-bb0c-4cd6-96e1-\
+2ea2847c0cc1"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Julia was easy for everyone to install and straightforward to use.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226045263206*^9}, {
+  3.8482265330766*^9, 3.848226533078322*^9}, {3.848226696792829*^9, 
+  3.84822671100281*^9}},ExpressionUUID->"002d87df-503d-4602-9b40-\
+08d56bc6aa8b"],
+
+Cell["\<\
+Tutorials for GridApp would be a nice publication venue for student projects. \
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226045263206*^9}, {
+  3.8482265330766*^9, 3.848226533078322*^9}, {3.848226696792829*^9, 
+  3.848226741510947*^9}},ExpressionUUID->"aa711d53-d757-4dc6-b0ce-\
+b645d7b12257"]
+}, Open  ]],
+
+Cell["Fenics was not!", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226045263206*^9}, {
+  3.8482265330766*^9, 3.848226533078322*^9}, {3.848226699286652*^9, 
+  3.848226702086474*^9}},ExpressionUUID->"ed5c4345-d830-42ed-8041-\
+74b84fc04f7f"],
+
+Cell["\<\
+It seems to be worth while to have Mathematica and Julia/GridApp\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226045263206*^9}, {
+  3.8482265382489443`*^9, 
+  3.848226569987976*^9}},ExpressionUUID->"46eee634-a274-4df5-89ef-\
+84b074019a54"],
+
+Cell[CellGroupData[{
+
+Cell["They all struggled with meshing! ", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226045263206*^9}, {
+  3.8482265382489443`*^9, 
+  3.848226599154022*^9}},ExpressionUUID->"2648aee5-3f15-4b96-bd46-\
+103f3f3d68b1"],
+
+Cell["2D was much easier than 3D", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226045263206*^9}, {
+  3.8482265382489443`*^9, 
+  3.8482266138317413`*^9}},ExpressionUUID->"b5983724-d681-4ca5-9d8f-\
+962fcb9ff5b0"],
+
+Cell["Do one 3D example. ", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226045263206*^9}, {
+  3.8482265382489443`*^9, 
+  3.848226627039913*^9}},ExpressionUUID->"1eb40aad-35cb-44e2-b5b0-\
+1a1221764c33"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Chaldni plates would provide a nice clean set of problems. ", \
+"ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226186022616*^9, 
+  3.848226186023757*^9}},ExpressionUUID->"4f283840-0c4e-4f31-a39e-\
+945aeee99442"],
+
+Cell["\<\
+There is lots of \[OpenCurlyDoubleQuote]confusion and crap\
+\[CloseCurlyDoubleQuote] about the plates on the web.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.848226224710977*^9}, {3.848226632466268*^9, 
+  3.8482266324665213`*^9}},ExpressionUUID->"542f12c0-9b5d-4105-ba9a-\
+0034a066dc1b"],
+
+Cell["\<\
+Lots of beautiful pics including on Chaldni\[CloseCurlyQuote]s wiki page.  \
+Lots of regular polygons punched in the middle.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.848226224710977*^9}, {3.848226633647586*^9, 
+  3.848226657487337*^9}, {3.848226747438224*^9, 
+  3.8482267864726477`*^9}},ExpressionUUID->"c33adadd-3b97-4f92-b089-\
+7f0720cd3826"],
+
+Cell["\<\
+There does not seem to be a frequency sweep of a single plate anywhere!\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.848226224710977*^9}, {3.848226633647586*^9, 
+  3.848226657487337*^9}, {3.848226747438224*^9, 3.848226806781057*^9}, {
+  3.848227005715982*^9, 
+  3.848227005716365*^9}},ExpressionUUID->"f7c031e7-e7d6-47fd-8e62-\
+d03afa76def4"],
+
+Cell["\<\
+The central \[OpenCurlyDoubleQuote]built-in\[CloseCurlyDoubleQuote] point \
+support in all the experiments is very easy! \
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.848226224710977*^9}, {3.848226633647586*^9, 
+  3.848226657487337*^9}, {3.848226747438224*^9, 3.848226806781057*^9}, {
+  3.848227006322947*^9, 
+  3.8482270450731688`*^9}},ExpressionUUID->"be4d81bc-5766-40de-a967-\
+20bc1996aa7d"],
+
+Cell["\<\
+Even the good things are either very old (original articles 1938) or very \
+coarse (see royal society Xmas lecture video) \
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226816503973*^9, 
+  3.848226816504307*^9}},ExpressionUUID->"45e01782-45fc-4a11-b78c-\
+810bb9e546f9"],
+
+Cell["\<\
+There does not seem to be a nice eigenvalue computation anywhere. \
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.848226870273548*^9}},ExpressionUUID->"fb73715f-5ca7-489d-b231-\
+539346ad658e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Students needed much more scaffolding than before!  ", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.8482269137108803`*^9}},ExpressionUUID->"163ac914-7446-4970-9099-\
+d15d8a87b8d5"],
+
+Cell["I blame the plague!", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.848226918335428*^9}},ExpressionUUID->"f77d1218-de34-4a32-bdad-\
+3eb20bac5737"],
+
+Cell["\<\
+I did not provide enough early nagging or individual assignments.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.848226952694693*^9}},ExpressionUUID->"d3f3710b-92fc-45f9-96e5-\
+94422aa37ce9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Julia does static condensation!  FENICS (and FreeFEM) do not which makes \
+interpreting the eigenvectors easy\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.8482269137108803`*^9}, {3.848227264988597*^9, 3.848227274508313*^9}, {
+  3.8482273644669447`*^9, 
+  3.8482274002984247`*^9}},ExpressionUUID->"72f49120-ef06-45df-935c-\
+9fd3201e8747"],
+
+Cell["In Julia the mesh points do not match the eigenvector size.", \
+"SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.848226918335428*^9}, {3.848227288739869*^9, 3.848227305267713*^9}, {
+  3.848227405034115*^9, 
+  3.848227408905692*^9}},ExpressionUUID->"33b3554b-9ac3-450d-828f-\
+cbc75fc28ed2"],
+
+Cell["\<\
+I do not know yet if the \[OpenCurlyDoubleQuote]order\[CloseCurlyDoubleQuote] \
+of the non-boundary points is preserved.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.848226952694693*^9}, {3.84822730993174*^9, 
+  3.8482273368933077`*^9}},ExpressionUUID->"3f3d3d09-162d-4153-88a6-\
+8177bb48114d"],
+
+Cell["\<\
+It is not a good idea to rely on this even if it is preserved in the current \
+version.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.848226952694693*^9}, {3.84822730993174*^9, 
+  3.848227360410912*^9}},ExpressionUUID->"96484c35-3445-4c8a-9542-\
+8e4d879b0107"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" Chaldni Plates", "Section",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226072063346*^9}, {
+  3.848226198035942*^9, 3.8482262813514223`*^9}, {3.848226817005427*^9, 
+  3.848226976338592*^9}},ExpressionUUID->"60dde3b9-a9dc-48e4-bbda-\
+6f34f396eaf3"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+A Julia DG implementation for Biharmonic is described here \
+https://balaje.github.io/2021/07/25/Mixed-DG-Biharmonic.html.  \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226141623123*^9}, {
+  3.848226289742159*^9, 3.8482263114838037`*^9}, {3.848226508256997*^9, 
+  3.848226509641593*^9}},ExpressionUUID->"c3434e09-8324-4a17-a016-\
+5867dcc0aea3"],
+
+Cell["\<\
+I believe the code from it is in the Chaldni plates directory. There is no \
+eigenvalue computations.\
+\>", "SubsubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226162632135*^9}, {
+  3.848226525441286*^9, 3.848226530185555*^9}, {3.848226671563588*^9, 
+  3.848226671563835*^9}, {3.8482271815046663`*^9, 3.8482271817318897`*^9}, {
+  3.848227432339984*^9, 
+  3.848227436465811*^9}},ExpressionUUID->"af9be867-2c55-48f3-b8bd-\
+8acb8606413f"],
+
+Cell["\<\
+The code is a penalized mixed method.  As always, the issue is choosing the \
+penalization!   \
+\>", "SubsubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226162632135*^9}, {
+  3.848226525441286*^9, 3.848226530185555*^9}, {3.848226671563588*^9, 
+  3.848226671563835*^9}, {3.8482271815046663`*^9, 
+  3.848227227357576*^9}},ExpressionUUID->"73d45afa-94ec-423a-be77-\
+4982cd20139c"]
+}, Open  ]],
+
+Cell["\<\
+I believe a complex potential should be accessible to students and \
+implementable in Julia.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226162632135*^9}, {
+  3.848226525441286*^9, 3.848226530185555*^9}, {3.848226986867093*^9, 
+  3.848226994330159*^9}, {3.848227066905183*^9, 
+  3.848227113251525*^9}},ExpressionUUID->"a22092e5-23fd-4dc4-8360-\
+df2f57e15b0b"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+I believe a direct computation should be accessible in Julia! \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226162632135*^9}, {
+  3.848226525441286*^9, 3.848226530185555*^9}, {3.848226986867093*^9, 
+  3.848226994330159*^9}, {3.848227066905183*^9, 
+  3.848227175012912*^9}},ExpressionUUID->"be397e1c-2d96-40eb-9b63-\
+58c0742ce456"],
+
+Cell["\<\
+GridApp claims an impressive menagerie of elements.   This would make a \
+direct eigenvalue computation.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226162632135*^9}, {
+  3.848226525441286*^9, 3.848226530185555*^9}, {3.848226986867093*^9, 
+  3.848226994330159*^9}, {3.848227066905183*^9, 3.848227165997108*^9}, {
+  3.848227241901086*^9, 
+  3.848227254948769*^9}},ExpressionUUID->"233ae436-6fdb-42e8-95f0-\
+acb0c01ca799"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+A direct minimization of the appropriate energy functional is possible. \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+  3.848227440657661*^9, 3.848227494836728*^9}, {3.848228218321826*^9, 
+  3.8482282517365637`*^9}},ExpressionUUID->"ad08866c-31a8-488c-9646-\
+c8485701ba39"],
+
+Cell["\<\
+The potential is standard and easy see the Gander and Wanner SIAM Review  \
+https://www.unige.ch/~gander/Preprints/Ritz.pdf from 2012.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+  3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+  3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, {
+  3.848228193722946*^9, 
+  3.848228194093494*^9}},ExpressionUUID->"224c3c5e-ed29-42db-a219-\
+caf4cf3c5572"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+For a square plate they use polynomials and the products of eigen functions \
+of one dimensional rods with appropriate boundary conditions. \
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 
+   3.84822856487215*^9}},ExpressionUUID->"3ae426c1-b684-49a8-a866-\
+095f9081b007"],
+
+Cell["This technique is from Ritz (won him a challenge prize) ", \
+"SubsubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 3.848228586659955*^9}, {
+   3.84822862060462*^9, 3.848228638331991*^9}, {3.848228674510921*^9, 
+   3.848228674511889*^9}},ExpressionUUID->"1a53701d-5071-4372-b4ee-\
+1595c03f717a"],
+
+Cell["\<\
+The linear system with the one dimensional rods is strongly diagonally \
+dominant.\
+\>", "SubsubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 3.848228586659955*^9}, {
+   3.84822862060462*^9, 3.848228638331991*^9}, {3.8482286756512403`*^9, 
+   3.848228708651566*^9}, {3.8482289366601562`*^9, 
+   3.8482289366611357`*^9}},ExpressionUUID->"ebf29d70-7cf7-4e46-9138-\
+9e24d97cd41e"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+AAS Thought: If one dimensional eigenfunctions (for rods) work well then \
+eigenvalues of the Laplacian might work better! \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 3.848228586659955*^9}, {
+   3.84822862060462*^9, 3.848228638331991*^9}, {3.8482286756512403`*^9, 
+   3.848228708651566*^9}, {3.8482289370117817`*^9, 3.84822902774142*^9}, {
+   3.848229080260351*^9, 3.848229094920938*^9}, {3.848229472202772*^9, 
+   3.848229472203147*^9}},ExpressionUUID->"8eb759d4-e42c-4c1e-b9ec-\
+3f8ed2c96f78"],
+
+Cell[TextData[{
+ "I want to solve ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalDelta]", 
+     RowBox[{"(", "\[CapitalDelta]w", ")"}]}], "=", 
+    RowBox[{"\[Lambda]", " ", "w"}]}], TraditionalForm]],ExpressionUUID->
+  "a19a869b-b93e-40b2-a646-fd1419b7b266"],
+ " with built-in boundary conditions at the center. I have a complete \
+orthogonal set of eigen functions for the Laplacian ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Phi]", "i"], TraditionalForm]],ExpressionUUID->
+  "8c859b2d-885d-4034-9110-25cc27081e28"],
+ " satisfying ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[CapitalDelta]\[Phi]", "i"], "=", 
+    RowBox[{
+     RowBox[{"-", 
+      SubscriptBox["\[Mu]", "i"]}], 
+     SubscriptBox["\[Phi]", "i"]}]}], TraditionalForm]],ExpressionUUID->
+  "d26b1dfc-1a4e-440b-b29f-8bc65136c183"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[PartialD]", "r"], 
+     RowBox[{
+      SubscriptBox["\[Phi]", "i"], "(", "0", ")"}]}], "=", "0"}], 
+   TraditionalForm]],ExpressionUUID->"d32e93fa-4572-4e04-a996-6502d4528d61"],
+ ". So why not use these as a basis ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"w", "=", 
+    RowBox[{
+     SubscriptBox["\[Sum]", "i"], 
+     RowBox[{
+      SubscriptBox["a", "i"], 
+      SubscriptBox["\[Phi]", "i"]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e3266ffb-573f-437e-b4ba-52e33cda9fbe"],
+ ". "
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 3.848228586659955*^9}, {
+   3.84822862060462*^9, 3.848228638331991*^9}, {3.8482286756512403`*^9, 
+   3.848228708651566*^9}, {3.8482289370117817`*^9, 3.84822902774142*^9}, {
+   3.848229080260351*^9, 3.848229094920938*^9}, {3.8482294772533083`*^9, 
+   3.848229530881743*^9}, {3.848229612051722*^9, 3.848229666771494*^9}, {
+   3.848229716454516*^9, 3.8482297164546757`*^9}, {3.848229838763722*^9, 
+   3.848229839619566*^9}},ExpressionUUID->"a76b92aa-2058-42f3-bb59-\
+8f3659d228bb"],
+
+Cell[TextData[{
+ "Simply plugging in to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalDelta]", 
+     RowBox[{"(", "\[CapitalDelta]w", ")"}]}], "=", 
+    RowBox[{"\[Lambda]", " ", "w"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "540cf306-e0a1-416c-9993-06a0f4f5f13d"],
+ " and using the eigen property gives ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[CapitalDelta]", "(", 
+     RowBox[{"-", 
+      RowBox[{
+       SubscriptBox["\[Sum]", "i"], 
+       RowBox[{
+        SubscriptBox["a", "i"], 
+        SubscriptBox["\[Mu]", "i"], " ", 
+        SubscriptBox["\[Phi]", "i"]}]}]}], ")"}], "=", 
+    RowBox[{"\[Lambda]", " ", 
+     RowBox[{
+      SubscriptBox["\[Sum]", "i"], 
+      RowBox[{
+       SubscriptBox["a", "i"], " ", 
+       SubscriptBox["\[Phi]", "i"]}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "5c6d65c3-4748-4829-8bc6-42e2eaa16aaa"],
+ ". "
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 3.848228586659955*^9}, {
+   3.84822862060462*^9, 3.848228638331991*^9}, {3.8482286756512403`*^9, 
+   3.848228708651566*^9}, {3.8482289370117817`*^9, 3.84822902774142*^9}, {
+   3.848229080260351*^9, 3.848229094920938*^9}, {3.8482294772533083`*^9, 
+   3.8482295118216343`*^9}, {3.8482296714266853`*^9, 3.848229737449361*^9}, {
+   3.84822976822477*^9, 3.84822991084667*^9}, {3.8482299538173923`*^9, 
+   3.848229953817812*^9}, {3.848229992917238*^9, 
+   3.8482299929173613`*^9}},ExpressionUUID->"95ca6203-4e7d-4369-be05-\
+10d4c59c0517"],
+
+Cell[TextData[{
+ "Using the eigen property again gives ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    RowBox[{
+     FormBox[
+      RowBox[{
+       RowBox[{
+        SubscriptBox["\[Sum]", "i"], 
+        RowBox[{
+         SubscriptBox["a", "i"], 
+         SubsuperscriptBox["\[Mu]", "i", "2"], " ", 
+         SubscriptBox["\[Phi]", "i"]}]}], "=", 
+       RowBox[{"\[Lambda]", " ", 
+        RowBox[{
+         SubscriptBox["\[Sum]", "i"], 
+         RowBox[{
+          SubscriptBox["a", "i"], " ", 
+          SubscriptBox["\[Phi]", "i"]}]}]}]}],
+      TraditionalForm], "."}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2321420e-de9a-4b43-866f-8084b2db8740"],
+ "  "
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 3.848228586659955*^9}, {
+   3.84822862060462*^9, 3.848228638331991*^9}, {3.8482286756512403`*^9, 
+   3.848228708651566*^9}, {3.8482289370117817`*^9, 3.84822902774142*^9}, {
+   3.848229080260351*^9, 3.848229094920938*^9}, {3.8482294772533083`*^9, 
+   3.8482295118216343`*^9}, {3.8482296714266853`*^9, 3.848229737449361*^9}, {
+   3.84822976822477*^9, 3.84822991084667*^9}, {3.848229954773978*^9, 
+   3.848230051135869*^9}},ExpressionUUID->"04be59fe-25f1-4052-b87d-\
+5a66f56ed040"],
+
+Cell[TextData[{
+ "Multiplying by ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Phi]", "j"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d5b375ca-f957-4fa5-9ec1-e28c1060a940"],
+ " and integrating gives the conditions that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    FormBox[
+     RowBox[{
+      RowBox[{
+       SubscriptBox["a", "j"], 
+       SubsuperscriptBox["\[Mu]", "j", "2"]}], " ", "=", 
+      RowBox[{"\[Lambda]", " ", 
+       SubscriptBox["a", "i"]}]}],
+     TraditionalForm], "  "}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a04b11d7-f0db-4703-b47f-3866053f7a02"],
+ "which are contradictory!  In other words the Laplacian eigenvalues are not \
+good for this purpose!  Not sure whey but they are not "
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.848226030349749*^9, 3.848226179716607*^9}, {
+   3.848227440657661*^9, 3.8482275301441507`*^9}, {3.8482280060643053`*^9, 
+   3.848228042071002*^9}, {3.8482280771894913`*^9, 3.84822809313728*^9}, 
+   3.848228193722946*^9, {3.848228454181919*^9, 3.848228586659955*^9}, {
+   3.84822862060462*^9, 3.848228638331991*^9}, {3.8482286756512403`*^9, 
+   3.848228708651566*^9}, {3.8482289370117817`*^9, 3.84822902774142*^9}, {
+   3.848229080260351*^9, 3.848229094920938*^9}, {3.8482294772533083`*^9, 
+   3.8482295118216343`*^9}, {3.8482296714266853`*^9, 3.848229737449361*^9}, {
+   3.84822976822477*^9, 3.84822991084667*^9}, {3.848229954773978*^9, 
+   3.848230070007918*^9}, {3.8482302727714787`*^9, 3.848230273433777*^9}, {
+   3.848230334817958*^9, 
+   3.848230441104381*^9}},ExpressionUUID->"b5abfa05-6c9f-439d-b12f-\
+b3a8ef95f21d"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1465, 892},
+WindowMargins->{{1669, Automatic}, {Automatic, 4}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Mac OS X ARM (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"19a9cedf-9b52-46dd-9243-7be09ef93e63"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 203, 4, 146, "Title",ExpressionUUID->"37f704e5-f688-496c-9766-8ee2fb97dae4"],
+Cell[CellGroupData[{
+Cell[808, 30, 157, 3, 101, "Section",ExpressionUUID->"5aa491ed-bb0c-4cd6-96e1-2ea2847c0cc1"],
+Cell[CellGroupData[{
+Cell[990, 37, 316, 6, 48, "ItemNumbered",ExpressionUUID->"002d87df-503d-4602-9b40-08d56bc6aa8b"],
+Cell[1309, 45, 332, 6, 39, "SubitemNumbered",ExpressionUUID->"aa711d53-d757-4dc6-b0ce-b645d7b12257"]
+}, Open  ]],
+Cell[1656, 54, 258, 4, 48, "ItemNumbered",ExpressionUUID->"ed5c4345-d830-42ed-8041-74b84fc04f7f"],
+Cell[1917, 60, 273, 6, 48, "ItemNumbered",ExpressionUUID->"46eee634-a274-4df5-89ef-84b074019a54"],
+Cell[CellGroupData[{
+Cell[2215, 70, 234, 4, 48, "ItemNumbered",ExpressionUUID->"2648aee5-3f15-4b96-bd46-103f3f3d68b1"],
+Cell[2452, 76, 232, 4, 39, "SubitemNumbered",ExpressionUUID->"b5983724-d681-4ca5-9d8f-962fcb9ff5b0"],
+Cell[2687, 82, 223, 4, 39, "SubitemNumbered",ExpressionUUID->"1eb40aad-35cb-44e2-b5b0-1a1221764c33"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2947, 91, 260, 5, 48, "ItemNumbered",ExpressionUUID->"4f283840-0c4e-4f31-a39e-945aeee99442"],
+Cell[3210, 98, 371, 7, 39, "SubitemNumbered",ExpressionUUID->"542f12c0-9b5d-4105-ba9a-0034a066dc1b"],
+Cell[3584, 107, 431, 8, 39, "SubitemNumbered",ExpressionUUID->"c33adadd-3b97-4f92-b089-7f0720cd3826"],
+Cell[4018, 117, 425, 8, 39, "SubitemNumbered",ExpressionUUID->"f7c031e7-e7d6-47fd-8e62-d03afa76def4"],
+Cell[4446, 127, 477, 9, 39, "SubitemNumbered",ExpressionUUID->"be4d81bc-5766-40de-a967-20bc1996aa7d"],
+Cell[4926, 138, 380, 7, 39, "SubitemNumbered",ExpressionUUID->"45e01782-45fc-4a11-b78c-810bb9e546f9"],
+Cell[5309, 147, 324, 6, 39, "SubitemNumbered",ExpressionUUID->"fb73715f-5ca7-489d-b231-539346ad658e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5670, 158, 301, 4, 48, "ItemNumbered",ExpressionUUID->"163ac914-7446-4970-9099-d15d8a87b8d5"],
+Cell[5974, 164, 269, 4, 39, "SubitemNumbered",ExpressionUUID->"f77d1218-de34-4a32-bdad-3eb20bac5737"],
+Cell[6246, 170, 323, 6, 39, "SubitemNumbered",ExpressionUUID->"d3f3710b-92fc-45f9-96e5-94422aa37ce9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6606, 181, 468, 9, 48, "ItemNumbered",ExpressionUUID->"72f49120-ef06-45df-935c-9fd3201e8747"],
+Cell[7077, 192, 409, 7, 39, "SubitemNumbered",ExpressionUUID->"33b3554b-9ac3-450d-828f-cbc75fc28ed2"],
+Cell[7489, 201, 428, 8, 39, "SubitemNumbered",ExpressionUUID->"3f3d3d09-162d-4153-88a6-8177bb48114d"],
+Cell[7920, 211, 393, 8, 39, "SubitemNumbered",ExpressionUUID->"96484c35-3445-4c8a-9542-8e4d879b0107"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8362, 225, 257, 4, 101, "Section",ExpressionUUID->"60dde3b9-a9dc-48e4-bbda-6f34f396eaf3"],
+Cell[CellGroupData[{
+Cell[8644, 233, 379, 7, 48, "ItemNumbered",ExpressionUUID->"c3434e09-8324-4a17-a016-5867dcc0aea3"],
+Cell[9026, 242, 462, 9, 38, "SubsubitemNumbered",ExpressionUUID->"af9be867-2c55-48f3-b8bd-8acb8606413f"],
+Cell[9491, 253, 404, 8, 38, "SubsubitemNumbered",ExpressionUUID->"73d45afa-94ec-423a-be77-4982cd20139c"]
+}, Open  ]],
+Cell[9910, 264, 394, 8, 48, "ItemNumbered",ExpressionUUID->"a22092e5-23fd-4dc4-8360-df2f57e15b0b"],
+Cell[CellGroupData[{
+Cell[10329, 276, 364, 7, 48, "ItemNumbered",ExpressionUUID->"be397e1c-2d96-40eb-9b63-58c0742ce456"],
+Cell[10696, 285, 458, 9, 39, "SubitemNumbered",ExpressionUUID->"233ae436-6fdb-42e8-95f0-acb0c01ca799"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11191, 299, 327, 6, 48, "ItemNumbered",ExpressionUUID->"ad08866c-31a8-488c-9646-c8485701ba39"],
+Cell[11521, 307, 493, 9, 39, "SubitemNumbered",ExpressionUUID->"224c3c5e-ed29-42db-a219-caf4cf3c5572"],
+Cell[CellGroupData[{
+Cell[12039, 320, 524, 9, 39, "SubitemNumbered",ExpressionUUID->"3ae426c1-b684-49a8-a866-095f9081b007"],
+Cell[12566, 331, 533, 8, 38, "SubsubitemNumbered",ExpressionUUID->"1a53701d-5071-4372-b4ee-1595c03f717a"],
+Cell[13102, 341, 621, 11, 38, "SubsubitemNumbered",ExpressionUUID->"ebf29d70-7cf7-4e46-9138-9e24d97cd41e"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13772, 358, 749, 12, 48, "ItemNumbered",ExpressionUUID->"8eb759d4-e42c-4c1e-b9ec-3f8ed2c96f78"],
+Cell[14524, 372, 2196, 57, 70, "SubitemNumbered",ExpressionUUID->"a76b92aa-2058-42f3-bb59-8f3659d228bb"],
+Cell[16723, 431, 1760, 43, 40, "SubitemNumbered",ExpressionUUID->"95ca6203-4e7d-4369-be05-10d4c59c0517"],
+Cell[18486, 476, 1458, 35, 41, "SubitemNumbered",ExpressionUUID->"04be59fe-25f1-4052-b87d-5a66f56ed040"],
+Cell[19947, 513, 1638, 36, 74, "SubitemNumbered",ExpressionUUID->"b5abfa05-6c9f-439d-b12f-b3a8ef95f21d"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
