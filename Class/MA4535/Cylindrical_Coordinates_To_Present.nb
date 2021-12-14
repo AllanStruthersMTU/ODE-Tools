@@ -1,0 +1,1572 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     62757,       1564]
+NotebookOptionsPosition[     61300,       1536]
+NotebookOutlinePosition[     61772,       1554]
+CellTagsIndexPosition[     61729,       1551]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{"Clear", "[", "CylindricalToCart", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"CylindricalToCart", "[", 
+   RowBox[{"{", 
+    RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", " ", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"r", " ", 
+     RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", " ", 
+    RowBox[{"r", " ", 
+     RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ",", " ", "z"}], "}"}], 
+  " "}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.8482320417134523`*^9, 3.848232091270627*^9}, {
+  3.848264828490377*^9, 3.848264840080742*^9}},
+ CellLabel->"In[36]:=",ExpressionUUID->"02770b38-5bc6-45b1-8d25-a2e69954605f"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"a", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"{", 
+    RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "r"}], "-", "z"}], ",", 
+    RowBox[{"\[Theta]", "+", "r"}], ",", 
+    RowBox[{
+     RowBox[{"r", "*", "z"}], "-", 
+     RowBox[{"a", "*", "r"}]}]}], "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Df", "[", 
+   RowBox[{"{", 
+    RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "1"}], ",", "1", ",", 
+      RowBox[{"z", "-", "a"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "1", ",", "0"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "1"}], ",", "0", ",", "r"}], "}"}]}], 
+   "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"y0", "=", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "1"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TMax", "=", "500"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sol", " ", "=", " ", 
+   RowBox[{"Quiet", "[", 
+    RowBox[{"NDSolveValue", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+         RowBox[{"f", "[", 
+          RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+      "r\[Theta]z", ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"pic", "=", 
+  RowBox[{"ParametricPlot3D", "[", 
+   RowBox[{
+    RowBox[{"CylindricalToCart", "[", 
+     RowBox[{"sol", "[", "t", "]"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2.1"}], ",", "2.1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "2.1"}], ",", "2.1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "0.5"}], ",", "4"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+    RowBox[{"PlotPoints", "->", "2000"}], ",", 
+    RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.84790286407771*^9, 3.847902864649274*^9}, {
+   3.847902924050346*^9, 3.847902983465391*^9}, {3.847903018680958*^9, 
+   3.8479030283894033`*^9}, {3.847903063541808*^9, 3.847903197093635*^9}, {
+   3.847903229061297*^9, 3.84790323102276*^9}, {3.84790329601204*^9, 
+   3.847903347344371*^9}, {3.847903396757263*^9, 3.847903474869589*^9}, {
+   3.847903718496735*^9, 3.847903721959045*^9}, 3.847903762191771*^9, {
+   3.84790379412649*^9, 3.8479038614236183`*^9}, {3.847903937761215*^9, 
+   3.8479039824951344`*^9}, {3.847904477513715*^9, 3.847904802073125*^9}, {
+   3.847904852001337*^9, 3.847904862460917*^9}, {3.847904955002283*^9, 
+   3.847905166862137*^9}, {3.847905227111377*^9, 3.847905612460383*^9}, {
+   3.847905650302021*^9, 3.847905872610137*^9}, {3.847905927910849*^9, 
+   3.847905955680216*^9}, {3.84816322852577*^9, 3.848163424325879*^9}, {
+   3.848163470009747*^9, 3.848163475738162*^9}, {3.848163564958706*^9, 
+   3.848163810784856*^9}, {3.848164175878439*^9, 3.848164201561613*^9}, {
+   3.84816424702355*^9, 3.848164247340918*^9}, {3.848164336994622*^9, 
+   3.848164340096877*^9}, {3.848164450121043*^9, 3.848164467147963*^9}, {
+   3.848164500204524*^9, 3.8481645005611897`*^9}, {3.848164641241283*^9, 
+   3.848164667061064*^9}, {3.848164963900393*^9, 3.848164972704266*^9}, {
+   3.848165033542445*^9, 3.848165232469953*^9}, {3.848232137964566*^9, 
+   3.848232165499753*^9}, {3.848232334989707*^9, 3.8482323655178957`*^9}, {
+   3.8482324743761663`*^9, 3.848232549955813*^9}, {3.8482331393039494`*^9, 
+   3.848233380749844*^9}, {3.848233421113558*^9, 3.8482335187083178`*^9}, {
+   3.8482335883393373`*^9, 3.848233593624288*^9}, {3.848233723571645*^9, 
+   3.848233726218235*^9}, {3.84823564214038*^9, 3.8482356701210823`*^9}, {
+   3.848235827764476*^9, 3.848235907961701*^9}, {3.848237032736184*^9, 
+   3.848237037403903*^9}, {3.8482643943026114`*^9, 3.848264424068572*^9}, {
+   3.8483276273511667`*^9, 3.848327693309554*^9}, {3.848327766272211*^9, 
+   3.848327860129979*^9}, {3.848331943582595*^9, 3.8483322187903433`*^9}, {
+   3.8483322609051313`*^9, 3.848332261683413*^9}, {3.848332424134097*^9, 
+   3.848332434622829*^9}, {3.848334128408628*^9, 3.848334129688218*^9}, {
+   3.848334379022996*^9, 3.8483344421368313`*^9}, {3.8483371363121843`*^9, 
+   3.848337137346345*^9}, {3.848337560826261*^9, 3.848337572743938*^9}, {
+   3.8483467236012383`*^9, 3.848346724562538*^9}},
+ CellLabel->"In[38]:=",ExpressionUUID->"ee9d7aa9-7b98-4c8a-b7b5-54dc42585176"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"Eq1", ",", "Eq2"}], "}"}], "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+    RowBox[{"Solve", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"f", "[", 
+        RowBox[{"{", 
+         RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["\[Lambda]1", "1"], ",", 
+     SubscriptBox["\[Lambda]1", "2"], ",", 
+     SubscriptBox["\[Lambda]1", "3"]}], "}"}], "=", 
+   RowBox[{"Eigenvalues", "[", 
+    RowBox[{"Df", "[", "Eq1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["\[Lambda]2", "1"], ",", 
+     SubscriptBox["\[Lambda]2", "2"], ",", 
+     SubscriptBox["\[Lambda]2", "3"]}], "}"}], "=", 
+   RowBox[{"Eigenvalues", "[", 
+    RowBox[{"Df", "[", "Eq2", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["Vec1", "1"], ",", 
+     SubscriptBox["Vec1", "2"], ",", 
+     SubscriptBox["Vec1", "3"]}], "}"}], "=", 
+   RowBox[{"Eigenvectors", "[", 
+    RowBox[{"Df", "[", "Eq1", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["Vec2", "1"], ",", 
+     SubscriptBox["Vec2", "2"], ",", 
+     SubscriptBox["Vec2", "3"]}], "}"}], "=", 
+   RowBox[{"Eigenvectors", "[", 
+    RowBox[{"Df", "[", "Eq2", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["Vec1c", "1"], ",", 
+     SubscriptBox["Vec1c", "2"], ",", 
+     SubscriptBox["Vec1c", "3"], ",", 
+     SubscriptBox["Vec2c", "1"], ",", 
+     SubscriptBox["Vec2c", "2"], ",", 
+     SubscriptBox["Vec2c", "3"]}], "}"}], "=", 
+   RowBox[{"Map", "[", 
+    RowBox[{"CylindricalToCart", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Vec1", "1"], ",", 
+       SubscriptBox["Vec1", "2"], ",", 
+       SubscriptBox["Vec1", "3"], ",", 
+       SubscriptBox["Vec2", "1"], ",", 
+       SubscriptBox["Vec2", "2"], ",", 
+       SubscriptBox["Vec2", "3"]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["Vec1c", "1"], ",", 
+     SubscriptBox["Vec1c", "2"], ",", 
+     SubscriptBox["Vec1c", "3"], ",", 
+     SubscriptBox["Vec2c", "1"], ",", 
+     SubscriptBox["Vec2c", "2"], ",", 
+     SubscriptBox["Vec2c", "3"]}], "}"}], "=", 
+   RowBox[{"Map", "[", 
+    RowBox[{"Normalize", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Vec1c", "1"], ",", 
+       SubscriptBox["Vec1c", "2"], ",", 
+       SubscriptBox["Vec1c", "3"], ",", 
+       SubscriptBox["Vec2c", "1"], ",", 
+       SubscriptBox["Vec2c", "2"], ",", 
+       SubscriptBox["Vec2c", "3"]}], "}"}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8482336832182693`*^9, 3.8482336939004383`*^9}, {
+   3.8482358236946087`*^9, 3.848235824346911*^9}, {3.8482359186043587`*^9, 
+   3.8482359625347443`*^9}, {3.848235998385579*^9, 3.8482360129350367`*^9}, {
+   3.848236061069325*^9, 3.848236109950103*^9}, 3.8482361404240637`*^9, {
+   3.8482361773979063`*^9, 3.848236254606434*^9}, {3.8482363447786417`*^9, 
+   3.848236403730912*^9}, {3.848236450300372*^9, 3.8482365490308247`*^9}, {
+   3.848236715495469*^9, 3.8482367312585783`*^9}, {3.848237118628244*^9, 
+   3.8482371202560587`*^9}, {3.848237365988132*^9, 3.848237370436406*^9}, {
+   3.848237403204158*^9, 3.8482374220495853`*^9}, {3.8482374565272713`*^9, 
+   3.848237669617921*^9}, {3.848237745924477*^9, 3.848237850393551*^9}, 
+   3.8482378878242197`*^9, {3.848237921249405*^9, 3.8482379510768137`*^9}, {
+   3.8482644365344973`*^9, 3.848264458782103*^9}, {3.848264635829185*^9, 
+   3.8482646380746393`*^9}, 3.8482649059504128`*^9, {3.848265028239625*^9, 
+   3.848265210813195*^9}, {3.84833229914614*^9, 3.8483323215826817`*^9}, {
+   3.848334453793106*^9, 3.848334499373681*^9}, {3.848334556751174*^9, 
+   3.848334559647146*^9}, {3.848334610668725*^9, 3.848334665562009*^9}, {
+   3.8483347089594193`*^9, 3.848334782114455*^9}, {3.848334830935917*^9, 
+   3.8483349653154163`*^9}, {3.848335003362132*^9, 3.848335025254015*^9}, {
+   3.848345497007559*^9, 3.8483455256582117`*^9}, {3.848345594257071*^9, 
+   3.848345597431258*^9}, {3.8483457674054193`*^9, 3.848345786887339*^9}, 
+   3.848345847192457*^9, {3.8483464297148542`*^9, 3.8483464346744347`*^9}, {
+   3.8483467111501093`*^9, 3.848346715537652*^9}},
+ Background->RGBColor[0.87, 0.94, 1],
+ CellLabel->
+  "In[1497]:=",ExpressionUUID->"d6deabf2-e7b4-473b-b2e8-4e54c7652478"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{"Eq1", ",", "Eq2"}], "}"}], "=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "2"}], ",", "2", ",", "2"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], 
+   "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["\[Lambda]1", "1"], ",", 
+      SubscriptBox["\[Lambda]1", "2"], ",", 
+      SubscriptBox["\[Lambda]1", "3"]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["\[Lambda]2", "1"], ",", 
+      SubscriptBox["\[Lambda]2", "2"], ",", 
+      SubscriptBox["\[Lambda]2", "3"]}], "}"}]}], "}"}], "=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "2"}], ",", 
+      RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "2"}], ",", "1", ",", "1"}], "}"}]}], "}"}]}]}], "Input",
+ CellChangeTimes->{{3.848335374405019*^9, 3.848335414794533*^9}, {
+  3.84833724326011*^9, 3.848337297456731*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"096970c7-d934-4774-987b-5d96d5d672c7"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{"pic", 
+   RowBox[{"(*", 
+    RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], "*)"}], 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Red", ",", 
+      RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"CylindricalToCart", "[", "Eq1", "]"}], "]"}]}], "}"}], "]"}], 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Red", ",", 
+      RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+      RowBox[{"Point", "[", 
+       RowBox[{"CylindricalToCart", "[", "Eq2", "]"}], "]"}]}], "}"}], "]"}], 
+   ",", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "These", " ", "are", " ", "the", " ", "Equalibrium", " ", "Points"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Purple", ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"Abs", "[", 
+            SubscriptBox["\[Lambda]1", "1"], "]"}], "*", 
+           SubscriptBox["Vec1c", "1"]}], "+", 
+          RowBox[{"CylindricalToCart", "[", "Eq1", "]"}]}], ",", 
+         RowBox[{"CylindricalToCart", "[", "Eq1", "]"}]}], "}"}], "]"}]}], 
+     "}"}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Purple", ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"Abs", "[", 
+            SubscriptBox["\[Lambda]1", "2"], "]"}], "*", 
+           SubscriptBox["Vec1c", "2"]}], "+", 
+          RowBox[{"CylindricalToCart", "[", "Eq1", "]"}]}], ",", 
+         RowBox[{"CylindricalToCart", "[", "Eq1", "]"}]}], "}"}], "]"}]}], 
+     "}"}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Purple", ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"CylindricalToCart", "[", "Eq1", "]"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", 
+            RowBox[{"Abs", "[", 
+             SubscriptBox["\[Lambda]1", "3"], "]"}]}], "*", 
+           SubscriptBox["Vec1c", "3"]}], "+", 
+          RowBox[{"CylindricalToCart", "[", "Eq1", "]"}]}]}], "}"}], "]"}]}], 
+     "}"}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Purple", ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"Abs", "[", 
+            SubscriptBox["\[Lambda]2", "1"], "]"}], "*", 
+           SubscriptBox["Vec2c", "1"]}], "+", 
+          RowBox[{"CylindricalToCart", "[", "Eq2", "]"}]}], ",", 
+         RowBox[{"CylindricalToCart", "[", "Eq2", "]"}]}], "}"}], "]"}]}], 
+     "}"}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Purple", ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"CylindricalToCart", "[", "Eq2", "]"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Abs", "[", 
+            SubscriptBox["\[Lambda]2", "2"], "]"}], "*", 
+           SubscriptBox["Vec2c", "2"]}], "+", 
+          RowBox[{"CylindricalToCart", "[", "Eq2", "]"}]}]}], "}"}], "]"}]}], 
+     "}"}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Graphics3D", "[", 
+    RowBox[{"{", 
+     RowBox[{"Purple", ",", 
+      RowBox[{"Arrow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"CylindricalToCart", "[", "Eq2", "]"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Abs", "[", 
+            SubscriptBox["\[Lambda]2", "3"], "]"}], "*", 
+           SubscriptBox["Vec2c", "3"]}], "+", 
+          RowBox[{"CylindricalToCart", "[", "Eq2", "]"}]}]}], "}"}], "]"}]}], 
+     "}"}], "]"}]}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "These", " ", "are", " ", "arrows", " ", "representing", " ", "the", " ", 
+    "Eigenvectors", " ", "multiplied", " ", "by", " ", "their", " ", 
+    "eigenvalues"}], "*)"}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBWIQvTBydcKb1W8cAyoPZYPoTwbuoW+B9AzV3Ukg2k6O
++wiIDrP5eRVEy/zYdQdEn9u1/B6Ifr196SsQXRT0BkyHxCd9BNETH636DaJ1
+eiYwvQPSWzSUWEH09/TjPCD6VJcbL4jmXekrAqKntYgrguiUrNsGINrrrI4h
+iLaZe+G87Jo3jh4/My6BaKaXpjdB9NTLZ1+BaAlv2Q8g2kZw/3cQ/aDRg0cO
+SC/cWyUMovtCd7SD6Pmn1SaA6B8pUyuUQeZFeTaA6Kqpe1pB9IYzkztAdMKO
+iu1gesreHSDaT6PoJIj+9+bERRC9+bfATRDNdbriFljdQlF1FSDtdlpNE0QD
+AOiru5I=
+  "],
+ Background->RGBColor[0.9, 1, 1],
+ CellLabel->
+  "In[1504]:=",ExpressionUUID->"198310e4-203d-47b8-b577-5afe6aa570ea"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"f", "[", 
+     RowBox[{"{", 
+      RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "r"}], "-", "z"}], ",", 
+      RowBox[{"\[Theta]", "+", "r"}], ",", 
+      RowBox[{
+       RowBox[{"r", "*", "z"}], "-", 
+       RowBox[{"a", "*", "r"}]}]}], "}"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"y0", "=", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "1", ",", "1"}], "}"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"TMax", "=", "500"}], ";"}], "*)"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol1", " ", "=", " ", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"NDSolveValue", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+           RowBox[{"f", "[", 
+            RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+        "r\[Theta]z", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pic1", "=", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"CylindricalToCart", "[", 
+        RowBox[{"sol1", "[", "t", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       RowBox[{"PlotPoints", "->", "20000"}], ",", 
+       RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      SubscriptBox["Eq1", "1"], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"Solve", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}], "]"}]}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Stuff1", "=", 
+     RowBox[{"Show", "[", 
+      RowBox[{"pic1", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], 
+        "*)"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq1", "1"], "]"}], "]"}]}], "}"}], "]"}]}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"The", " ", "equilibrium", " ", "points"}], "*)"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol2", " ", "=", " ", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"NDSolveValue", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+           RowBox[{"f", "[", 
+            RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+        "r\[Theta]z", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pic2", "=", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"CylindricalToCart", "[", 
+        RowBox[{"sol2", "[", "t", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       RowBox[{"PlotPoints", "->", "2000"}], ",", 
+       RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Eq1", "2"], ",", 
+       SubscriptBox["Eq2", "2"]}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"Solve", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}], "]"}]}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Stuff2", "=", 
+     RowBox[{"Show", "[", 
+      RowBox[{"pic2", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], 
+        "*)"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq1", "2"], "]"}], "]"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq2", "2"], "]"}], "]"}]}], "}"}], "]"}]}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"The", " ", "equilibrium", " ", "points"}], "*)"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol3", " ", "=", " ", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"NDSolveValue", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+           RowBox[{"f", "[", 
+            RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+        "r\[Theta]z", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pic3", "=", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"CylindricalToCart", "[", 
+        RowBox[{"sol3", "[", "t", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       RowBox[{"PlotPoints", "->", "2000"}], ",", 
+       RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Eq1", "3"], ",", 
+       SubscriptBox["Eq2", "3"]}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"Solve", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}], "]"}]}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Stuff3", "=", 
+     RowBox[{"Show", "[", 
+      RowBox[{"pic3", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], 
+        "*)"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq1", "3"], "]"}], "]"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq2", "3"], "]"}], "]"}]}], "}"}], "]"}]}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"The", " ", "equilibrium", " ", "points"}], "*)"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol4", " ", "=", " ", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"NDSolveValue", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+           RowBox[{"f", "[", 
+            RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+        "r\[Theta]z", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pic4", "=", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"CylindricalToCart", "[", 
+        RowBox[{"sol4", "[", "t", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       RowBox[{"PlotPoints", "->", "2000"}], ",", 
+       RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Eq1", "4"], ",", 
+       SubscriptBox["Eq2", "4"]}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"Solve", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}], "]"}]}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Stuff4", "=", 
+     RowBox[{"Show", "[", 
+      RowBox[{"pic4", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], 
+        "*)"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq1", "4"], "]"}], "]"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq2", "4"], "]"}], "]"}]}], "}"}], "]"}]}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"The", " ", "equilibrium", " ", "points"}], "*)"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", "2.435"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol5", " ", "=", " ", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"NDSolveValue", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+           RowBox[{"f", "[", 
+            RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+        "r\[Theta]z", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pic5", "=", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"CylindricalToCart", "[", 
+        RowBox[{"sol5", "[", "t", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       RowBox[{"PlotPoints", "->", "2000"}], ",", 
+       RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Eq1", "5"], ",", 
+       SubscriptBox["Eq2", "5"]}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"Solve", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}], "]"}]}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Stuff5", "=", 
+     RowBox[{"Show", "[", 
+      RowBox[{"pic5", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], 
+        "*)"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq1", "5"], "]"}], "]"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq2", "5"], "]"}], "]"}]}], "}"}], "]"}]}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"The", " ", "equilibrium", " ", "points"}], "*)"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", 
+     RowBox[{"-", "1"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol6", " ", "=", " ", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"NDSolveValue", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+           RowBox[{"f", "[", 
+            RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+        "r\[Theta]z", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pic6", "=", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"CylindricalToCart", "[", 
+        RowBox[{"sol6", "[", "t", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       RowBox[{"PlotPoints", "->", "2000"}], ",", 
+       RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Eq1", "6"], ",", 
+       SubscriptBox["Eq2", "6"]}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"Solve", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}], "]"}]}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Stuff6", "=", 
+     RowBox[{"Show", "[", 
+      RowBox[{"pic6", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], 
+        "*)"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq1", "6"], "]"}], "]"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq2", "6"], "]"}], "]"}]}], "}"}], "]"}]}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"The", " ", "equilibrium", " ", "points"}], "*)"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", "0.1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sol7", "=", " ", 
+     RowBox[{"Quiet", "[", 
+      RowBox[{"NDSolveValue", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+           RowBox[{"f", "[", 
+            RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+        "r\[Theta]z", ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pic7", "=", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"CylindricalToCart", "[", 
+        RowBox[{"sol7", "[", "t", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+       RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+       RowBox[{"AxesLabel", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       RowBox[{"PlotPoints", "->", "20000"}], ",", 
+       RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["Eq1", "7"], ",", 
+       SubscriptBox["Eq2", "7"]}], "}"}], "=", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "/.", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"Solve", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", 
+           RowBox[{"{", 
+            RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}], "]"}], "==", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"r", ",", "\[Theta]", ",", "z"}], "}"}]}], "]"}], "]"}]}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Stuff7", "=", 
+     RowBox[{"Show", "[", 
+      RowBox[{"pic7", 
+       RowBox[{"(*", 
+        RowBox[{"The", " ", "graph", " ", "of", " ", "the", " ", "ODE"}], 
+        "*)"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq1", "7"], "]"}], "]"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Graphics3D", "[", 
+        RowBox[{"{", 
+         RowBox[{"Red", ",", 
+          RowBox[{"PointSize", "[", "0.025", "]"}], ",", 
+          RowBox[{"Point", "[", 
+           RowBox[{"CylindricalToCart", "[", 
+            SubscriptBox["Eq2", "7"], "]"}], "]"}]}], "}"}], "]"}]}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"The", " ", "equilibrium", " ", "points"}], "*)"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"TabView", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<a=0\>\"", "->", "Stuff1"}], ",", 
+      RowBox[{"\"\<a=1\>\"", "->", "Stuff2"}], ",", 
+      RowBox[{"\"\<a=2\>\"", "->", "Stuff3"}], ",", 
+      RowBox[{"\"\<a=3\>\"", "->", "Stuff4"}], ",", 
+      RowBox[{"\"\<a=2.435\>\"", "->", "Stuff5"}], ",", 
+      RowBox[{"\"\<a=-1\>\"", "->", "Stuff6"}], ",", 
+      RowBox[{"\"\<a=0.1\>\"", "->", "Stuff7"}]}], "}"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.84790286407771*^9, 3.847902864649274*^9}, {
+   3.847902924050346*^9, 3.847902983465391*^9}, {3.847903018680958*^9, 
+   3.8479030283894033`*^9}, {3.847903063541808*^9, 3.847903197093635*^9}, {
+   3.847903229061297*^9, 3.84790323102276*^9}, {3.84790329601204*^9, 
+   3.847903347344371*^9}, {3.847903396757263*^9, 3.847903474869589*^9}, {
+   3.847903718496735*^9, 3.847903721959045*^9}, 3.847903762191771*^9, {
+   3.84790379412649*^9, 3.8479038614236183`*^9}, {3.847903937761215*^9, 
+   3.8479039824951344`*^9}, {3.847904477513715*^9, 3.847904802073125*^9}, {
+   3.847904852001337*^9, 3.847904862460917*^9}, {3.847904955002283*^9, 
+   3.847905166862137*^9}, {3.847905227111377*^9, 3.847905612460383*^9}, {
+   3.847905650302021*^9, 3.847905872610137*^9}, {3.847905927910849*^9, 
+   3.847905955680216*^9}, {3.84816322852577*^9, 3.848163424325879*^9}, {
+   3.848163470009747*^9, 3.848163475738162*^9}, {3.848163564958706*^9, 
+   3.848163810784856*^9}, {3.848164175878439*^9, 3.848164201561613*^9}, {
+   3.84816424702355*^9, 3.848164247340918*^9}, {3.848164336994622*^9, 
+   3.848164340096877*^9}, {3.848164450121043*^9, 3.848164467147963*^9}, {
+   3.848164500204524*^9, 3.8481645005611897`*^9}, {3.848164641241283*^9, 
+   3.848164667061064*^9}, {3.848164963900393*^9, 3.848164972704266*^9}, {
+   3.848165033542445*^9, 3.848165232469953*^9}, {3.848232137964566*^9, 
+   3.848232165499753*^9}, {3.848232334989707*^9, 3.8482323655178957`*^9}, {
+   3.8482324743761663`*^9, 3.848232549955813*^9}, {3.8482331393039494`*^9, 
+   3.848233380749844*^9}, {3.848233421113558*^9, 3.8482335187083178`*^9}, {
+   3.8482335883393373`*^9, 3.848233593624288*^9}, {3.848233723571645*^9, 
+   3.848233726218235*^9}, {3.84823564214038*^9, 3.8482356701210823`*^9}, {
+   3.848235827764476*^9, 3.848235907961701*^9}, {3.848237032736184*^9, 
+   3.848237037403903*^9}, {3.8482643943026114`*^9, 3.848264424068572*^9}, {
+   3.8483276273511667`*^9, 3.848327693309554*^9}, {3.848327766272211*^9, 
+   3.848327860129979*^9}, {3.848331943582595*^9, 3.8483322187903433`*^9}, {
+   3.8483322609051313`*^9, 3.848332261683413*^9}, {3.848332424134097*^9, 
+   3.848332434622829*^9}, {3.848334128408628*^9, 3.848334129688218*^9}, {
+   3.848334379022996*^9, 3.8483344421368313`*^9}, {3.8483371363121843`*^9, 
+   3.848337137346345*^9}, {3.848337338196621*^9, 3.848337508205797*^9}, {
+   3.848337584458259*^9, 3.8483377737849407`*^9}, {3.848338655375956*^9, 
+   3.848338709435327*^9}, {3.848338782151951*^9, 3.848338785536915*^9}, {
+   3.848345266512863*^9, 3.848345273964774*^9}, {3.8483474884499397`*^9, 
+   3.8483474901855173`*^9}, 3.848347526559875*^9, {3.8483475591756353`*^9, 
+   3.848347661719736*^9}, 3.848347761188837*^9, {3.848347877598164*^9, 
+   3.848347942751781*^9}, {3.848347999611588*^9, 3.848348167144759*^9}, {
+   3.8483483155917788`*^9, 3.84834832792456*^9}, {3.848348447385099*^9, 
+   3.848348477784173*^9}, 3.8483485195214148`*^9, {3.848348760616528*^9, 
+   3.848348762855123*^9}, 3.848348811600481*^9, {3.848348955241198*^9, 
+   3.848349026078651*^9}},
+ Background->RGBColor[0.88, 1, 0.88],
+ CellLabel->
+  "In[1912]:=",ExpressionUUID->"713fb2ce-1598-41a6-8612-a8a90ac243eb"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"a", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"f", "[", 
+     RowBox[{"{", 
+      RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "r"}], "-", "z"}], ",", 
+      RowBox[{"\[Theta]", "+", "r"}], ",", 
+      RowBox[{
+       RowBox[{"r", "*", "z"}], "-", 
+       RowBox[{"a", "*", "r"}]}]}], "}"}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"y0", "=", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "1", ",", "0"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"TMax", "=", "500"}], ";"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sol", " ", "=", " ", 
+   RowBox[{"Quiet", "[", 
+    RowBox[{"NDSolveValue", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+         RowBox[{"f", "[", 
+          RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+      "r\[Theta]z", ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"pic", "=", 
+  RowBox[{"ParametricPlot3D", "[", 
+   RowBox[{
+    RowBox[{"CylindricalToCart", "[", 
+     RowBox[{"sol", "[", "t", "]"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+    RowBox[{"PlotPoints", "->", "2000"}], ",", 
+    RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.84790286407771*^9, 3.847902864649274*^9}, {
+   3.847902924050346*^9, 3.847902983465391*^9}, {3.847903018680958*^9, 
+   3.8479030283894033`*^9}, {3.847903063541808*^9, 3.847903197093635*^9}, {
+   3.847903229061297*^9, 3.84790323102276*^9}, {3.84790329601204*^9, 
+   3.847903347344371*^9}, {3.847903396757263*^9, 3.847903474869589*^9}, {
+   3.847903718496735*^9, 3.847903721959045*^9}, 3.847903762191771*^9, {
+   3.84790379412649*^9, 3.8479038614236183`*^9}, {3.847903937761215*^9, 
+   3.8479039824951344`*^9}, {3.847904477513715*^9, 3.847904802073125*^9}, {
+   3.847904852001337*^9, 3.847904862460917*^9}, {3.847904955002283*^9, 
+   3.847905166862137*^9}, {3.847905227111377*^9, 3.847905612460383*^9}, {
+   3.847905650302021*^9, 3.847905872610137*^9}, {3.847905927910849*^9, 
+   3.847905955680216*^9}, {3.84816322852577*^9, 3.848163424325879*^9}, {
+   3.848163470009747*^9, 3.848163475738162*^9}, {3.848163564958706*^9, 
+   3.848163810784856*^9}, {3.848164175878439*^9, 3.848164201561613*^9}, {
+   3.84816424702355*^9, 3.848164247340918*^9}, {3.848164336994622*^9, 
+   3.848164340096877*^9}, {3.848164450121043*^9, 3.848164467147963*^9}, {
+   3.848164500204524*^9, 3.8481645005611897`*^9}, {3.848164641241283*^9, 
+   3.848164667061064*^9}, {3.848164963900393*^9, 3.848164972704266*^9}, {
+   3.848165033542445*^9, 3.848165232469953*^9}, {3.848232137964566*^9, 
+   3.848232165499753*^9}, {3.848232334989707*^9, 3.8482323655178957`*^9}, {
+   3.8482324743761663`*^9, 3.848232549955813*^9}, {3.8482331393039494`*^9, 
+   3.848233380749844*^9}, {3.848233421113558*^9, 3.8482335187083178`*^9}, {
+   3.8482335883393373`*^9, 3.848233593624288*^9}, {3.848233723571645*^9, 
+   3.848233726218235*^9}, {3.84823564214038*^9, 3.8482356701210823`*^9}, {
+   3.848235827764476*^9, 3.848235907961701*^9}, {3.848237032736184*^9, 
+   3.848237037403903*^9}, {3.8482643943026114`*^9, 3.848264424068572*^9}, {
+   3.8483276273511667`*^9, 3.848327693309554*^9}, {3.848327766272211*^9, 
+   3.848327860129979*^9}, {3.848331943582595*^9, 3.8483322187903433`*^9}, {
+   3.8483322609051313`*^9, 3.848332261683413*^9}, {3.848332424134097*^9, 
+   3.848332434622829*^9}, {3.848334128408628*^9, 3.848334129688218*^9}, {
+   3.848334379022996*^9, 3.8483344421368313`*^9}, {3.8483371363121843`*^9, 
+   3.848337137346345*^9}, {3.848337560826261*^9, 3.848337572743938*^9}, {
+   3.8483378671713657`*^9, 3.8483378675246277`*^9}, {3.848337902449976*^9, 
+   3.848337968786395*^9}, {3.848337999883195*^9, 3.848338055554594*^9}, {
+   3.8483384603153343`*^9, 3.8483384954177847`*^9}, {3.848338771281473*^9, 
+   3.848338773651579*^9}},
+ Background->RGBColor[1, 0.9, 1],
+ CellLabel->
+  "In[1528]:=",ExpressionUUID->"e51f8570-9b89-4147-b151-895a4f0e8e36"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"a", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"f", "[", 
+     RowBox[{"{", 
+      RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "r"}], "-", "z"}], ",", 
+      RowBox[{"\[Theta]", "+", "r"}], ",", 
+      RowBox[{
+       RowBox[{"r", "*", "z"}], "-", 
+       RowBox[{"a", "*", "r"}]}]}], "}"}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"y0", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "15"}], ",", "1", ",", 
+      RowBox[{"-", "4"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"TMax", "=", "500"}], ";"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sol", " ", "=", " ", 
+   RowBox[{"Quiet", "[", 
+    RowBox[{"NDSolveValue", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+         RowBox[{"f", "[", 
+          RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+      "r\[Theta]z", ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"pic", "=", 
+  RowBox[{"ParametricPlot3D", "[", 
+   RowBox[{
+    RowBox[{"CylindricalToCart", "[", 
+     RowBox[{"sol", "[", "t", "]"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+    RowBox[{"PlotPoints", "->", "200000"}], ",", 
+    RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.84790286407771*^9, 3.847902864649274*^9}, {
+   3.847902924050346*^9, 3.847902983465391*^9}, {3.847903018680958*^9, 
+   3.8479030283894033`*^9}, {3.847903063541808*^9, 3.847903197093635*^9}, {
+   3.847903229061297*^9, 3.84790323102276*^9}, {3.84790329601204*^9, 
+   3.847903347344371*^9}, {3.847903396757263*^9, 3.847903474869589*^9}, {
+   3.847903718496735*^9, 3.847903721959045*^9}, 3.847903762191771*^9, {
+   3.84790379412649*^9, 3.8479038614236183`*^9}, {3.847903937761215*^9, 
+   3.8479039824951344`*^9}, {3.847904477513715*^9, 3.847904802073125*^9}, {
+   3.847904852001337*^9, 3.847904862460917*^9}, {3.847904955002283*^9, 
+   3.847905166862137*^9}, {3.847905227111377*^9, 3.847905612460383*^9}, {
+   3.847905650302021*^9, 3.847905872610137*^9}, {3.847905927910849*^9, 
+   3.847905955680216*^9}, {3.84816322852577*^9, 3.848163424325879*^9}, {
+   3.848163470009747*^9, 3.848163475738162*^9}, {3.848163564958706*^9, 
+   3.848163810784856*^9}, {3.848164175878439*^9, 3.848164201561613*^9}, {
+   3.84816424702355*^9, 3.848164247340918*^9}, {3.848164336994622*^9, 
+   3.848164340096877*^9}, {3.848164450121043*^9, 3.848164467147963*^9}, {
+   3.848164500204524*^9, 3.8481645005611897`*^9}, {3.848164641241283*^9, 
+   3.848164667061064*^9}, {3.848164963900393*^9, 3.848164972704266*^9}, {
+   3.848165033542445*^9, 3.848165232469953*^9}, {3.848232137964566*^9, 
+   3.848232165499753*^9}, {3.848232334989707*^9, 3.8482323655178957`*^9}, {
+   3.8482324743761663`*^9, 3.848232549955813*^9}, {3.8482331393039494`*^9, 
+   3.848233380749844*^9}, {3.848233421113558*^9, 3.8482335187083178`*^9}, {
+   3.8482335883393373`*^9, 3.848233593624288*^9}, {3.848233723571645*^9, 
+   3.848233726218235*^9}, {3.84823564214038*^9, 3.8482356701210823`*^9}, {
+   3.848235827764476*^9, 3.848235907961701*^9}, {3.848237032736184*^9, 
+   3.848237037403903*^9}, {3.8482643943026114`*^9, 3.848264424068572*^9}, {
+   3.8483276273511667`*^9, 3.848327693309554*^9}, {3.848327766272211*^9, 
+   3.848327860129979*^9}, {3.848331943582595*^9, 3.8483322187903433`*^9}, {
+   3.8483322609051313`*^9, 3.848332261683413*^9}, {3.848332424134097*^9, 
+   3.848332434622829*^9}, {3.848334128408628*^9, 3.848334129688218*^9}, {
+   3.848334379022996*^9, 3.8483344421368313`*^9}, {3.8483371363121843`*^9, 
+   3.848337137346345*^9}, {3.848337560826261*^9, 3.848337572743938*^9}, {
+   3.8483378671713657`*^9, 3.8483378675246277`*^9}, {3.848337902449976*^9, 
+   3.848337968786395*^9}, {3.848337999883195*^9, 3.848338005498987*^9}, {
+   3.8483388039633827`*^9, 3.848338814347715*^9}, {3.848345215376186*^9, 
+   3.848345231857893*^9}},
+ Background->RGBColor[1, 0.9, 0.8],
+ CellLabel->
+  "In[1532]:=",ExpressionUUID->"509ba4d6-4347-4391-b16e-a00d8f3791b2"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"a", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"f", "[", 
+     RowBox[{"{", 
+      RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "r"}], "-", "z"}], ",", 
+      RowBox[{"\[Theta]", "+", "r"}], ",", 
+      RowBox[{
+       RowBox[{"r", "*", "z"}], "-", 
+       RowBox[{"a", "*", "r"}]}]}], "}"}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"y0", "=", 
+    RowBox[{"{", 
+     RowBox[{"15", ",", "130", ",", "15"}], "}"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"TMax", "=", "500"}], ";"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Theta]sol", " ", "=", " ", 
+   RowBox[{"Quiet", "[", 
+    RowBox[{"NDSolveValue", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+         RowBox[{"f", "[", 
+          RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+      "r\[Theta]z", ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Theta]pic", "=", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"CylindricalToCart", "[", 
+      RowBox[{"\[Theta]sol", "[", "t", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+     RowBox[{"PlotPoints", "->", "20000"}], ",", 
+     RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"y0", "=", 
+   RowBox[{"{", 
+    RowBox[{"15", ",", 
+     RowBox[{"-", "130"}], ",", "15"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Neg\[Theta]sol", " ", "=", " ", 
+   RowBox[{"Quiet", "[", 
+    RowBox[{"NDSolveValue", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+         RowBox[{"f", "[", 
+          RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+      "r\[Theta]z", ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Neg\[Theta]pic", "=", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"CylindricalToCart", "[", 
+      RowBox[{"Neg\[Theta]sol", "[", "t", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+     RowBox[{"PlotPoints", "->", "20000"}], ",", 
+     RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TabView", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"\"\<\[Theta]\>\"", "->", "\[Theta]pic"}], ",", 
+    RowBox[{"\"\<-\[Theta]\>\"", "->", "Neg\[Theta]pic"}]}], "}"}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.848338101513156*^9, 3.848338159291098*^9}, {
+  3.8483382005888453`*^9, 3.84833834072453*^9}, {3.8483388226151733`*^9, 
+  3.848338824269112*^9}, {3.848345194871427*^9, 3.848345198826043*^9}, {
+  3.848429478225329*^9, 3.8484294815010138`*^9}},
+ Background->RGBColor[1, 1, 0.85],
+ CellLabel->"In[45]:=",ExpressionUUID->"92b9def6-4599-4ded-8362-ebf39b4bfc3f"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"a", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"{", 
+    RowBox[{"r_", ",", "\[Theta]_", ",", "z_"}], "}"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "r"}], "-", "z"}], ",", 
+    RowBox[{"\[Theta]", "+", "r"}], ",", 
+    RowBox[{
+     RowBox[{"r", "*", "z"}], "-", 
+     RowBox[{"a", "*", "r"}]}]}], "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"y0", "=", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "1"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TMax", "=", "500"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Backsol", " ", "=", " ", 
+   RowBox[{"Quiet", "[", 
+    RowBox[{"NDSolveValue", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"r\[Theta]z", "'"}], "[", "t", "]"}], "==", 
+         RowBox[{"-", 
+          RowBox[{"f", "[", 
+           RowBox[{"r\[Theta]z", "[", "t", "]"}], "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{"r\[Theta]z", "[", "0", "]"}], "==", "y0"}]}], "}"}], ",", 
+      "r\[Theta]z", ",", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", " ", "TMax"}], "}"}]}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Backpic", "=", 
+  RowBox[{"ParametricPlot3D", "[", 
+   RowBox[{
+    RowBox[{"CylindricalToCart", "[", 
+     RowBox[{"Backsol", "[", "t", "]"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"t", ",", "0", ",", "TMax"}], "}"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", "All"}], ",", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+    RowBox[{"PlotPoints", "->", "2000"}], ",", 
+    RowBox[{"PlotStyle", "->", "Thin"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.84790286407771*^9, 3.847902864649274*^9}, {
+   3.847902924050346*^9, 3.847902983465391*^9}, {3.847903018680958*^9, 
+   3.8479030283894033`*^9}, {3.847903063541808*^9, 3.847903197093635*^9}, {
+   3.847903229061297*^9, 3.84790323102276*^9}, {3.84790329601204*^9, 
+   3.847903347344371*^9}, {3.847903396757263*^9, 3.847903474869589*^9}, {
+   3.847903718496735*^9, 3.847903721959045*^9}, 3.847903762191771*^9, {
+   3.84790379412649*^9, 3.8479038614236183`*^9}, {3.847903937761215*^9, 
+   3.8479039824951344`*^9}, {3.847904477513715*^9, 3.847904802073125*^9}, {
+   3.847904852001337*^9, 3.847904862460917*^9}, {3.847904955002283*^9, 
+   3.847905166862137*^9}, {3.847905227111377*^9, 3.847905612460383*^9}, {
+   3.847905650302021*^9, 3.847905872610137*^9}, {3.847905927910849*^9, 
+   3.847905955680216*^9}, {3.84816322852577*^9, 3.848163424325879*^9}, {
+   3.848163470009747*^9, 3.848163475738162*^9}, {3.848163564958706*^9, 
+   3.848163810784856*^9}, {3.848164175878439*^9, 3.848164201561613*^9}, {
+   3.84816424702355*^9, 3.848164247340918*^9}, {3.848164336994622*^9, 
+   3.848164340096877*^9}, {3.848164450121043*^9, 3.848164467147963*^9}, {
+   3.848164500204524*^9, 3.8481645005611897`*^9}, {3.848164641241283*^9, 
+   3.848164667061064*^9}, {3.848164963900393*^9, 3.848164972704266*^9}, {
+   3.848165033542445*^9, 3.848165232469953*^9}, {3.848232137964566*^9, 
+   3.848232165499753*^9}, {3.848232334989707*^9, 3.8482323655178957`*^9}, {
+   3.8482324743761663`*^9, 3.848232549955813*^9}, {3.8482331393039494`*^9, 
+   3.848233380749844*^9}, {3.848233421113558*^9, 3.8482335187083178`*^9}, {
+   3.8482335883393373`*^9, 3.848233593624288*^9}, {3.848233723571645*^9, 
+   3.848233726218235*^9}, {3.84823564214038*^9, 3.8482356701210823`*^9}, {
+   3.848235827764476*^9, 3.848235907961701*^9}, {3.848237032736184*^9, 
+   3.848237037403903*^9}, {3.8482643943026114`*^9, 3.848264424068572*^9}, {
+   3.8483276273511667`*^9, 3.848327693309554*^9}, {3.848327766272211*^9, 
+   3.848327860129979*^9}, {3.848331943582595*^9, 3.8483322187903433`*^9}, {
+   3.8483322609051313`*^9, 3.848332261683413*^9}, {3.848332424134097*^9, 
+   3.848332434622829*^9}, {3.848334128408628*^9, 3.848334129688218*^9}, {
+   3.848334379022996*^9, 3.8483344421368313`*^9}, {3.8483371363121843`*^9, 
+   3.848337137346345*^9}, {3.848337560826261*^9, 3.848337572743938*^9}, {
+   3.8483467236012383`*^9, 3.848346724562538*^9}, {3.848349169970517*^9, 
+   3.848349211081251*^9}},
+ Background->RGBColor[1, 0.9, 1],
+ CellLabel->
+  "In[1949]:=",ExpressionUUID->"d36739f8-c398-45f5-be00-7e0b68046930"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"rpic", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"sol", "[", "t", "]"}], "[", 
+      RowBox[{"[", "1", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "TMax"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Theta]pic", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"sol", "[", "t", "]"}], "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "TMax"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"zpic", "=", 
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"sol", "[", "t", "]"}], "[", 
+      RowBox[{"[", "3", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "TMax"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"log\[Theta]pic", "=", 
+   RowBox[{"LogLogPlot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"sol", "[", "t", "]"}], "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "TMax"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TabView", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"r", "->", "rpic"}], ",", 
+    RowBox[{"\[Theta]", "->", "\[Theta]pic"}], ",", 
+    RowBox[{"z", "->", "zpic"}], ",", 
+    RowBox[{"log\[Theta]", "->", "log\[Theta]pic"}]}], "}"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.8484063244726877`*^9, 3.84840635665657*^9}, {
+  3.848406401485021*^9, 3.848406480138402*^9}, {3.8484067799410048`*^9, 
+  3.848406816295783*^9}, {3.8484206684054203`*^9, 3.8484207832308407`*^9}},
+ Background->RGBColor[0.88, 1, 0.88],
+ CellLabel->"In[31]:=",ExpressionUUID->"de6f4d7d-4cc7-42d3-9b28-911cc157b47a"]
+},
+WindowSize->{1046, 780},
+WindowMargins->{{Automatic, 0}, {2, Automatic}},
+TaggingRules->Association["TryRealOnly" -> False],
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"736f588b-6935-474a-aa71-c9c136e689e8"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 673, 16, 102, "Input",ExpressionUUID->"02770b38-5bc6-45b1-8d25-a2e69954605f",
+ InitializationCell->True],
+Cell[1234, 38, 5034, 113, 350, "Input",ExpressionUUID->"ee9d7aa9-7b98-4c8a-b7b5-54dc42585176",
+ InitializationCell->True],
+Cell[6271, 153, 4824, 120, 319, "Input",ExpressionUUID->"d6deabf2-e7b4-473b-b2e8-4e54c7652478"],
+Cell[11098, 275, 1174, 37, 102, "Input",ExpressionUUID->"096970c7-d934-4774-987b-5d96d5d672c7"],
+Cell[12275, 314, 4725, 125, 908, "Input",ExpressionUUID->"198310e4-203d-47b8-b577-5afe6aa570ea"],
+Cell[17003, 441, 25093, 644, 2808, "Input",ExpressionUUID->"713fb2ce-1598-41a6-8612-a8a90ac243eb"],
+Cell[42099, 1087, 4575, 94, 288, "Input",ExpressionUUID->"e51f8570-9b89-4147-b151-895a4f0e8e36"],
+Cell[46677, 1183, 4622, 96, 319, "Input",ExpressionUUID->"509ba4d6-4347-4391-b16e-a00d8f3791b2"],
+Cell[51302, 1281, 3842, 108, 567, "Input",ExpressionUUID->"92b9def6-4599-4ded-8362-ebf39b4bfc3f"],
+Cell[55147, 1391, 4354, 89, 319, "Input",ExpressionUUID->"d36739f8-c398-45f5-be00-7e0b68046930"],
+Cell[59504, 1482, 1792, 52, 195, "Input",ExpressionUUID->"de6f4d7d-4cc7-42d3-9b28-911cc157b47a"]
+}
+]
+*)
+
